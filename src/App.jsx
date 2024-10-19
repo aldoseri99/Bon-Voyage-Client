@@ -1,20 +1,55 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { CheckSession } from './services/Auth'
+import './App.css'
 import Nav from './components/Nav'
 import Home from './pages/Home'
-import './App.css'
+import Register from './pages/Register'
+import SignIn from './pages/SignIn'
 
-function App() {
+const App = () => {
+  const [user, setUser] = useState(null)
+
+  const handleLogOut = () => {
+    //Reset all auth related state and clear localStorage
+    setUser(null)
+    localStorage.clear()
+  }
+
+  const checkToken = async () => {
+    const user = await CheckSession()
+    setUser(user)
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+
+    if (token) {
+      checkToken()
+    }
+  }, [])
   return (
-    <div>
+    <>
       <Nav />
-      <main>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/nav' element={<Nav />} />
-        </Routes>
-      </main>
-    </div>
+      <Link to="/"> Home</Link>
+      <br />
+      <Link to="/register"> Register</Link>
+      <br />
+      {user ? (
+        <Link onClick={handleLogOut} to="/">
+          Sign Out
+        </Link>
+      ) : (
+        <Link to="/signin"> Sign In</Link>
+      )}
+      <hr />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/signin" element={<SignIn setUser={setUser} />} />
+      </Routes>
+    </>
   )
 }
 

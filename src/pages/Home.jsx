@@ -23,6 +23,7 @@ const Home = () => {
       <ViewPosts posts={posts} />
     </div>
   )
+
 }
 
 export default Home
