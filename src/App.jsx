@@ -5,6 +5,7 @@ import { CheckSession } from './services/Auth'
 import './App.css'
 import Home from './pages/Home'
 import Register from './pages/Register'
+import SignIn from './pages/SignIn'
 const App = () => {
   const [user, setUser] = useState(null)
 
@@ -14,27 +15,36 @@ const App = () => {
     localStorage.clear()
   }
 
-  // const checkToken = async () => {
-  //   const user = await CheckSession()
-  //   setUser(user)
-  // }
-  //
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token')
+  const checkToken = async () => {
+    const user = await CheckSession()
+    setUser(user)
+  }
 
-  //   if (token) {
-  //     checkToken()
-  //   }
-  // }, [])
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+
+    if (token) {
+      checkToken()
+    }
+  }, [])
   return (
     <>
       <Link to="/"> Home</Link>
       <br />
       <Link to="/register"> Register</Link>
+      <br />
+      {user ? (
+        <Link onClick={handleLogOut} to="/">
+          Sign Out
+        </Link>
+      ) : (
+        <Link to="/signin"> Sign In</Link>
+      )}
       <hr />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/signin" element={<SignIn setUser={setUser} />} />
       </Routes>
     </>
   )
