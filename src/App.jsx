@@ -46,7 +46,7 @@ const App = () => {
       )}
       <hr />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home user={user} setUser={setUser} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/signin" element={<SignIn setUser={setUser} />} />
         <Route path="/details/:id" element={<Details />} />

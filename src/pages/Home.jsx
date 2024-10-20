@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { BASE_URL } from '../services/api'
 import ViewPosts from '../components/ViewPosts'
+import UserList from '../components/UserList'
 
-const Home = () => {
+const Home = ({ user, setUser }) => {
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
@@ -20,6 +21,7 @@ const Home = () => {
 
   return (
     <div>
+      <UserList user={user} setUser={setUser} />
       <ViewPosts posts={posts} />
     </div>
   )
