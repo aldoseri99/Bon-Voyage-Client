@@ -1,6 +1,19 @@
 
+import { useState, useEffect } from "react"
+import { GetPost } from "../services/postServices"
 
-const ViewPosts = ({ posts }) => {
+const ViewPosts = () => {
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    const handlePosts = async () => {
+      const data = await GetPost()
+      setPosts(data || [])
+    }
+
+    handlePosts()
+  }, [])
+
   if (!posts || posts.length === 0) {
     return <div>No posts available.</div>
   }
@@ -10,7 +23,10 @@ const ViewPosts = ({ posts }) => {
       {posts.map(() => (
         <div key={post.id}>
           <div className="post-img">
-            <img src={`http://localhost:3001/upload/${post.photo}`} alt="post photo" />
+            <img
+              src={`http://localhost:3001/upload/${post.photo}`}
+              alt="post photo"
+            />
           </div>
 
           <div className="post-title">
@@ -35,7 +51,7 @@ const ViewPosts = ({ posts }) => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default ViewPosts;
+export default ViewPosts

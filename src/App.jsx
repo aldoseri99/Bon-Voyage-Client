@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import { CheckSession } from './services/Auth'
-import './App.css'
-import Nav from './components/Nav'
-import Home from './pages/Home'
-import Register from './pages/Register'
-import SignIn from './pages/SignIn'
+import { useState, useEffect } from "react"
+import { Route, Routes } from "react-router-dom"
+import { Link } from "react-router-dom"
+import { CheckSession } from "./services/Auth"
+import "./App.css"
+import Nav from "./components/Nav"
+import Home from "./pages/Home"
+import Register from "./pages/Register"
+import SignIn from "./pages/SignIn"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -23,7 +23,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem("token")
 
     if (token) {
       checkToken()
