@@ -7,6 +7,7 @@ import Nav from "./components/Nav"
 import Home from "./pages/Home"
 import Register from "./pages/Register"
 import SignIn from "./pages/SignIn"
+import AddPost from "./components/AddPost"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -48,6 +49,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/signin" element={<SignIn setUser={setUser} />} />
+        <Route path="/add" element={<AddPost />} />
+        
       </Routes>
     </>
   )
