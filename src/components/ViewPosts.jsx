@@ -1,6 +1,6 @@
-
-import { useState, useEffect } from "react"
-import { GetPost } from "../services/postServices"
+import { useState, useEffect } from 'react'
+import { GetPost } from '../services/postServices'
+import { Link } from 'react-router-dom'
 
 const ViewPosts = () => {
   const [posts, setPosts] = useState([])
@@ -47,6 +47,11 @@ const ViewPosts = () => {
 
           <div className="post-like">
             <h4>{post.like}</h4>
+          </div>
+          <div>
+            <Link to={`/details/${post._id}`}>
+              <button>Details</button>
+            </Link>
           </div>
         </div>
       ))}
