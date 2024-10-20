@@ -27,6 +27,13 @@ const Comment = ({ comments, postId, onCommentAdded }) => {
           <small>{new Date(comment.createdAt).toLocaleString()}</small>
         </div>
       ))}
+
+      <form onSubmit={handleSubmit}>
+        <h4>Add a Comment</h4>
+        <input type="text" name="title" placeholder="Comment Title" required />
+        <textarea name="content" placeholder="Comment Content" required />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   )
 }
