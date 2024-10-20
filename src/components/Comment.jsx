@@ -1,7 +1,8 @@
 import React from "react"
 import { createComment } from "../services/commentServices"
+import { deleteComment } from "../services/commentServices"
 
-const Comment = ({ comments, postId, onCommentAdded }) => {
+const Comment = ({ comments, postId, onCommentAdded, onCommentDeleted }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const title = e.target.title.value
@@ -18,6 +19,15 @@ const Comment = ({ comments, postId, onCommentAdded }) => {
     }
   }
 
+  const handleDelete = async (commentId) => {
+    try {
+      await deleteComment(commentId)
+      onCommentDeleted(commentId)
+    } catch (error) {
+      console.error("Error deleting comment:", error)
+    }
+  }
+
   return (
     <div>
       {comments.map((comment) => (
@@ -25,6 +35,7 @@ const Comment = ({ comments, postId, onCommentAdded }) => {
           <h4>{comment.title}</h4>
           <p>{comment.content}</p>
           <small>{new Date(comment.createdAt).toLocaleString()}</small>
+          <button onClick={() => handleDelete(comment._id)}>Delete</button>
         </div>
       ))}
 

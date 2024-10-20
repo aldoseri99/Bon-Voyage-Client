@@ -9,3 +9,7 @@ export const getComments = async (postId) => {
   const response = await Client.get(`/comment/${postId}`)
   return response.data
 }
+
+export const deleteComment = async (commentId) => {
+  await Client.delete(`/comment/${commentId}`)
+}

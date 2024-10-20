@@ -27,6 +27,19 @@ const ViewPosts = () => {
     )
   }
 
+  const handleCommentDeleted = (commentId) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) => {
+        return {
+          ...post,
+          comments: post.comments.filter(
+            (comment) => comment._id !== commentId
+          ),
+        }
+      })
+    )
+  }
+
   if (!posts || posts.length === 0) {
     return <div>No posts available.</div>
   }
@@ -68,6 +81,7 @@ const ViewPosts = () => {
             onCommentAdded={(newComment) =>
               handleCommentAdded(post._id, newComment)
             }
+            onCommentDeleted={handleCommentDeleted}
           />
 
           <hr />
