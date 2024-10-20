@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { GetPost } from "../services/postServices"
-import Comment from "./Comment"
+import { Link } from 'react-router-dom'
 
 const ViewPosts = () => {
   const [posts, setPosts] = useState([])
@@ -50,7 +50,7 @@ const ViewPosts = () => {
         <div key={post.id}>
           <div className="post-img">
             <img
-              src={`http://localhost:3001/upload/${post.photos}`}
+              src={`http://localhost:3001/uploadPost/${post.photos}`}
               alt="post photo"
             />
           </div>
@@ -64,7 +64,7 @@ const ViewPosts = () => {
           </div>
 
           <div className="post-cost">
-            <h3>{post.cost}</h3>
+            <h3>{post.cost}BHD</h3>
           </div>
 
           <div className="post-rate">
@@ -85,6 +85,11 @@ const ViewPosts = () => {
           />
 
           <hr />
+          <div>
+            <Link to={`/details/${post._id}`}>
+              <button>Details</button>
+            </Link>
+          </div>
         </div>
       ))}
     </div>
