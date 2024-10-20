@@ -30,7 +30,7 @@ const ViewActivities = ({ post }) => {
         <h3>{activitieDetails.place}</h3>
       </div>
 
-      <div className="activitieDetails-cost"> {/* Fixed class name */}
+      <div className="activitieDetails-cost">
         <h5>{activitieDetails.cost}</h5>
       </div>
 
