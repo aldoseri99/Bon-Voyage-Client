@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { GetPost } from "../services/postServices"
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom"
+import Comment from "./Comment"
 
 const ViewPosts = () => {
   const [posts, setPosts] = useState([])
@@ -84,12 +85,12 @@ const ViewPosts = () => {
             onCommentDeleted={handleCommentDeleted}
           />
 
-          <hr />
           <div>
             <Link to={`/details/${post._id}`}>
               <button>Details</button>
             </Link>
           </div>
+          <hr />
         </div>
       ))}
     </div>
