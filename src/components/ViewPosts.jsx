@@ -1,3 +1,5 @@
+
+
 const ViewPosts = ({ posts }) => {
   if (!posts || posts.length === 0) {
     return <div>No posts available.</div>
@@ -5,7 +7,7 @@ const ViewPosts = ({ posts }) => {
 
   return (
     <div>
-      {posts.map((post) => (
+      {posts.map(() => (
         <div key={post.id}>
           <div className="post-img">
             <img src={`http://localhost:3001/upload/${post.photo}`} alt="post photo" />

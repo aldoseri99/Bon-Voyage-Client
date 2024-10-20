@@ -1,6 +1,6 @@
 import Client from './api'
 
-export const GetRollerCoaster = async () => {
+export const GetPost = async () => {
   try {
     const res = await Client.get('/post')
     return res.data
