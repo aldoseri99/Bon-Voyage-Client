@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { GetPost } from '../services/postServices'
+import { useState, useEffect } from "react"
+import { GetPost } from "../services/postServices"
 import { Link } from 'react-router-dom'
 
 const ViewPosts = () => {
@@ -13,6 +13,32 @@ const ViewPosts = () => {
 
     handlePosts()
   }, [])
+
+  const handleCommentAdded = (postId, newComment) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post._id === postId
+          ? {
+              ...post,
+              comments: [...post.comments, newComment],
+            }
+          : post
+      )
+    )
+  }
+
+  const handleCommentDeleted = (commentId) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) => {
+        return {
+          ...post,
+          comments: post.comments.filter(
+            (comment) => comment._id !== commentId
+          ),
+        }
+      })
+    )
+  }
 
   if (!posts || posts.length === 0) {
     return <div>No posts available.</div>
@@ -48,6 +74,17 @@ const ViewPosts = () => {
           <div className="post-like">
             <h4>{post.like}</h4>
           </div>
+
+          <Comment
+            comments={post.comments}
+            postId={post._id}
+            onCommentAdded={(newComment) =>
+              handleCommentAdded(post._id, newComment)
+            }
+            onCommentDeleted={handleCommentDeleted}
+          />
+
+          <hr />
           <div>
             <Link to={`/details/${post._id}`}>
               <button>Details</button>
