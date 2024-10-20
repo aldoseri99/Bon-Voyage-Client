@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import axios from 'axios'
+import axios from "axios"
 import { BASE_URL } from "../services/api"
 import ViewPosts from "../components/ViewPosts"
 
@@ -10,9 +10,9 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${BASE_URL}`)
-        setPosts(response.data.results)
+        setPosts(response.data)
       } catch (error) {
-        console.error('Error fetching data:', error)
+        console.error("Error fetching data:", error)
       }
     }
     fetchData()
@@ -23,7 +23,6 @@ const Home = () => {
       <ViewPosts posts={posts} />
     </div>
   )
-
 }
 
 export default Home
