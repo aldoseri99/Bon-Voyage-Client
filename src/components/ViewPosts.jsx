@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react"
 import { GetPost } from "../services/postServices"
 
@@ -19,7 +20,7 @@ const ViewPosts = () => {
 
   return (
     <div>
-      {posts.map((post) => (
+      {posts.map(() => (
         <div key={post.id}>
           <div className="post-img">
             <img
