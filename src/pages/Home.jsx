@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react"
-import axios from "axios"
-import { BASE_URL } from "../services/api"
-import ViewPosts from "../components/ViewPosts"
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { BASE_URL } from '../services/api'
+import ViewPosts from '../components/ViewPosts'
 import Comment from "../components/Comment"
-const Home = () => {
-  
+import UserList from '../components/UserList'
+
+const Home = ({ user, setUser }) => {
   const [posts, setPosts] = useState([])
   const [comments, setComments] = useState([])
 
@@ -22,6 +23,7 @@ const Home = () => {
 
   return (
     <div>
+      <UserList user={user} setUser={setUser} />
       <ViewPosts posts={posts} />
     </div>
   )

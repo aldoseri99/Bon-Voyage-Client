@@ -29,3 +29,23 @@ export const CheckSession = async () => {
     throw error
   }
 }
+
+export const GetAllUsers = async (user_id) => {
+  try {
+    const res = await Client.get(`/auth/users/${user_id}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export const Follow = async (user_id, data) => {
+  try {
+    const res = await Client.put(`/auth/follow/${user_id}`, data)
+    console.log(res.data)
+
+    return res.data
+  } catch (error) {
+    console.log(error)
+  }
+}
