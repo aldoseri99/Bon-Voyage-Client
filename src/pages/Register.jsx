@@ -12,6 +12,7 @@ const Register = () => {
     confirmPassword: "",
   }
   const [formValues, setFormValues] = useState(initialState)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value })
@@ -19,16 +20,55 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await RegisterUser({
-      name: formValues.name,
-      email: formValues.email,
-      password: formValues.password,
-      username: formValues.username,
-    })
 
-    setFormValues(initialState)
+    if (
+      !formValues.name ||
+      !formValues.email ||
+      !formValues.username ||
+      !formValues.password ||
+      !formValues.confirmPassword
+    ) {
+      setErrorMessage('All fields are required.')
+      return
+    }
 
-    navigate("/signin")
+    const usernameRegex = /^[a-zA-Z0-9._-]+$/
+
+    if (!usernameRegex.test(formValues.username)) {
+      setErrorMessage(
+        'Username can only contain letters, numbers, ".", "_", "-" and no spaces.'
+      )
+      return
+    }
+
+    if (formValues.password.length <= 7) {
+      setErrorMessage('Password must be more than 7 characters.')
+      return
+    }
+
+    if (formValues.password !== formValues.confirmPassword) {
+      setErrorMessage('Passwords do not match.')
+      return
+    }
+
+    try {
+      const res = await RegisterUser({
+        name: formValues.name,
+        email: formValues.email,
+        password: formValues.password,
+        username: formValues.username
+      })
+      if (res.message) {
+        setErrorMessage(res.message)
+
+        return
+      }
+      setFormValues(initialState)
+      setErrorMessage('')
+       navigate("/signin")
+    } catch (error) {
+      setErrorMessage('Registration failed. Please try again.')
+    }
   }
 
   return (
@@ -89,6 +129,7 @@ const Register = () => {
               required
             />
           </div>
+          <div>{errorMessage}</div>
           <button
             disabled={
               !formValues.email ||
