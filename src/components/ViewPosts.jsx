@@ -53,6 +53,36 @@ const ViewPosts = () => {
     setCurrentPostId(null) // Reset current post ID
   }
 
+  const handleActivityDelete = async (postId, activityId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/activities/${activityId}`,
+        {
+          method: "DELETE",
+        }
+      )
+
+      if (!response.ok) {
+        throw new Error("Failed to delete activity")
+      }
+
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post._id === postId
+            ? {
+                ...post,
+                activities: post.activities.filter(
+                  (activity) => activity._id !== activityId
+                ),
+              }
+            : post
+        )
+      )
+    } catch (error) {
+      console.error("Error deleting activity:", error)
+    }
+  }
+
   if (!posts || posts.length === 0) {
     return <div>No posts available.</div>
   }
@@ -109,7 +139,17 @@ const ViewPosts = () => {
                   onClick={() => handleActivityClick(post._id, activity._id)} // Pass post ID and activity ID
                   style={{ cursor: "pointer" }}
                 >
-                  <h5>{activity.name} </h5>
+                  <h5>
+                    {activity.name}{" "}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation() // Prevent the click event from bubbling up
+                        handleActivityDelete(post._id, activity._id)
+                      }}
+                    >
+                      Delete Activity
+                    </button>
+                  </h5>
                 </div>
               ))
             )}
