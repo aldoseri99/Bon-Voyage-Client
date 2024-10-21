@@ -31,6 +31,18 @@ const Comment = ({ comments, postId, onCommentAdded, onCommentDeleted }) => {
     <div>
       {comments.map((comment) => (
         <div key={comment._id} className="comment">
+          <div className="post-user">
+            {comment.user && (
+              <>
+                <img
+                  src={`http://localhost:3001/profilePics/${comment.user.profilePic}`} // Adjust the path based on your backend
+                  alt={`${comment.user.username}'s profile`}
+                  className="user-profile-pic"
+                />
+                <span className="username">{comment.user.username}</span>
+              </>
+            )}
+          </div>
           <h4>{comment.title}</h4>
           <p>{comment.content}</p>
           <small>{new Date(comment.createdAt).toLocaleString()}</small>
