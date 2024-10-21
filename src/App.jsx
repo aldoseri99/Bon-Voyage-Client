@@ -47,7 +47,7 @@ const App = () => {
           <br />
           <Link to="/editprofile">EditProfile</Link>
           <br />
-          <Link to="/ViewUser">View User</Link>
+          <Link to={`/ViewUser/${user.id}`}>View User</Link>
         </>
       ) : (
         <>
@@ -68,7 +68,7 @@ const App = () => {
           element={<EditProfile user={user} setUser={setUser} />}
         />
         <Route path="/activities/:activitieId" element={<ViewActivities />} />
-        <Route path="/ViewUser" element={<ViewUser user={user} />} />
+        <Route path="/ViewUser/:userId" element={<ViewUser user={user} />} />
       </Routes>
     </>
   )

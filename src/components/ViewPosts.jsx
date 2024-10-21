@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react"
-import { GetPost } from "../services/postServices"
-import { Link } from "react-router-dom"
-import Comment from "./Comment"
-import ViewActivities from "./ViewActivities"
-import AddActivities from "./AddActivities"
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react'
+import { GetPost } from '../services/postServices'
+import { Link } from 'react-router-dom'
+import Comment from './Comment'
+import ViewActivities from './ViewActivities'
+import AddActivities from './AddActivities'
+import { useNavigate } from 'react-router-dom'
 
 const ViewPosts = () => {
   const [posts, setPosts] = useState([])
@@ -13,15 +13,13 @@ const ViewPosts = () => {
   const [isViewingActivity, setIsViewingActivity] = useState(false)
   const [currentPostId, setCurrentPostId] = useState(null) // Track the current post ID
 
-
-
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handlePosts = async () => {
-      const data = await GetPost();
+      const data = await GetPost()
       setPosts(data || [])
-    };
+    }
 
     handlePosts()
   }, [])
@@ -43,7 +41,7 @@ const ViewPosts = () => {
     setPosts((prevPosts) =>
       prevPosts.map((post) => ({
         ...post,
-        comments: post.comments.filter((comment) => comment._id !== commentId),
+        comments: post.comments.filter((comment) => comment._id !== commentId)
       }))
     )
   }
@@ -67,7 +65,6 @@ const ViewPosts = () => {
           ? { ...post, activities: [...post.activities, newActivity] }
           : post
       )
-
     )
   }
 
@@ -76,12 +73,12 @@ const ViewPosts = () => {
       const response = await fetch(
         `http://localhost:3001/activities/${activityId}`,
         {
-          method: "DELETE",
+          method: 'DELETE'
         }
       )
 
       if (!response.ok) {
-        throw new Error("Failed to delete activity")
+        throw new Error('Failed to delete activity')
       }
 
       setPosts((prevPosts) =>
@@ -91,13 +88,13 @@ const ViewPosts = () => {
                 ...post,
                 activities: post.activities.filter(
                   (activity) => activity._id !== activityId
-                ),
+                )
               }
             : post
         )
       )
     } catch (error) {
-      console.error("Error deleting activity:", error)
+      console.error('Error deleting activity:', error)
     }
   }
 
@@ -107,13 +104,15 @@ const ViewPosts = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/Posts/${id}`, { method: "DELETE" })
+      const response = await fetch(`http://localhost:3001/Posts/${id}`, {
+        method: 'DELETE'
+      })
 
       if (response.ok) {
-        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id));
-        navigate("/");
+        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id))
+        navigate('/')
       } else {
-        console.error("Failed to delete the post:", response.statusText)
+        console.error('Failed to delete the post:', response.statusText)
       }
     } catch (error) {
       console.error("Error can't delete the post:", error)
@@ -132,7 +131,9 @@ const ViewPosts = () => {
                   alt={`${post.User.username}'s profile`}
                   className="user-profile-pic"
                 />
-                <span className="username">{post.User.username}</span>
+                <Link to={`/ViewUser/${post.User._id}`}>
+                  <span className="username">{post.User.username}</span>
+                </Link>
               </>
             )}
           </div>
@@ -164,9 +165,7 @@ const ViewPosts = () => {
             <h4>{post.like}</h4>
           </div>
 
-
           <Comment
-
             comments={post.comments}
             postId={post._id}
             onCommentAdded={(newComment) =>
@@ -174,7 +173,6 @@ const ViewPosts = () => {
             }
             onCommentDeleted={handleCommentDeleted}
           />
-
 
           <div>
             <h4>Activities:</h4>
@@ -192,10 +190,10 @@ const ViewPosts = () => {
                 <div
                   key={activity._id}
                   onClick={() => handleActivityClick(post._id, activity._id)} // Pass post ID and activity ID
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                 >
                   <h5>
-                    {activity.name}{" "}
+                    {activity.name}{' '}
                     <button
                       onClick={(e) => {
                         e.stopPropagation() // Prevent the click event from bubbling up
@@ -220,7 +218,6 @@ const ViewPosts = () => {
               )}
           </div>
 
-
           <div>
             <Link to={`/details/${post._id}`}>
               <button>Details</button>
@@ -228,10 +225,7 @@ const ViewPosts = () => {
           </div>
           <hr />
 
-
-
           <button onClick={() => handleDelete(post._id)}>Delete</button>
-
         </div>
       ))}
     </div>
