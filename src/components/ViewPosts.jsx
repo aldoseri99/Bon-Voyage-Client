@@ -1,15 +1,18 @@
-import { useState, useEffect } from "react"
-import { GetPost } from "../services/postServices"
-import { Link } from 'react-router-dom'
+
+import { useState, useEffect } from "react";
+import { GetPost } from "../services/postServices";
+import { useNavigate } from "react-router-dom";
+
 
 const ViewPosts = () => {
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handlePosts = async () => {
-      const data = await GetPost()
+      const data = await GetPost();
       setPosts(data || [])
-    }
+    };
 
     handlePosts()
   }, [])
@@ -44,10 +47,25 @@ const ViewPosts = () => {
     return <div>No posts available.</div>
   }
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3001/Posts/${id}`, { method: "DELETE" })
+
+      if (response.ok) {
+        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id));
+        navigate("/");
+      } else {
+        console.error("Failed to delete the post:", response.statusText)
+      }
+    } catch (error) {
+      console.error("Error can't delete the post:", error)
+    }
+  }
+
   return (
     <div>
       {posts.map((post) => (
-        <div key={post.id}>
+        <div key={post._id}>
           <div className="post-img">
             <img
               src={`http://localhost:3001/uploadPost/${post.photos}`}
@@ -64,7 +82,7 @@ const ViewPosts = () => {
           </div>
 
           <div className="post-cost">
-            <h3>{post.cost}BHD</h3>
+            <h3>{post.cost} BHD</h3>
           </div>
 
           <div className="post-rate">
@@ -75,21 +93,9 @@ const ViewPosts = () => {
             <h4>{post.like}</h4>
           </div>
 
-          <Comment
-            comments={post.comments}
-            postId={post._id}
-            onCommentAdded={(newComment) =>
-              handleCommentAdded(post._id, newComment)
-            }
-            onCommentDeleted={handleCommentDeleted}
-          />
 
-          <hr />
-          <div>
-            <Link to={`/details/${post._id}`}>
-              <button>Details</button>
-            </Link>
-          </div>
+          <button onClick={() => handleDelete(post._id)}>Delete</button>
+
         </div>
       ))}
     </div>
