@@ -24,7 +24,7 @@ const Home = ({ user, setUser }) => {
   return (
     <div>
       <UserList user={user} setUser={setUser} />
-      <ViewPosts posts={posts} />
+      <ViewPosts user={user} posts={posts} />
     </div>
   )
 }

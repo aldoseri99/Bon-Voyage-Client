@@ -4,14 +4,19 @@ import Client from './api'
 // Function to get posts
 export const GetPost = async () => {
   try {
-
-    const res = await Client.get('/Posts')
-    return res.data
+    const response = await fetch("http://localhost:3001/Posts");
+    if (!response.ok) {
+      throw new Error("Failed to fetch posts");
+    }
+    const data = await response.json();
+    console.log("Fetched posts from API:", data); // Log the data to see if it's correct
+    return data;
   } catch (error) {
-    throw error;
+    console.error("Error in GetPost:", error);
+    throw error; // Propagate error for handling
   }
+};
 
-}
 
 // Function to add a new post
 export const setPost = async (postData) => {

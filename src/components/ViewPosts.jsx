@@ -1,105 +1,116 @@
-
 import { useState, useEffect } from "react";
 import { GetPost } from "../services/postServices";
 import { useNavigate } from "react-router-dom";
 
-
-const ViewPosts = () => {
+const ViewPosts = ({ user }) => {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const handlePosts = async () => {
-      const data = await GetPost();
-      setPosts(data || [])
+      try {
+        const data = await GetPost();
+        console.log("Fetched Posts:", data);
+        setPosts(data || []);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
     };
 
-    handlePosts()
-  }, [])
+    handlePosts();
+  }, [user]);
 
-  const handleCommentAdded = (postId, newComment) => {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) =>
-        post._id === postId
-          ? {
-              ...post,
-              comments: [...post.comments, newComment],
-            }
-          : post
-      )
-    )
-  }
+  const handleLikeToggle = async (postId) => {
+    if (!user || !user.id) {
+      console.error("User is not defined or missing an ID.");
+      return;
+    }
 
-  const handleCommentDeleted = (commentId) => {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) => {
-        return {
-          ...post,
-          comments: post.comments.filter(
-            (comment) => comment._id !== commentId
-          ),
-        }
-      })
-    )
-  }
+    console.log("Liking post with user:", user.id)
 
-  if (!posts || posts.length === 0) {
-    return <div>No posts available.</div>
-  }
-
-  const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/Posts/${id}`, { method: "DELETE" })
+      const response = await fetch(`http://localhost:3001/Posts/like/${postId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: user.id }),
+      });
 
       if (response.ok) {
-        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id));
-        navigate("/");
+        const updatedPost = await response.json();
+        setPosts((prevPosts) =>
+          prevPosts.map((post) => (post._id === postId ? updatedPost : post))
+        );
       } else {
-        console.error("Failed to delete the post:", response.statusText)
+        console.error("Failed to update like count:", response.statusText);
       }
     } catch (error) {
-      console.error("Error can't delete the post:", error)
+      console.error("Error updating like count:", error);
     }
-  }
+  };
+
+  const handleDelete = async (postId) => {
+    try {
+      const response = await fetch(`http://localhost:3001/Posts/${postId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
+      } else {
+        console.error("Failed to delete post:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
+
+  const hasLiked = (post) => {
+    return user && user.id && post.likedBy && post.likedBy.includes(user.id);
+  };
 
   return (
     <div>
-      {posts.map((post) => (
-        <div key={post._id}>
-          <div className="post-img">
-            <img
-              src={`http://localhost:3001/uploadPost/${post.photos}`}
-              alt="post photo"
-            />
+      {posts.length === 0 ? (
+        <p>No posts available</p>
+      ) : (
+        posts.map((post) => (
+          <div key={post._id}>
+            <div className="post-img">
+              {post.photos ? (
+                <img
+                  src={`http://localhost:3001/uploadPost/${post.photos}`}
+                  alt="post photo"
+                />
+              ) : (
+                <p>No Image Available</p>
+              )}
+            </div>
+            <div className="post-title">
+              <h3>{post.title}</h3>
+            </div>
+            <div className="post-country">
+              <h3>{post.country}</h3>
+            </div>
+            <div className="post-cost">
+              <h3>{post.cost} BHD</h3>
+            </div>
+            <div className="post-rate">
+              <h3>{post.rate}</h3>
+            </div>
+            <div className="post-like">
+              <h4>{post.like} Likes</h4>
+            </div>
+            <button onClick={() => handleLikeToggle(post._id)}>
+              {hasLiked(post) ? 'Remove Like' : 'Like'}
+            </button>
+            <button onClick={() => handleDelete(post._id)}>Delete</button>
           </div>
-
-          <div className="post-title">
-            <h3>{post.title}</h3>
-          </div>
-
-          <div className="post-country">
-            <h3>{post.country}</h3>
-          </div>
-
-          <div className="post-cost">
-            <h3>{post.cost} BHD</h3>
-          </div>
-
-          <div className="post-rate">
-            <h3>{post.rate}</h3>
-          </div>
-
-          <div className="post-like">
-            <h4>{post.like}</h4>
-          </div>
-
-
-          <button onClick={() => handleDelete(post._id)}>Delete</button>
-
-        </div>
-      ))}
+        ))
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default ViewPosts
+export default ViewPosts;
