@@ -158,7 +158,7 @@ const ViewPosts = () => {
       {posts.map((post) => {
         const coord = coordinates[post._id]
         return (
-          <div key={post._id}>
+          <div key={post._id} className="post-inner">
             <div className="post-user">
               {post.User && (
                 <>
@@ -209,7 +209,7 @@ const ViewPosts = () => {
               onCommentDeleted={handleCommentDeleted}
             />
 
-            <div>
+            <div className="activities">
               <h4>Activities:</h4>
 
               <AddActivities

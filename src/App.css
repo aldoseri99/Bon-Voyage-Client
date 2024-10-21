@@ -60,32 +60,89 @@
 }
 
 .post {
-  border: 3px solid black;
-  padding: 10px;
-  margin: 15px;
-  border-radius: 5px;
+  border-radius: 10px; /* Rounded corners */
+  padding: 15px; /* Inner spacing */
+  margin: 20px auto; /* Centered margin */
+  max-width: 600px; /* Max width for larger screens */
+  background-color: #fff; /* White background */
 }
 
-.post-img {
-  width: 90%;
-  max-width: 20px;
-  height: auto;
-  border-radius: 5px;
+.post-inner {
+  padding: 10px;
+  border-radius: 8px; /* Match border radius for inner content */
+  border: 3px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  background-color: #fff; /* Background for the content area */
 }
 
 .post-user {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 10px; /* Space below user info */
 }
 
 .user-profile-pic {
-  width: 40px; /* Adjust as necessary */
-  height: 40px; /* Adjust as necessary */
-  border-radius: 50%; /* Makes it a circle */
-  margin-right: 10px; /* Space between the image and username */
+  width: 40px; /* Profile pic size */
+  height: 40px; /* Make it square */
+  border-radius: 50%; /* Circular profile pic */
+  margin-right: 10px; /* Space between pic and username */
 }
 
-.username {
-  font-weight: bold; /* Make username bold */
+.post-img {
+  width: 100%; /* Full width of the container */
+  max-height: 300px; /* Limit height */
+  overflow: hidden; /* Hide overflow */
+  border-radius: 10px; /* Match border radius */
+}
+
+.post-img img {
+  width: 100%; /* Responsive image */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 10px; /* Match border radius */
+}
+
+.post-title,
+.post-country,
+.post-cost,
+.post-rate,
+.post-like {
+  margin: 10px 0; /* Space between sections */
+}
+
+.post-title h3,
+.post-country h3,
+.post-cost h3,
+.post-rate h3,
+.post-like h4 {
+  margin: 0; /* Remove default margin */
+}
+
+button {
+  background-color: #7e7f80; /* Bootstrap primary color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+h4 {
+  margin: 10px 0; /* Space for activity title */
+}
+
+hr {
+  margin: 20px 0; /* Space before and after hr */
+}
+
+.activities {
+  margin-top: 10px; /* Space above activities */
+  padding: 10px;
+  border: 1px solid #ddd; /* Light border for activities */
+  border-radius: 5px; /* Rounded corners */
 }
