@@ -9,11 +9,11 @@ export const GetPost = async () => {
       throw new Error("Failed to fetch posts");
     }
     const data = await response.json();
-    console.log("Fetched posts from API:", data); // Log the data to see if it's correct
+    console.log("Fetched posts from API:", data);
     return data;
   } catch (error) {
     console.error("Error in GetPost:", error);
-    throw error; // Propagate error for handling
+    throw error;
   }
 };
 
@@ -26,9 +26,9 @@ export const setPost = async (postData) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    return res.data; // Return the created post data
+    return res.data;
   } catch (error) {
-    throw error; // Propagate the error for handling in the component
+    throw error;
   }
 }
 
