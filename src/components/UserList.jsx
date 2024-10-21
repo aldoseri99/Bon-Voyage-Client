@@ -44,7 +44,12 @@ const UserList = ({ user, setUser }) => {
       <div>
         {users
           ? users.map((account) => (
-              <div key={account._id}>
+              <div className="user-list" key={account._id}>
+                <img
+                  className="profilePics"
+                  src={`http://localhost:3001/profilePics/${account.profilePic}`}
+                  alt="post photo"
+                />
                 <h3>{account.username}</h3>
                 {user.followings.includes(account._id) ? (
                   <button onClick={() => handleUnfollow(account._id)}>
