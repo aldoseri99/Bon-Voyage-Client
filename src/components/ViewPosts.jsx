@@ -2,9 +2,13 @@ import { useState, useEffect } from "react"
 import { GetPost } from "../services/postServices"
 import { Link } from "react-router-dom"
 import Comment from "./Comment"
+import ViewActivities from "./ViewActivities"
 
 const ViewPosts = () => {
   const [posts, setPosts] = useState([])
+  const [selectedActivityId, setSelectedActivityId] = useState(null)
+  const [isViewingActivity, setIsViewingActivity] = useState(false)
+  const [currentPostId, setCurrentPostId] = useState(null) // Track the current post ID
 
   useEffect(() => {
     const handlePosts = async () => {
@@ -30,15 +34,23 @@ const ViewPosts = () => {
 
   const handleCommentDeleted = (commentId) => {
     setPosts((prevPosts) =>
-      prevPosts.map((post) => {
-        return {
-          ...post,
-          comments: post.comments.filter(
-            (comment) => comment._id !== commentId
-          ),
-        }
-      })
+      prevPosts.map((post) => ({
+        ...post,
+        comments: post.comments.filter((comment) => comment._id !== commentId),
+      }))
     )
+  }
+
+  const handleActivityClick = (postId, activityId) => {
+    setCurrentPostId(postId) // Set the current post ID
+    setSelectedActivityId(activityId)
+    setIsViewingActivity(true)
+  }
+
+  const handleClose = () => {
+    setIsViewingActivity(false)
+    setSelectedActivityId(null)
+    setCurrentPostId(null) // Reset current post ID
   }
 
   if (!posts || posts.length === 0) {
@@ -48,7 +60,7 @@ const ViewPosts = () => {
   return (
     <div>
       {posts.map((post) => (
-        <div key={post.id}>
+        <div key={post._id}>
           <div className="post-img">
             <img
               src={`http://localhost:3001/uploadPost/${post.photos}`}
@@ -65,7 +77,7 @@ const ViewPosts = () => {
           </div>
 
           <div className="post-cost">
-            <h3>{post.cost}BHD</h3>
+            <h3>{post.cost} BHD</h3>
           </div>
 
           <div className="post-rate">
@@ -84,6 +96,34 @@ const ViewPosts = () => {
             }
             onCommentDeleted={handleCommentDeleted}
           />
+
+          <div>
+            <h4>Activities:</h4>
+
+            {post.activities.length === 0 ? (
+              <p>No Activities</p>
+            ) : (
+              post.activities.map((activity) => (
+                <div
+                  key={activity._id}
+                  onClick={() => handleActivityClick(post._id, activity._id)} // Pass post ID and activity ID
+                  style={{ cursor: "pointer" }}
+                >
+                  <h5>{activity.name} </h5>
+                </div>
+              ))
+            )}
+
+            {isViewingActivity &&
+              selectedActivityId &&
+              currentPostId === post._id && (
+                <ViewActivities
+                  post={post} // Pass the current post
+                  activitieId={selectedActivityId}
+                  onClose={handleClose}
+                />
+              )}
+          </div>
 
           <div>
             <Link to={`/details/${post._id}`}>
