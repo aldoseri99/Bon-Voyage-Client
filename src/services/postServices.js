@@ -10,6 +10,7 @@ export const GetPost = async () => {
   }
 }
 
+
 // Function to add a new post
 export const setPost = async (postData) => {
   try {
@@ -18,9 +19,9 @@ export const setPost = async (postData) => {
         'Content-Type': 'multipart/form-data'
       }
     })
-    return res.data // Return the created post data
+    return res.data
   } catch (error) {
-    throw error // Propagate the error for handling in the component
+    throw error
   }
 }
 

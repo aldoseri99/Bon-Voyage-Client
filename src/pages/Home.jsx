@@ -32,7 +32,7 @@ const Home = ({ user, setUser }) => {
       {tab ? (
         <>
           <button onClick={handleTabs}>All</button>
-          <ViewPosts posts={posts} />
+          <ViewPosts user={user} posts={posts} />
         </>
       ) : (
         <>
@@ -40,9 +40,6 @@ const Home = ({ user, setUser }) => {
           <ViewFollowPosts user={user} />
         </>
       )}
-
-      {/* <ViewPosts posts={posts} />
-      <ViewFollowPosts user={user} /> */}
     </div>
   )
 }
