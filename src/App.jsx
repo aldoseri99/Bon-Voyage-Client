@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import { CheckSession } from './services/Auth'
-import './App.css'
-import Nav from './components/Nav'
-import Home from './pages/Home'
-import Register from './pages/Register'
-import SignIn from './pages/SignIn'
+import { useState, useEffect } from "react"
+import { Route, Routes } from "react-router-dom"
+import { Link } from "react-router-dom"
+import { CheckSession } from "./services/Auth"
+import "./App.css"
+import Nav from "./components/Nav"
+import Home from "./pages/Home"
+import Register from "./pages/Register"
+import SignIn from "./pages/SignIn"
+import AddPost from "./components/AddPost"
 import Details from './pages/Details'
 
 const App = () => {
@@ -49,7 +50,9 @@ const App = () => {
         <Route path="/" element={<Home user={user} setUser={setUser} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/signin" element={<SignIn setUser={setUser} />} />
+        <Route path="/add" element={<AddPost />} />      
         <Route path="/details/:id" element={<Details />} />
+
       </Routes>
     </>
   )

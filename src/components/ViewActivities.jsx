@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import AddPost from "./AddPost"
 
 const ViewActivities = ({ post }) => {
   let navigate = useNavigate()
@@ -12,6 +13,8 @@ const ViewActivities = ({ post }) => {
       setActivitieDetails(selected || null)
     }
   }, [post, activitieId])
+
+
 
   return activitieDetails ? (
     <div>
