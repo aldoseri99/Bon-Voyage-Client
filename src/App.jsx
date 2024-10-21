@@ -7,11 +7,11 @@ import Nav from './components/Nav'
 import Home from './pages/Home'
 import Register from './pages/Register'
 import SignIn from './pages/SignIn'
-import AddPost from './components/AddPost'
 import Details from './pages/Details'
 import EditProfile from './pages/EditProfile'
-import ViewActivities from "./components/ViewActivities"
-import AddPost from "./components/AddPost"
+import ViewActivities from './components/ViewActivities'
+import AddPost from './components/AddPost'
+import ViewUser from './components/ViewUser'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -28,7 +28,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem('token')
 
     if (token) {
       checkToken()
@@ -46,6 +46,8 @@ const App = () => {
           </Link>
           <br />
           <Link to="/editprofile">EditProfile</Link>
+          <br />
+          <Link to="/ViewUser">View User</Link>
         </>
       ) : (
         <>
@@ -66,7 +68,7 @@ const App = () => {
           element={<EditProfile user={user} setUser={setUser} />}
         />
         <Route path="/activities/:activitieId" element={<ViewActivities />} />
-
+        <Route path="/ViewUser" element={<ViewUser user={user} />} />
       </Routes>
     </>
   )
