@@ -8,6 +8,7 @@ import Home from "./pages/Home"
 import Register from "./pages/Register"
 import SignIn from "./pages/SignIn"
 import AddPost from "./components/AddPost"
+import Details from './pages/Details'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -24,7 +25,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem('token')
 
     if (token) {
       checkToken()
@@ -46,11 +47,12 @@ const App = () => {
       )}
       <hr />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home user={user} setUser={setUser} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/signin" element={<SignIn setUser={setUser} />} />
-        <Route path="/add" element={<AddPost />} />
-        
+        <Route path="/add" element={<AddPost />} />      
+        <Route path="/details/:id" element={<Details />} />
+
       </Routes>
     </>
   )

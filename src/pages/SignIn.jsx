@@ -5,6 +5,7 @@ import { SignInUser } from '../services/Auth'
 const SignIn = ({ setUser }) => {
   let navigate = useNavigate()
   const [formValues, setFormValues] = useState({ email: '', password: '' })
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value })
@@ -13,9 +14,14 @@ const SignIn = ({ setUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const payload = await SignInUser(formValues)
+    if (payload.message) {
+      setErrorMessage(res.message)
+
+      return
+    }
     setFormValues({ email: '', password: '' })
-    setUser(payload)
-    console.log(payload)
+    setUser(payload.user)
+    console.log(payload.user)
 
     navigate('/')
   }
@@ -45,6 +51,7 @@ const SignIn = ({ setUser }) => {
               required
             />
           </div>
+          <div>{errorMessage}</div>
           <button disabled={!formValues.email || !formValues.password}>
             Sign In
           </button>
