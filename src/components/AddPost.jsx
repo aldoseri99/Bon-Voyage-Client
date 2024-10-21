@@ -50,7 +50,7 @@ const AddPost = () => {
     }
 
     try {
-      console.log(formData)
+      const token = localStorage.getItem("token")
 
       const response = await axios.post(
         "http://localhost:3001/Posts",
@@ -58,6 +58,7 @@ const AddPost = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
           },
         }
       )

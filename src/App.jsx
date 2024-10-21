@@ -1,17 +1,16 @@
-import { useState, useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import { CheckSession } from './services/Auth'
-import './App.css'
-import Nav from './components/Nav'
-import Home from './pages/Home'
-import Register from './pages/Register'
-import SignIn from './pages/SignIn'
-import AddPost from './components/AddPost'
-import Details from './pages/Details'
-import EditProfile from './pages/EditProfile'
-import ViewActivities from "./components/ViewActivities"
+import { useState, useEffect } from "react"
+import { Route, Routes } from "react-router-dom"
+import { Link } from "react-router-dom"
+import { CheckSession } from "./services/Auth"
+import "./App.css"
+import Nav from "./components/Nav"
+import Home from "./pages/Home"
+import Register from "./pages/Register"
+import SignIn from "./pages/SignIn"
 import AddPost from "./components/AddPost"
+import Details from "./pages/Details"
+import EditProfile from "./pages/EditProfile"
+import ViewActivities from "./components/ViewActivities"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -66,7 +65,6 @@ const App = () => {
           element={<EditProfile user={user} setUser={setUser} />}
         />
         <Route path="/activities/:activitieId" element={<ViewActivities />} />
-
       </Routes>
     </>
   )
