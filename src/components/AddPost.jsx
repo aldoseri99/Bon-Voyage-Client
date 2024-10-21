@@ -80,6 +80,9 @@ const handleSubmit = async (e) => {
   
         <label htmlFor="temperature">Temperature: </label>
         <input type="number" id="temperature" onChange={handleChange} value={formValues.temperature} />
+
+        <label htmlFor="cost">Cost</label>
+        <input type="number" id="cost" onChange={handleChange} value={formValues.cost} />
   
         <label htmlFor="weather">Weather: </label>
         <select type="text" id="weather" onChange={handleChange} value={formValues.weather}>
