@@ -1,6 +1,5 @@
 import React from "react"
-import { createComment } from "../services/commentServices"
-import { deleteComment } from "../services/commentServices"
+import { createComment, deleteComment } from "../services/commentServices"
 
 const Comment = ({ comments, postId, onCommentAdded, onCommentDeleted }) => {
   const handleSubmit = async (e) => {
