@@ -9,6 +9,7 @@ import Register from "./pages/Register"
 import SignIn from "./pages/SignIn"
 import Details from "./pages/Details"
 import ViewActivities from "./components/ViewActivities"
+import AddPost from "./components/AddPost"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -50,6 +51,7 @@ const App = () => {
         <Route path="/" element={<Home user={user} setUser={setUser} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/signin" element={<SignIn setUser={setUser} />} />
+        <Route path="/add" element={<AddPost />} />      
         <Route path="/details/:id" element={<Details />} />
         <Route path="/activities/:activitieId" element={<ViewActivities />} />
       </Routes>

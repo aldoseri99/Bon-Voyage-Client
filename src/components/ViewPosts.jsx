@@ -1,9 +1,11 @@
+
 import { useState, useEffect } from "react"
 import { GetPost } from "../services/postServices"
 import { Link } from "react-router-dom"
 import Comment from "./Comment"
 import ViewActivities from "./ViewActivities"
 import AddActivities from "./AddActivities"
+import { useNavigate } from "react-router-dom";
 
 const ViewPosts = () => {
   const [posts, setPosts] = useState([])
@@ -12,11 +14,15 @@ const ViewPosts = () => {
   const [isViewingActivity, setIsViewingActivity] = useState(false)
   const [currentPostId, setCurrentPostId] = useState(null) // Track the current post ID
 
+
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     const handlePosts = async () => {
-      const data = await GetPost()
+      const data = await GetPost();
       setPosts(data || [])
-    }
+    };
 
     handlePosts()
   }, [])
@@ -99,6 +105,21 @@ const ViewPosts = () => {
     return <div>No posts available.</div>
   }
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3001/Posts/${id}`, { method: "DELETE" })
+
+      if (response.ok) {
+        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id));
+        navigate("/");
+      } else {
+        console.error("Failed to delete the post:", response.statusText)
+      }
+    } catch (error) {
+      console.error("Error can't delete the post:", error)
+    }
+  }
+
   return (
     <div>
       {posts.map((post) => (
@@ -129,6 +150,7 @@ const ViewPosts = () => {
           <div className="post-like">
             <h4>{post.like}</h4>
           </div>
+
 
           <Comment
             comments={post.comments}
@@ -189,6 +211,11 @@ const ViewPosts = () => {
             </Link>
           </div>
           <hr />
+
+
+          <button onClick={() => handleDelete(post._id)}>Delete</button>
+
+
         </div>
       ))}
     </div>

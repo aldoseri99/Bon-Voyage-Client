@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
+import AddPost from "./AddPost"
+
 
 const ViewActivities = ({ post, activitieId, onClose }) => {
   const [activitieDetails, setActivitieDetails] = useState(null)
@@ -11,6 +14,8 @@ const ViewActivities = ({ post, activitieId, onClose }) => {
       setActivitieDetails(selected || null)
     }
   }, [post, activitieId])
+
+
 
   return activitieDetails ? (
     <div className="activity-details">
