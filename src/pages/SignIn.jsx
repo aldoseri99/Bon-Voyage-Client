@@ -15,7 +15,8 @@ const SignIn = ({ setUser }) => {
     e.preventDefault()
     const payload = await SignInUser(formValues)
     if (payload.message) {
-      setErrorMessage(res.message)
+      setErrorMessage(payload.message)
+      console.log()
 
       return
     }
@@ -31,7 +32,7 @@ const SignIn = ({ setUser }) => {
       <div className="card-overlay centered">
         <form className="col" onSubmit={handleSubmit}>
           <div className="input-wrapper">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Username/Email</label>
             <input
               onChange={handleChange}
               name="email"

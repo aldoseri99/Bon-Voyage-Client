@@ -1,21 +1,25 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { RegisterUser } from "../services/Auth"
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { RegisterUser } from '../services/Auth'
 
 const Register = () => {
   let navigate = useNavigate()
   const initialState = {
-    name: "",
-    email: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
+    name: '',
+    email: '',
+    username: '',
+    password: '',
+    confirmPassword: ''
   }
   const [formValues, setFormValues] = useState(initialState)
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value })
+  }
+
+  const handleFileChange = (e) => {
+    setFormValues({ ...formValues, [e.target.name]: e.target.files[0] })
   }
 
   const handleSubmit = async (e) => {
@@ -26,7 +30,8 @@ const Register = () => {
       !formValues.email ||
       !formValues.username ||
       !formValues.password ||
-      !formValues.confirmPassword
+      !formValues.confirmPassword ||
+      !formValues.profilePic
     ) {
       setErrorMessage('All fields are required.')
       return
@@ -50,14 +55,22 @@ const Register = () => {
       setErrorMessage('Passwords do not match.')
       return
     }
-
+    const formData = new FormData()
+    for (const key in formValues) {
+      if (key === 'profilePic') {
+        formData.append('profilePic', formValues[key])
+      } else {
+        formData.append(key, formValues[key])
+      }
+    }
     try {
-      const res = await RegisterUser({
-        name: formValues.name,
-        email: formValues.email,
-        password: formValues.password,
-        username: formValues.username
+      const res = await RegisterUser(formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       })
+      console.log(formValues)
+
       if (res.message) {
         setErrorMessage(res.message)
 
@@ -65,7 +78,7 @@ const Register = () => {
       }
       setFormValues(initialState)
       setErrorMessage('')
-       navigate("/signin")
+      navigate('/signin')
     } catch (error) {
       setErrorMessage('Registration failed. Please try again.')
     }
@@ -81,7 +94,7 @@ const Register = () => {
               onChange={handleChange}
               name="name"
               type="text"
-              placeholder="John Smith"
+              placeholder="Joe Mama"
               value={formValues.name}
               required
             />
@@ -92,7 +105,7 @@ const Register = () => {
               onChange={handleChange}
               name="username"
               type="text"
-              placeholder="John Smith"
+              placeholder="Joe_Mama"
               value={formValues.username}
               required
             />
@@ -126,6 +139,15 @@ const Register = () => {
               type="password"
               name="confirmPassword"
               value={formValues.confirmPassword}
+              required
+            />
+          </div>
+          <div className="input-wrapper">
+            <label htmlFor="profilePic">Profile Pic</label>
+            <input
+              type="file"
+              name="profilePic"
+              onChange={handleFileChange}
               required
             />
           </div>

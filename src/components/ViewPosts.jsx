@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import Comment from "./Comment"
 import ViewActivities from "./ViewActivities"
 import AddActivities from "./AddActivities"
+import { useNavigate } from "react-router-dom";
 
 const ViewPosts = () => {
   const [posts, setPosts] = useState([])
@@ -12,11 +13,15 @@ const ViewPosts = () => {
   const [isViewingActivity, setIsViewingActivity] = useState(false)
   const [currentPostId, setCurrentPostId] = useState(null) // Track the current post ID
 
+
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     const handlePosts = async () => {
-      const data = await GetPost()
+      const data = await GetPost();
       setPosts(data || [])
-    }
+    };
 
     handlePosts()
   }, [])
@@ -27,7 +32,7 @@ const ViewPosts = () => {
         post._id === postId
           ? {
               ...post,
-              comments: [...post.comments, newComment],
+              comments: [...post.comments, newComment]
             }
           : post
       )
@@ -62,6 +67,7 @@ const ViewPosts = () => {
           ? { ...post, activities: [...post.activities, newActivity] }
           : post
       )
+
     )
   }
 
@@ -97,6 +103,21 @@ const ViewPosts = () => {
 
   if (!posts || posts.length === 0) {
     return <div>No posts available.</div>
+  }
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3001/Posts/${id}`, { method: "DELETE" })
+
+      if (response.ok) {
+        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id));
+        navigate("/");
+      } else {
+        console.error("Failed to delete the post:", response.statusText)
+      }
+    } catch (error) {
+      console.error("Error can't delete the post:", error)
+    }
   }
 
   return (
@@ -143,7 +164,9 @@ const ViewPosts = () => {
             <h4>{post.like}</h4>
           </div>
 
+
           <Comment
+
             comments={post.comments}
             postId={post._id}
             onCommentAdded={(newComment) =>
@@ -151,6 +174,7 @@ const ViewPosts = () => {
             }
             onCommentDeleted={handleCommentDeleted}
           />
+
 
           <div>
             <h4>Activities:</h4>
@@ -196,12 +220,18 @@ const ViewPosts = () => {
               )}
           </div>
 
+
           <div>
             <Link to={`/details/${post._id}`}>
               <button>Details</button>
             </Link>
           </div>
           <hr />
+
+
+
+          <button onClick={() => handleDelete(post._id)}>Delete</button>
+
         </div>
       ))}
     </div>
