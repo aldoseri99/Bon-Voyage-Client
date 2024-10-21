@@ -12,10 +12,10 @@ const AddPost = () => {
     country: "",
     cost: "",
     rate: "",
-    environment: "", // Add this
-    temperature: "",  // Add this
-    weather: "",      // Add this
-    review: "",       // Add this
+    environment: "",
+    temperature: "",
+    weather: "",
+    review: "" 
   }
 
   const [formValues, setFormValues] = useState(initialState);
@@ -27,20 +27,19 @@ const AddPost = () => {
 
   const handleFileChange = (e) => {
     setFormValues({ ...formValues, photos: e.target.files[0] });
-    console.log("Updated formValues with file:", { ...formValues, photos: e.target.files[0] });
-  };
+};
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submitting form");
 
     const formData = new FormData();
     for (const key in formValues) {
-      if (key === "photos") {
-        formData.append("photos", formValues[key]);
-      } else {
-        formData.append(key, formValues[key]);
-      }
+        if (key === "photos") {
+                formData.append("photos", formValues[key]); 
+        } else {
+            formData.append(key, formValues[key]);
+        }
     }
     
     for (let [key, value] of formData.entries()) {
@@ -48,25 +47,26 @@ const AddPost = () => {
     }
 
     try {
+      console.log(formData);
+      
       const response = await axios.post(
         "http://localhost:3001/Posts",
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
-          },
+          }
         }
-      );
-      
-      // Update the post array safely (check if post is an array or initialize it as an empty array)
+      )
+    
       setPost((prevPosts) => (Array.isArray(prevPosts) ? [...prevPosts, response.data] : [response.data]));
       
-      setFormValues(initialState); // Reset form values
-      navigate("/"); // Navigate back to home
+      setFormValues(initialState)
+      navigate("/")
     } catch (error) {
-      console.error("Error uploading form and file:", error);
+      console.error("Error uploading form and file:", error)
     }
-  };
+  }
 
   return (
     <div>
@@ -82,13 +82,27 @@ const AddPost = () => {
         <input type="number" id="temperature" onChange={handleChange} value={formValues.temperature} />
   
         <label htmlFor="weather">Weather: </label>
-        <input type="text" id="weather" onChange={handleChange} value={formValues.weather} />
+        <select type="text" id="weather" onChange={handleChange} value={formValues.weather}>
+          <option value="sunny">Sunny</option>
+          <option value="cloudy">Cloudy</option>
+          <option value="rainy">Rainy</option>
+          <option value="snowy">Snowy</option>
+          <option value="windy">Windy</option>
+        </select>
+
+        <label htmlFor="environment">Environment</label>
+        <select type="text" id="environment" onChange={handleChange} value={formValues.environment}>
+          <option value="city">City</option>
+          <option value="nature">Nature</option>
+          <option value="beach">Beach</option>
+          <option value="mountain">Mountain</option>
+          <option value="desert">Desert</option>
+        </select>
   
         <label htmlFor="review">Review: </label>
-        <textarea id="review" onChange={handleChange} value={formValues.review}></textarea>
+        <input type="text" id="review" onChange={handleChange} value={formValues.review} />
   
-        <label htmlFor="photos">Photo: </label>
-        <input type="file" id="photos" name="photos" onChange={handleFileChange} />
+        
   
         <label htmlFor="rate">Rate: </label>
         <select id="rate" onChange={handleChange} value={formValues.rate}>
@@ -99,6 +113,10 @@ const AddPost = () => {
           <option value="5">5</option>
         </select>
   
+        <label htmlFor="photos">Photo: </label>
+        <input type="file" id="photos" name="photos" onChange={handleFileChange} 
+        />
+
         <button type="submit">Add Post</button>
       </form>
     </div>
