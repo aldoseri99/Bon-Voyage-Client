@@ -10,6 +10,8 @@ import SignIn from './pages/SignIn'
 import AddPost from './components/AddPost'
 import Details from './pages/Details'
 import EditProfile from './pages/EditProfile'
+import ViewActivities from "./components/ViewActivities"
+import AddPost from "./components/AddPost"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -26,7 +28,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem("token")
 
     if (token) {
       checkToken()
@@ -63,6 +65,8 @@ const App = () => {
           path="/editprofile"
           element={<EditProfile user={user} setUser={setUser} />}
         />
+        <Route path="/activities/:activitieId" element={<ViewActivities />} />
+
       </Routes>
     </>
   )
