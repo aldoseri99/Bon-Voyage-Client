@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react"
 import { GetPost } from "../services/postServices"
 import { Link } from "react-router-dom"
@@ -33,7 +32,7 @@ const ViewPosts = () => {
         post._id === postId
           ? {
               ...post,
-              comments: [...post.comments, newComment],
+              comments: [...post.comments, newComment]
             }
           : post
       )
@@ -68,6 +67,7 @@ const ViewPosts = () => {
           ? { ...post, activities: [...post.activities, newActivity] }
           : post
       )
+
     )
   }
 
@@ -153,6 +153,7 @@ const ViewPosts = () => {
 
 
           <Comment
+
             comments={post.comments}
             postId={post._id}
             onCommentAdded={(newComment) =>
@@ -160,6 +161,7 @@ const ViewPosts = () => {
             }
             onCommentDeleted={handleCommentDeleted}
           />
+
 
           <div>
             <h4>Activities:</h4>
@@ -205,6 +207,7 @@ const ViewPosts = () => {
               )}
           </div>
 
+
           <div>
             <Link to={`/details/${post._id}`}>
               <button>Details</button>
@@ -213,8 +216,8 @@ const ViewPosts = () => {
           <hr />
 
 
-          <button onClick={() => handleDelete(post._id)}>Delete</button>
 
+          <button onClick={() => handleDelete(post._id)}>Delete</button>
 
         </div>
       ))}
