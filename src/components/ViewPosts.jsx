@@ -3,9 +3,11 @@ import { GetPost } from "../services/postServices"
 import { Link } from "react-router-dom"
 import Comment from "./Comment"
 import ViewActivities from "./ViewActivities"
+import AddActivities from "./AddActivities"
 
 const ViewPosts = () => {
   const [posts, setPosts] = useState([])
+  const [activities, setActivities] = useState([])
   const [selectedActivityId, setSelectedActivityId] = useState(null)
   const [isViewingActivity, setIsViewingActivity] = useState(false)
   const [currentPostId, setCurrentPostId] = useState(null) // Track the current post ID
@@ -51,6 +53,16 @@ const ViewPosts = () => {
     setIsViewingActivity(false)
     setSelectedActivityId(null)
     setCurrentPostId(null) // Reset current post ID
+  }
+
+  const handleActivityAdd = async (postId, newActivity) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post._id === postId
+          ? { ...post, activities: [...post.activities, newActivity] }
+          : post
+      )
+    )
   }
 
   const handleActivityDelete = async (postId, activityId) => {
@@ -129,6 +141,12 @@ const ViewPosts = () => {
 
           <div>
             <h4>Activities:</h4>
+
+            <AddActivities
+              postId={post._id}
+              activities={post.activities}
+              onActivityAdded={handleActivityAdd}
+            />
 
             {post.activities.length === 0 ? (
               <p>No Activities</p>

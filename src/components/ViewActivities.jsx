@@ -15,11 +15,15 @@ const ViewActivities = ({ post, activitieId, onClose }) => {
   return activitieDetails ? (
     <div className="activity-details">
       <button onClick={onClose}>Close</button>
-      <div className="activitieDetails-img">
-        <img
-          src={`http://localhost:3001/uploads/${activitieDetails.photos}`}
-          alt={activitieDetails.name}
-        />
+      <div className="activitieDetails-photos">
+        {activitieDetails.photos.map((photo, index) => (
+          <img
+            key={index}
+            src={`http://localhost:3001/uploadPost/${photo}`}
+            alt={`${activitieDetails.name} image ${index + 1}`}
+            style={{ width: "100px", height: "100px", margin: "5px" }}
+          />
+        ))}
       </div>
       <div className="activitieDetails-name">
         <h3>{activitieDetails.name}</h3>
