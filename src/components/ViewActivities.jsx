@@ -24,7 +24,7 @@ const ViewActivities = ({ post, activitieId, onClose }) => {
         {activitieDetails.photos.map((photo, index) => (
           <img
             key={index}
-            src={`http://localhost:3001/uploadPost/${photo}`}
+            src={`http://localhost:3001/Activities/${photo}`}
             alt={`${activitieDetails.name} image ${index + 1}`}
             style={{ width: "100px", height: "100px", margin: "5px" }}
           />
