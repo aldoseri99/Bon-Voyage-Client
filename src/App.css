@@ -45,3 +45,16 @@
   width: 100px;
   height: 100px;
 }
+
+.profilePics {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
