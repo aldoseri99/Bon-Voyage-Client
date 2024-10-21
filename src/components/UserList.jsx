@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Follow, GetAllUsers } from '../services/Auth'
+import { Link } from 'react-router-dom'
 
 const UserList = ({ user, setUser }) => {
   if (user) {
@@ -50,7 +51,10 @@ const UserList = ({ user, setUser }) => {
                   src={`http://localhost:3001/profilePics/${account.profilePic}`}
                   alt="post photo"
                 />
-                <h3>{account.username}</h3>
+                <Link to={`/ViewUser/${account._id}`}>
+                  <h3>{account.username}</h3>
+                </Link>
+
                 {user.followings.includes(account._id) ? (
                   <button onClick={() => handleUnfollow(account._id)}>
                     Unfollow

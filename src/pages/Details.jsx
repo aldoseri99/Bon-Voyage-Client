@@ -1,7 +1,7 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { PostDetail } from '../services/postServices'
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import { PostDetail } from "../services/postServices"
 
 const Details = () => {
   const { id } = useParams()
@@ -12,7 +12,7 @@ const Details = () => {
         const response = await PostDetail(id)
         setPost(response)
       } catch (error) {
-        console.log('error')
+        console.log("error")
       }
     }
     getPostDetails()
@@ -40,28 +40,30 @@ const Details = () => {
               <th>cost</th>
               <th>rate</th>
             </tr>
-            {post.activities.map((activity) => (
-              <tr>
-                <td>{activity.place}</td>
-                <td>{activity.name}</td>
-                <td>
-                  <img
-                    className="activity-img"
-                    src={`http://localhost:3001/uploadPost/${activity.photos}`}
-                    alt=""
-                  />
-                </td>
-                <td>{activity.cost}</td>
-                <td>{activity.rate}</td>
-              </tr>
-            ))}
+            {post.activities &&
+              post.activities.map((activity) => (
+                <tr>
+                  <td>{activity.place}</td>
+                  <td>{activity.name}</td>
+                  <td>
+                    <img
+                      className="activity-img"
+                      src={`http://localhost:3001/uploadPost/${activity.photos}`}
+                      alt=""
+                    />
+                  </td>
+                  <td>{activity.cost}</td>
+                  <td>{activity.rate}</td>
+                </tr>
+              ))}
           </table>
-          {post.comments.map((comment) => (
-            <div>
-              <h4>{comment.title}</h4>
-              <p>{comment.content}</p>
-            </div>
-          ))}
+          {post.comments &&
+            post.comments.map((comment) => (
+              <div>
+                <h4>{comment.title}</h4>
+                <p>{comment.content}</p>
+              </div>
+            ))}
         </div>
       ) : null}
     </div>
