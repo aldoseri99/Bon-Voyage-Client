@@ -100,9 +100,22 @@ const ViewPosts = () => {
   }
 
   return (
-    <div>
+    <div className="post">
       {posts.map((post) => (
         <div key={post._id}>
+          <div className="post-user">
+            {post.User && (
+              <>
+                <img
+                  src={`http://localhost:3001/profilePics/${post.User.profilePic}`} // Adjust the path based on your backend
+                  alt={`${post.User.username}'s profile`}
+                  className="user-profile-pic"
+                />
+                <span className="username">{post.User.username}</span>
+              </>
+            )}
+          </div>
+
           <div className="post-img">
             <img
               src={`http://localhost:3001/uploadPost/${post.photos}`}

@@ -2,7 +2,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 
-const AddPost = ({ post, setPost}) => {
+const AddPost = ({ post, setPost }) => {
   let navigate = useNavigate()
 
   const initialState = {
@@ -35,13 +35,16 @@ const AddPost = ({ post, setPost}) => {
       }
     }
 
-  try {
+    try {
+      const token = localStorage.getItem("token")
+
       const response = await axios.post(
         "http://localhost:3001/post",
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
           },
         }
       )
@@ -54,7 +57,6 @@ const AddPost = ({ post, setPost}) => {
     }
   }
 
-  
   return (
     <div>
       <h2>Add Post</h2>
@@ -90,7 +92,7 @@ const AddPost = ({ post, setPost}) => {
           name="image"
           onChange={handleFileChange}
         />
-        
+
         <label htmlFor="rate">Rate: </label>
         <select id="rate" onChange={handleChange} value={formValues.rate}>
           <option value="1"> 1</option>
@@ -104,20 +106,6 @@ const AddPost = ({ post, setPost}) => {
       </form>
     </div>
   )
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 export default AddPost
-
