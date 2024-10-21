@@ -43,3 +43,17 @@ export const GetPostByUser = async (id) => {
     throw error
   }
 }
+
+export const GetPostByFollow = async (array) => {
+  try {
+    const userIds = array.join(',')
+
+    const res = await Client.get(`/Posts/followed/${userIds}`)
+    console.log('Response from server:', res)
+
+    return res.data // Return the data from the server response
+  } catch (error) {
+    console.error('Error fetching posts by followings:', error)
+    throw error // Rethrow the error for further handling
+  }
+}
