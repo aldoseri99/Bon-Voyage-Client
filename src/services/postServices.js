@@ -10,7 +10,6 @@ export const GetPost = async () => {
   }
 }
 
-
 // Function to add a new post
 export const setPost = async (postData) => {
   try {
@@ -56,5 +55,22 @@ export const GetPostByFollow = async (array) => {
   } catch (error) {
     console.error('Error fetching posts by followings:', error)
     throw error // Rethrow the error for further handling
+  }
+}
+
+export const GetBookmarked = async (userId) => {
+  try {
+    const res = await Client.get(`/Posts/bookmark/${userId}`)
+    return res.data.bookmarks
+  } catch (error) {
+    throw error
+  }
+}
+
+export const ToggleBookmark = async (userId, postId) => {
+  try {
+    const res = await Client.post(`/Posts/${userId}/bookmark/${postId}`)
+  } catch (error) {
+    throw error
   }
 }
