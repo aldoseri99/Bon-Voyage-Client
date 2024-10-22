@@ -9,8 +9,6 @@ import { useNavigate } from "react-router-dom"
 const ViewPosts = ({ user }) => {
   const [posts, setPosts] = useState([])
   const [activities, setActivities] = useState([])
-  const [selectedActivityId, setSelectedActivityId] = useState(null)
-  const [isViewingActivity, setIsViewingActivity] = useState(false)
 
   const [currentPostId, setCurrentPostId] = useState(null) // Track the current post ID
   const navigate = useNavigate()
@@ -76,58 +74,6 @@ const ViewPosts = ({ user }) => {
         comments: post.comments.filter((comment) => comment._id !== commentId),
       }))
     )
-  }
-
-  const handleActivityClick = (postId, activityId) => {
-    setCurrentPostId(postId)
-    setSelectedActivityId(activityId)
-    setIsViewingActivity(true)
-  }
-
-  const handleClose = () => {
-    setIsViewingActivity(false)
-    setSelectedActivityId(null)
-    setCurrentPostId(null)
-  }
-
-  const handleActivityAdd = async (postId, newActivity) => {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) =>
-        post._id === postId
-          ? { ...post, activities: [...post.activities, newActivity] }
-          : post
-      )
-    )
-  }
-
-  const handleActivityDelete = async (postId, activityId) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3001/activities/${activityId}`,
-        {
-          method: "DELETE",
-        }
-      )
-
-      if (!response.ok) {
-        throw new Error("Failed to delete activity")
-      }
-
-      setPosts((prevPosts) =>
-        prevPosts.map((post) =>
-          post._id === postId
-            ? {
-                ...post,
-                activities: post.activities.filter(
-                  (activity) => activity._id !== activityId
-                ),
-              }
-            : post
-        )
-      )
-    } catch (error) {
-      console.error("Error deleting activity:", error)
-    }
   }
 
   const handleDelete = async (postId) => {
@@ -211,50 +157,6 @@ const ViewPosts = ({ user }) => {
               }
               onCommentDeleted={handleCommentDeleted}
             />
-
-            <div className="activities">
-              <h4>Activities:</h4>
-
-              <AddActivities
-                postId={post._id}
-                activities={post.activities}
-                onActivityAdded={handleActivityAdd}
-              />
-
-              {post.activities.length === 0 ? (
-                <p>No Activities</p>
-              ) : (
-                post.activities.map((activity) => (
-                  <div
-                    key={activity._id}
-                    onClick={() => handleActivityClick(post._id, activity._id)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <h5>
-                      {activity.name}{" "}
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleActivityDelete(post._id, activity._id)
-                        }}
-                      >
-                        Delete Activity
-                      </button>
-                    </h5>
-                  </div>
-                ))
-              )}
-
-              {isViewingActivity &&
-                selectedActivityId &&
-                currentPostId === post._id && (
-                  <ViewActivities
-                    post={post}
-                    activitieId={selectedActivityId}
-                    onClose={handleClose}
-                  />
-                )}
-            </div>
 
             <div>
               <Link to={`/details/${post._id}`}>

@@ -40,6 +40,8 @@ const AddActivities = ({ postId, activities, onActivityAdded }) => {
 
     formData.append("post", postId)
 
+    const token = localStorage.getItem("token") // Retrieve the token
+
     try {
       const response = await axios.post(
         `http://localhost:3001/activities/${postId}`,
@@ -47,13 +49,13 @@ const AddActivities = ({ postId, activities, onActivityAdded }) => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`, // Include the token
           },
         }
       )
 
       onActivityAdded(postId, response.data)
       setFormValues(initialState)
-      navigate("/")
     } catch (error) {
       console.error("Error uploading form and file:", error)
     }
