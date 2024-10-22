@@ -81,3 +81,16 @@ export const SearchUsers = async (query) => {
     throw error
   }
 }
+
+export const GetFollowings = async (userId) => {
+  try {
+    const res = await Client.get(`/auth/follow/${userId}`)
+    return res.data.followings
+  } catch (error) {}
+}
+
+export const ToggleFollow = async (userId, followId) => {
+  try {
+    const res = await Client.post(`/auth/follow/${userId}/${followId}`)
+  } catch (error) {}
+}

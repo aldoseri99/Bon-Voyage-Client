@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Follow, GetAllUsers } from '../services/Auth'
 import { Link } from 'react-router-dom'
+import FollowButton from './FollowButton'
 
 const UserList = ({ user, setUser }) => {
   if (user) {
@@ -55,7 +56,7 @@ const UserList = ({ user, setUser }) => {
                   <h3>{account.username}</h3>
                 </Link>
 
-                {user.followings.includes(account._id) ? (
+                {/* {user.followings.includes(account._id) ? (
                   <button onClick={() => handleUnfollow(account._id)}>
                     Unfollow
                   </button>
@@ -63,7 +64,8 @@ const UserList = ({ user, setUser }) => {
                   <button onClick={() => handleFollow(account._id)}>
                     Follow
                   </button>
-                )}
+                )} */}
+                <FollowButton user={user} account={account} />
               </div>
             ))
           : null}
