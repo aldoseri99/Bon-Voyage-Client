@@ -87,6 +87,15 @@
   height: 40px; /* Make it square */
   border-radius: 50%; /* Circular profile pic */
   margin-right: 10px; /* Space between pic and username */
+  object-fit: cover;
+}
+
+.user-profile-pic-large {
+  width: 150px; /* Profile pic size */
+  height: 150px; /* Make it square */
+  border-radius: 50%; /* Circular profile pic */
+  margin-right: 10px; /* Space between pic and username */
+  object-fit: cover;
 }
 
 .post-img {
