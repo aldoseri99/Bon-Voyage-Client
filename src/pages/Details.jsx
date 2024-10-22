@@ -7,7 +7,7 @@ import AddActivities from "../components/AddActivities"
 import Map from "../components/Map"
 import { useNavigate } from "react-router-dom"
 
-const Details = () => {
+const Details = ({ user }) => {
   const { id } = useParams()
   const [post, setPost] = useState(null)
   const [coordinates, setCoordinates] = useState(null)
@@ -15,7 +15,8 @@ const Details = () => {
   const [error, setError] = useState(null)
   const [selectedActivityId, setSelectedActivityId] = useState(null)
   const [isViewingActivity, setIsViewingActivity] = useState(false)
-  const [currentPostId, setCurrentPostId] = useState(null) // Track the current post ID
+  const [currentPostId, setCurrentPostId] = useState(null)
+  const [isAddingActivity, setIsAddingActivity] = useState(false)
 
   const navigate = useNavigate()
 
@@ -67,22 +68,24 @@ const Details = () => {
   }
 
   const handleActivityAdd = async (postId, newActivity) => {
-    setPost((prevPosts) =>
-      prevPosts.map((post) =>
-        post._id === postId
-          ? { ...post, activities: [...post.activities, newActivity] }
-          : post
-      )
-    )
-    navigate("/details/id")
+    setPost((prevPost) => ({
+      ...prevPost,
+      activities: [...prevPost.activities, newActivity],
+    }))
+    navigate(`/details/${postId}`)
   }
 
   const handleActivityDelete = async (postId, activityId) => {
     try {
+      const token = localStorage.getItem("token")
+
       const response = await fetch(
         `http://localhost:3001/activities/${activityId}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
 
@@ -90,18 +93,13 @@ const Details = () => {
         throw new Error("Failed to delete activity")
       }
 
-      setPost((prevPosts) =>
-        prevPosts.map((post) =>
-          post._id === postId
-            ? {
-                ...post,
-                activities: post.activities.filter(
-                  (activity) => activity._id !== activityId
-                ),
-              }
-            : post
-        )
-      )
+      // Update the single post state
+      setPost((prevPost) => ({
+        ...prevPost,
+        activities: prevPost.activities.filter(
+          (activity) => activity._id !== activityId
+        ),
+      }))
     } catch (error) {
       console.error("Error deleting activity:", error)
     }
@@ -114,6 +112,8 @@ const Details = () => {
   if (error) {
     return <div>Error: {error}</div>
   }
+
+  const isPostOwner = post && post.User && post.User.toString() === user?.id
 
   return (
     <div>
@@ -171,12 +171,6 @@ const Details = () => {
           <div className="activities">
             <h4>Activities:</h4>
 
-            <AddActivities
-              postId={post._id}
-              activities={post.activities}
-              onActivityAdded={handleActivityAdd}
-            />
-
             {post.activities.length === 0 ? (
               <p>No Activities</p>
             ) : (
@@ -188,14 +182,16 @@ const Details = () => {
                 >
                   <h5>
                     {activity.name}{" "}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        handleActivityDelete(post._id, activity._id)
-                      }}
-                    >
-                      Delete Activity
-                    </button>
+                    {isPostOwner && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleActivityDelete(post._id, activity._id)
+                        }}
+                      >
+                        Delete Activity
+                      </button>
+                    )}
                   </h5>
                 </div>
               ))
@@ -210,15 +206,22 @@ const Details = () => {
                   onClose={handleClose}
                 />
               )}
-          </div>
 
-          {post.comments &&
-            post.comments.map((comment, index) => (
-              <div key={index}>
-                <h4>{comment.title}</h4>
-                <p>{comment.content}</p>
-              </div>
-            ))}
+            {isPostOwner && (
+              <>
+                <button onClick={() => setIsAddingActivity((prev) => !prev)}>
+                  {isAddingActivity ? "Cancel" : "Add Activity"}
+                </button>
+                {isAddingActivity && (
+                  <AddActivities
+                    postId={post._id}
+                    activities={post.activities}
+                    onActivityAdded={handleActivityAdd}
+                  />
+                )}
+              </>
+            )}
+          </div>
         </div>
       )}
     </div>
