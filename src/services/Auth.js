@@ -71,3 +71,13 @@ export const UpdateUser = async (user_id, data) => {
     throw error
   }
 }
+
+export const SearchUsers = async (query) => {
+  try {
+    const res = await Client.get(`/auth/search/${query}`)
+
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
