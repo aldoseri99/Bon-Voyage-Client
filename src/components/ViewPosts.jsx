@@ -202,7 +202,8 @@ const ViewPosts = ({ user }) => {
               {hasLiked(post) ? "Remove Like" : "Like"}
             </button>
             <button onClick={() => handleDelete(post._id)}>Delete</button>
-
+            
+            <div className="post-commint">
             <Comment
               comments={post.comments}
               postId={post._id}
@@ -211,7 +212,8 @@ const ViewPosts = ({ user }) => {
               }
               onCommentDeleted={handleCommentDeleted}
             />
-
+            </div>
+            
             <div className="activities">
               <h4>Activities:</h4>
 
