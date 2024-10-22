@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 import Comment from "./Comment"
 import ViewActivities from "./ViewActivities"
 import AddActivities from "./AddActivities"
-import Map from "./Map"
 import { useNavigate } from "react-router-dom"
 
 const ViewPosts = () => {
@@ -13,7 +12,6 @@ const ViewPosts = () => {
   const [selectedActivityId, setSelectedActivityId] = useState(null)
   const [isViewingActivity, setIsViewingActivity] = useState(false)
   const [currentPostId, setCurrentPostId] = useState(null)
-  const [coordinates, setCoordinates] = useState({})
 
   const navigate = useNavigate()
 
@@ -21,41 +19,6 @@ const ViewPosts = () => {
     const handlePosts = async () => {
       const data = await GetPost()
       setPosts(data || [])
-
-      const newCoordinates = {}
-      for (const post of data) {
-        if (post.country) {
-          try {
-            const response = await fetch(
-              `http://localhost:3001/location/${encodeURIComponent(
-                post.country
-              )}`
-            )
-
-            if (!response.ok) {
-              const errorText = await response.text()
-              console.error(
-                `Error fetching coordinates for ${post.country}:`,
-                errorText
-              )
-              continue
-            }
-
-            const locationData = await response.json()
-
-            newCoordinates[post._id] = {
-              lat: parseFloat(locationData.latitude),
-              lon: parseFloat(locationData.longitude),
-            }
-          } catch (error) {
-            console.error(
-              `Error fetching coordinates for ${post.country}:`,
-              error
-            )
-          }
-        }
-      }
-      setCoordinates(newCoordinates)
     }
 
     handlePosts()
@@ -156,7 +119,6 @@ const ViewPosts = () => {
   return (
     <div className="post">
       {posts.map((post) => {
-        const coord = coordinates[post._id]
         return (
           <div key={post._id} className="post-inner">
             <div className="post-user">
@@ -185,7 +147,6 @@ const ViewPosts = () => {
 
             <div className="post-country">
               <h3>{post.country}</h3>
-              {coord && <Map coordinates={coord} id={`map-${post._id}`} />}
             </div>
 
             <div className="post-cost">
@@ -257,10 +218,8 @@ const ViewPosts = () => {
               <Link to={`/details/${post._id}`}>
                 <button>Details</button>
               </Link>
+              <button onClick={() => handleDelete(post._id)}>Delete</button>
             </div>
-            <hr />
-
-            <button onClick={() => handleDelete(post._id)}>Delete</button>
           </div>
         )
       })}
