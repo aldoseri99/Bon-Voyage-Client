@@ -55,16 +55,6 @@ const UserList = ({ user, setUser }) => {
                 <Link to={`/ViewUser/${account._id}`}>
                   <h3>{account.username}</h3>
                 </Link>
-
-                {/* {user.followings.includes(account._id) ? (
-                  <button onClick={() => handleUnfollow(account._id)}>
-                    Unfollow
-                  </button>
-                ) : (
-                  <button onClick={() => handleFollow(account._id)}>
-                    Follow
-                  </button>
-                )} */}
                 <FollowButton user={user} account={account} />
               </div>
             ))

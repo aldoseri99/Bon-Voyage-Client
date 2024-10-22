@@ -53,7 +53,6 @@ export const Follow = async (user_id, data) => {
 export const GetUserInfo = async (user_id) => {
   try {
     const res = await Client.put(`/auth/user/${user_id}`)
-    console.log(res)
 
     return res.data
   } catch (error) {
@@ -64,7 +63,6 @@ export const GetUserInfo = async (user_id) => {
 export const UpdateUser = async (user_id, data) => {
   try {
     const res = await Client.put(`/auth/edit/${user_id}`, data)
-    console.log(res)
 
     return res.data
   } catch (error) {

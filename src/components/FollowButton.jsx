@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { GetFollowings, ToggleFollow } from '../services/Auth'
 
 const FollowButton = ({ user, account }) => {
-  if (account) {
+  if (user && account) {
     const [isFollowed, setIsFollowed] = useState(false)
     const [followedUsers, setFollowedUsers] = useState([])
 
@@ -10,7 +10,7 @@ const FollowButton = ({ user, account }) => {
       const fetchFollowings = async () => {
         try {
           const res = await GetFollowings(user.id)
-          setFollowedUsers(res) // Assuming `res` is an array of followed user objects
+          setFollowedUsers(res)
         } catch (error) {
           console.error('Error fetching followings:', error)
         }
@@ -25,7 +25,7 @@ const FollowButton = ({ user, account }) => {
         )
         setIsFollowed(postIsFollowed)
       }
-    }, [followedUsers, account._id]) // Added account as a dependency to re-evaluate when it changes
+    }, [followedUsers, account._id])
 
     const handleFollowToggle = async () => {
       try {
@@ -39,7 +39,7 @@ const FollowButton = ({ user, account }) => {
     return (
       <div>
         <button onClick={handleFollowToggle}>
-          {isFollowed ? 'Unfollow' : 'Follow'} {/* Corrected button text */}
+          {isFollowed ? 'Unfollow' : 'Follow'}
         </button>
       </div>
     )
