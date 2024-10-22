@@ -1,58 +1,60 @@
-import { useState, useEffect } from 'react';
-import { GetPost } from '../services/postServices';
-import { Link } from 'react-router-dom';
-import Comment from './Comment';
-import BookmarkButton from './BookmarkButton';
+import { useState, useEffect } from "react"
+import { GetPost } from "../services/postServices"
+import { Link } from "react-router-dom"
+import Comment from "./Comment"
+import BookmarkButton from "./BookmarkButton"
 
 const ViewPosts = ({ user }) => {
-  const [posts, setPosts] = useState([]);
-  const [selectedWeather, setSelectedWeather] = useState(null);
-  const [selectedEnvironment, setSelectedEnvironment] = useState(null);
-  const [sortOption, setSortOption] = useState('none');
+  const [posts, setPosts] = useState([])
+  const [showFilters, setShowFilters] = useState(false)
+  const [selectedWeather, setSelectedWeather] = useState(null)
+  const [selectedEnvironment, setSelectedEnvironment] = useState(null)
+  const [selectedRating, setSelectedRating] = useState(null)
+  const [sortOption, setSortOption] = useState("none")
 
   useEffect(() => {
     const handlePosts = async () => {
       try {
-        const data = await GetPost();
-        setPosts(data || []);
+        const data = await GetPost()
+        setPosts(data || [])
       } catch (error) {
-        console.error('Error fetching posts:', error);
+        console.error("Error fetching posts:", error)
       }
-    };
+    }
 
-    handlePosts();
-  }, []);
+    handlePosts()
+  }, [])
 
   const handleLikeToggle = async (postId) => {
     if (!user || !user.id) {
-      console.error('User is not defined or missing an ID.');
-      return;
+      console.error("User is not defined or missing an ID.")
+      return
     }
 
     try {
       const response = await fetch(
         `http://localhost:3001/Posts/like/${postId}`,
         {
-          method: 'PATCH',
+          method: "PATCH",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ userId: user.id }),
         }
-      );
+      )
 
       if (response.ok) {
-        const updatedPost = await response.json();
+        const updatedPost = await response.json()
         setPosts((prevPosts) =>
           prevPosts.map((post) => (post._id === postId ? updatedPost : post))
-        );
+        )
       } else {
-        console.error('Failed to update like count:', response.statusText);
+        console.error("Failed to update like count:", response.statusText)
       }
     } catch (error) {
-      console.error('Error updating like count:', error);
+      console.error("Error updating like count:", error)
     }
-  };
+  }
 
   const handleCommentAdded = (postId, newComment) => {
     setPosts((prevPosts) =>
@@ -61,8 +63,8 @@ const ViewPosts = ({ user }) => {
           ? { ...post, comments: [...post.comments, newComment] }
           : post
       )
-    );
-  };
+    )
+  }
 
   const handleCommentDeleted = (commentId) => {
     setPosts((prevPosts) =>
@@ -70,78 +72,121 @@ const ViewPosts = ({ user }) => {
         ...post,
         comments: post.comments.filter((comment) => comment._id !== commentId),
       }))
-    );
-  };
+    )
+  }
 
   const handleDelete = async (postId) => {
     try {
       const response = await fetch(`http://localhost:3001/Posts/${postId}`, {
-        method: 'DELETE',
-      });
+        method: "DELETE",
+      })
 
       if (response.ok) {
-        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
+        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId))
       } else {
-        console.error('Failed to delete post:', response.statusText);
+        console.error("Failed to delete post:", response.statusText)
       }
     } catch (error) {
-      console.error('Error deleting post:', error);
+      console.error("Error deleting post:", error)
     }
-  };
+  }
 
   const hasLiked = (post) => {
-    return user && user.id && post.likedBy && post.likedBy.includes(user.id);
-  };
+    return user && user.id && post.likedBy && post.likedBy.includes(user.id)
+  }
 
   const handleWeatherFilter = (weatherCondition) => {
-    setSelectedWeather(weatherCondition);
-  };
+    setSelectedWeather(weatherCondition)
+  }
 
   const handleEnvironmentFilter = (environmentCondition) => {
-    setSelectedEnvironment(environmentCondition);
-  };
+    setSelectedEnvironment(environmentCondition)
+  }
+
+  const handleRatingFilter = (ratingCondition) => {
+    setSelectedRating(ratingCondition)
+  }
 
   const getFilteredSortedPosts = () => {
-    let filtered = [...posts];
+    let filtered = [...posts]
 
-    // Apply weather filter
     if (selectedWeather) {
-      filtered = filtered.filter(post => post.weather === selectedWeather);
+      filtered = filtered.filter((post) => post.weather === selectedWeather)
     }
 
-    // Apply environment filter
     if (selectedEnvironment) {
-      filtered = filtered.filter(post => post.environment === selectedEnvironment);
+      filtered = filtered.filter(
+        (post) => post.environment === selectedEnvironment
+      )
     }
 
-    return filtered;
-  };
+    if (selectedRating) {
+      filtered = filtered.filter((post) => post.rate >= selectedRating)
+    }
 
-  const filteredPosts = getFilteredSortedPosts();
+    return filtered
+  }
+
+  const filteredPosts = getFilteredSortedPosts()
 
   return (
     <>
-      <h2>Filter by Weather</h2>
-      <div>
-        <button onClick={() => handleWeatherFilter(null)}>Show All</button>
-        <button onClick={() => handleWeatherFilter('sunny')}>Sunny</button>
-        <button onClick={() => handleWeatherFilter('cloudy')}>Cloudy</button>
-        <button onClick={() => handleWeatherFilter('rainy')}>Rainy</button>
-        <button onClick={() => handleWeatherFilter('snowy')}>Snowy</button>
-        <button onClick={() => handleWeatherFilter('windy')}>Windy</button>
-      </div>
+      <button onClick={() => setShowFilters((prev) => !prev)}>
+        {showFilters ? "Hide Filters" : "Show Filters"}
+      </button>
 
-      <h2>Filter by Environment</h2>
-      <div>
-        <button onClick={() => handleEnvironmentFilter(null)}>Show All</button>
-        <button onClick={() => handleEnvironmentFilter('city')}>City</button>
-        <button onClick={() => handleEnvironmentFilter('nature')}>Nature</button>
-        <button onClick={() => handleEnvironmentFilter('beach')}>Beach</button>
-        <button onClick={() => handleEnvironmentFilter('mountain')}>Mountain</button>
-        <button onClick={() => handleEnvironmentFilter('desert')}>Desert</button>
-      </div>
+      {showFilters && (
+        <>
+          <h3>Filter by Weather</h3>
+          <div>
+            <button onClick={() => handleWeatherFilter(null)}>Show All</button>
+            <button onClick={() => handleWeatherFilter("sunny")}>Sunny</button>
+            <button onClick={() => handleWeatherFilter("cloudy")}>
+              Cloudy
+            </button>
+            <button onClick={() => handleWeatherFilter("rainy")}>Rainy</button>
+            <button onClick={() => handleWeatherFilter("snowy")}>Snowy</button>
+            <button onClick={() => handleWeatherFilter("windy")}>Windy</button>
+          </div>
 
-      
+          <h3>Filter by Environment</h3>
+          <div>
+            <button onClick={() => handleEnvironmentFilter(null)}>
+              Show All
+            </button>
+            <button onClick={() => handleEnvironmentFilter("city")}>
+              City
+            </button>
+            <button onClick={() => handleEnvironmentFilter("nature")}>
+              Nature
+            </button>
+            <button onClick={() => handleEnvironmentFilter("beach")}>
+              Beach
+            </button>
+            <button onClick={() => handleEnvironmentFilter("mountain")}>
+              Mountain
+            </button>
+            <button onClick={() => handleEnvironmentFilter("desert")}>
+              Desert
+            </button>
+          </div>
+
+          <h3>Filter by Rating</h3>
+          <div>
+            <button onClick={() => handleRatingFilter(null)}>Show All</button>
+            <button onClick={() => handleRatingFilter(2)}>
+              2 Stars or Higher
+            </button>
+            <button onClick={() => handleRatingFilter(3)}>
+              3 Stars or Higher
+            </button>
+            <button onClick={() => handleRatingFilter(4)}>
+              4 Stars or Higher
+            </button>
+            <button onClick={() => handleRatingFilter(5)}>5 Stars</button>
+          </div>
+        </>
+      )}
 
       <div className="post">
         {filteredPosts.map((post) => (
@@ -189,9 +234,15 @@ const ViewPosts = ({ user }) => {
             <div className="post-like">
               <button onClick={() => handleLikeToggle(post._id)}>
                 {hasLiked(post) ? (
-                  <i className="fa-solid fa-thumbs-up" style={{ color: "#a0a0a0", marginRight: "5px" }}></i>
+                  <i
+                    className="fa-solid fa-thumbs-up"
+                    style={{ color: "#a0a0a0", marginRight: "5px" }}
+                  ></i>
                 ) : (
-                  <i className="fa-regular fa-thumbs-up" style={{ color: "#a0a0a0", marginRight: "5px" }}></i>
+                  <i
+                    className="fa-regular fa-thumbs-up"
+                    style={{ color: "#a0a0a0", marginRight: "5px" }}
+                  ></i>
                 )}
                 <h4>{post.like} Likes</h4>
               </button>
@@ -218,7 +269,7 @@ const ViewPosts = ({ user }) => {
         ))}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ViewPosts;
+export default ViewPosts
