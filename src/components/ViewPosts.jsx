@@ -171,17 +171,19 @@ const ViewPosts = ({ user }) => {
                 </>
               )}
             </div>
-
+            <div className="arrange">
+            <div className="post-title">
+              <h3 className="">{post.title}</h3>
+            </div>
             <div className="post-img">
-              <img
+              <img className="the-post-img"
                 src={`http://localhost:3001/uploadPost/${post.photos}`}
                 alt="post photo"
               />
             </div>
 
-            <div className="post-title">
-              <h3>{post.title}</h3>
-            </div>
+            <div className="post-details">
+            
 
             <div className="post-country">
               <h3>{post.country}</h3>
@@ -194,26 +196,41 @@ const ViewPosts = ({ user }) => {
             <div className="post-rate">
               <h3>{post.rate}</h3>
             </div>
+            </div>
+            </div>
 
             <div className="post-like">
-              <h4>{post.like} Likes</h4>
+              <button onClick={() => handleLikeToggle(post._id)}>
+                {hasLiked(post) ? (
+                  <i
+                    className="fa-solid fa-thumbs-up"
+                    style={{ color: "#a0a0a0", marginRight: "5px" }}
+                  ></i>
+                ) : (
+                  <i
+                    className="fa-regular fa-thumbs-up"
+                    style={{ color: "#a0a0a0", marginRight: "5px" }}
+                  ></i>
+                )}
+                {hasLiked(post) ? "" : ""}
+                <h4>{post.like} Likes</h4>
+              </button>
+              
             </div>
-            <button onClick={() => handleLikeToggle(post._id)}>
-              {hasLiked(post) ? "Remove Like" : "Like"}
-            </button>
-            <button onClick={() => handleDelete(post._id)}>Delete</button>
-            
+
+            {/* <button onClick={() => handleDelete(post._id)}>Delete</button> */}
+
             <div className="post-commint">
-            <Comment
-              comments={post.comments}
-              postId={post._id}
-              onCommentAdded={(newComment) =>
-                handleCommentAdded(post._id, newComment)
-              }
-              onCommentDeleted={handleCommentDeleted}
-            />
+              <Comment
+                comments={post.comments}
+                postId={post._id}
+                onCommentAdded={(newComment) =>
+                  handleCommentAdded(post._id, newComment)
+                }
+                onCommentDeleted={handleCommentDeleted}
+              />
             </div>
-            
+
             <div className="activities">
               <h4>Activities:</h4>
 

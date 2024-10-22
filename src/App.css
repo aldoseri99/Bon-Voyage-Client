@@ -94,10 +94,14 @@
   max-height: 300px; /* Limit height */
   overflow: hidden; /* Hide overflow */
   border-radius: 10px; /* Match border radius */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .post-img img {
-  width: 100%; /* Responsive image */
+  max-width: 100%; /* Responsive image */
+  max-height: 100%;
   height: auto; /* Maintain aspect ratio */
   border-radius: 10px; /* Match border radius */
 }
@@ -167,7 +171,7 @@ hr {
 
 /* Style for the comment section container */
 .commint-css {
-  width: 90%;
+  width: 95%;
   max-width: 1000px;
   margin: 20px auto;
   background-color: #f9f9f9;
@@ -284,3 +288,49 @@ button:hover {
 .comment-creatAT {
   font-size: 11px;
 }
+
+
+
+
+/* View Post */
+
+.post-like {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.post-like {
+  display: flex;
+  align-items: center;
+}
+
+.post-like button {
+  background-color: white;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1.5em;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  margin-left: 3%;
+  max-width: 200px;
+  max-height: 150px;
+  
+}
+
+.post-like h4 {
+  margin-left: 10px;
+}
+
+.post-like button:hover {
+  background-color:#888;/
+}
+
+
+
