@@ -6,23 +6,58 @@ import ViewActivities from "./ViewActivities"
 import AddActivities from "./AddActivities"
 import { useNavigate } from "react-router-dom"
 
-const ViewPosts = () => {
+const ViewPosts = ({ user }) => {
   const [posts, setPosts] = useState([])
   const [activities, setActivities] = useState([])
   const [selectedActivityId, setSelectedActivityId] = useState(null)
   const [isViewingActivity, setIsViewingActivity] = useState(false)
-  const [currentPostId, setCurrentPostId] = useState(null)
 
+  const [currentPostId, setCurrentPostId] = useState(null) // Track the current post ID
   const navigate = useNavigate()
 
   useEffect(() => {
     const handlePosts = async () => {
-      const data = await GetPost()
-      setPosts(data || [])
+      try {
+        const data = await GetPost()
+        setPosts(data || [])
+      } catch (error) {
+        console.error("Error fetching posts:", error)
+      }
     }
 
     handlePosts()
   }, [])
+
+  const handleLikeToggle = async (postId) => {
+    if (!user || !user.id) {
+      console.error("User is not defined or missing an ID.")
+      return
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/Posts/like/${postId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: user.id }),
+        }
+      )
+
+      if (response.ok) {
+        const updatedPost = await response.json()
+        setPosts((prevPosts) =>
+          prevPosts.map((post) => (post._id === postId ? updatedPost : post))
+        )
+      } else {
+        console.error("Failed to update like count:", response.statusText)
+      }
+    } catch (error) {
+      console.error("Error updating like count:", error)
+    }
+  }
 
   const handleCommentAdded = (postId, newComment) => {
     setPosts((prevPosts) =>
@@ -95,21 +130,28 @@ const ViewPosts = () => {
     }
   }
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (postId) => {
     try {
-      const response = await fetch(`http://localhost:3001/Posts/${id}`, {
+      const response = await fetch(`http://localhost:3001/Posts/${postId}`, {
         method: "DELETE",
       })
 
       if (response.ok) {
-        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id))
-        navigate("/")
+        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId))
       } else {
-        console.error("Failed to delete the post:", response.statusText)
+        console.error("Failed to delete post:", response.statusText)
       }
     } catch (error) {
-      console.error("Error can't delete the post:", error)
+      console.error("Error deleting post:", error)
     }
+  }
+
+  const hasLiked = (post) => {
+    return user && user.id && post.likedBy && post.likedBy.includes(user.id)
+  }
+
+  if (!posts || posts.length === 0) {
+    return <div>No posts available.</div>
   }
 
   if (!posts || posts.length === 0) {
@@ -158,8 +200,12 @@ const ViewPosts = () => {
             </div>
 
             <div className="post-like">
-              <h4>{post.like}</h4>
+              <h4>{post.like} Likes</h4>
             </div>
+            <button onClick={() => handleLikeToggle(post._id)}>
+              {hasLiked(post) ? "Remove Like" : "Like"}
+            </button>
+            <button onClick={() => handleDelete(post._id)}>Delete</button>
 
             <Comment
               comments={post.comments}
