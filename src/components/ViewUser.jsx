@@ -6,7 +6,6 @@ import ViewBookmarks from './ViewBookmarks'
 
 const ViewUser = ({ user }) => {
   const userId = useParams()
-  console.log(userId.userId)
 
   const [userInfo, setUserInfo] = useState('')
   const [posts, setPosts] = useState('')
@@ -15,7 +14,6 @@ const ViewUser = ({ user }) => {
     const getInfo = async () => {
       const res = await GetUserInfo(userId.userId)
       const PostRes = await GetPostByUser(userId.userId)
-      console.log(PostRes.data[0])
       setUserInfo(res.user[0])
       setPosts(PostRes.data)
     }
@@ -48,7 +46,7 @@ const ViewUser = ({ user }) => {
           />
           <p>{userInfo.username}</p>
           <p>{userInfo.name}</p>
-          <Link>
+          <Link to={`/followings/${userInfo._id}`}>
             <p>Followings: {userInfo.followings.length}</p>
           </Link>
           <div>
