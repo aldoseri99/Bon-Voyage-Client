@@ -38,26 +38,32 @@ const App = () => {
   }, [])
   return (
     <>
-      <Nav />
+    <div className="nav-bar">
       <Link to="/"> Home</Link>
+      <Nav />
       <br />
       {user ? (
         <>
           <Link onClick={handleLogOut} to="/">
             Sign Out
           </Link>
+          
           <br />
           <Link to="/editprofile">EditProfile</Link>
           <br />
           <Link to={`/ViewUser/${user.id}`}>View User</Link>
+          
         </>
+    
       ) : (
         <>
           <Link to="/register"> Register</Link>
           <br />
           <Link to="/signin"> Sign In</Link>
         </>
+        
       )}
+      </div> 
       <hr />
       <Routes>
         <Route path="/" element={<Home user={user} setUser={setUser} />} />
