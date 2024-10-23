@@ -66,3 +66,31 @@
 .icons div:hover {
   cursor: pointer;
 }
+
+/* some of comment style*/
+.comment-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.comment-user div {
+  display: flex;
+  align-items: center;
+}
+.comment-user div p {
+  font-size: 20px;
+  font-weight: 600;
+}
+.comment-user i {
+  font-size: 20px;
+  font-weight: 600;
+  color: #b22222;
+}
+.comment-user i:hover {
+  font-size: 20px;
+  font-weight: 600;
+  color: #b22222;
+  cursor: pointer;
+}

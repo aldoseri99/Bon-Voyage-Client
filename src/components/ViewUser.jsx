@@ -18,6 +18,8 @@ const ViewUser = ({ user }) => {
       const res = await GetUserInfo(userId.userId)
       const PostRes = await GetPostByUser(userId.userId)
       setUserInfo(res.user[0])
+      console.log(PostRes)
+
       setPosts(PostRes.data)
     }
     getInfo()
@@ -120,18 +122,6 @@ const ViewUser = ({ user }) => {
             </div>
           </section>
           <div>
-            {/* {user
-              ? user.id === userInfo._id && (
-                  <>
-                    <button onClick={() => setShowBookmarks(false)}>
-                      View Posts
-                    </button>
-                    <button onClick={() => setShowBookmarks(true)}>
-                      View Bookmarks
-                    </button>
-                  </>
-                )
-              : null} */}
             <div className="users-post">
               {showBookmarks ? (
                 <ViewBookmarks
@@ -145,19 +135,29 @@ const ViewUser = ({ user }) => {
                   <div key={post._id} className="post-inner">
                     {post.User && (
                       <div className="post-user">
-                        <Link to={`/ViewUser/${post.User._id}`}>
-                          <img
-                            src={`http://localhost:3001/profilePics/${userInfo.profilePic}`}
-                            alt={`${userInfo.username}'s profile`}
-                            className="user-profile-pic"
-                          />
-                        </Link>
-                        <Link
-                          className="userLink"
-                          to={`/ViewUser/${post.User._id}`}
-                        >
-                          <p className="username-post">{userInfo.username}</p>
-                        </Link>
+                        <div>
+                          <Link to={`/ViewUser/${post.User}`}>
+                            <img
+                              src={`http://localhost:3001/profilePics/${userInfo.profilePic}`}
+                              alt={`${userInfo.username}'s profile`}
+                              className="user-profile-pic"
+                            />
+                          </Link>
+                          <Link
+                            className="userLink"
+                            to={`/ViewUser/${post.User}`}
+                          >
+                            <p className="username-post">{userInfo.username}</p>
+                          </Link>
+                        </div>
+                        {user?.id === userInfo._id ? (
+                          <i
+                            onClick={() => {
+                              handleDelete(post._id)
+                            }}
+                            class="fa-solid fa-trash"
+                          ></i>
+                        ) : null}
                       </div>
                     )}
                     <div className="post-main">

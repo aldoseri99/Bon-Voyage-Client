@@ -125,14 +125,10 @@ const Details = ({ user }) => {
   }
 
   const handleCommentDeleted = (commentId) => {
-    setPost((prevPost) =>
-      prevPost?.map((post) => ({
-        ...post,
-        comments: prevPost.comments.filter(
-          (comment) => comment._id !== commentId
-        )
-      }))
-    )
+    setPost((prevPost) => ({
+      ...prevPost,
+      comments: prevPost.comments.filter((comment) => comment._id !== commentId)
+    }))
   }
 
   return (
@@ -320,6 +316,7 @@ const Details = ({ user }) => {
                 handleCommentAdded(post._id, newComment)
               }
               onCommentDeleted={handleCommentDeleted}
+              user={user}
             />
           </div>
         </div>

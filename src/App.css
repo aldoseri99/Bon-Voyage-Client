@@ -102,7 +102,24 @@ body {
 .post-user {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin: 15px;
+}
+
+.post-user div {
+  display: flex;
+  align-items: center;
+}
+.post-user i {
+  font-size: 20px;
+  font-weight: 600;
+  color: #b22222;
+}
+.post-user i:hover {
+  font-size: 20px;
+  font-weight: 600;
+  color: #b22222;
+  cursor: pointer;
 }
 
 .username-post {
