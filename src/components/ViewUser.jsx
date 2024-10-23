@@ -134,7 +134,7 @@ const ViewUser = ({ user }) => {
                 posts.map((post) => (
                   <div key={post._id} className="post-inner">
                     {post.User && (
-                      <div className="post-user">
+                      <div className="post-userPage">
                         <div>
                           <Link to={`/ViewUser/${post.User}`}>
                             <img
