@@ -131,141 +131,95 @@ const ViewPosts = ({ user }) => {
 
   return (
     <>
-      <button onClick={() => setShowFilters((prev) => !prev)}>
-        {showFilters ? 'Hide Filters' : 'Show Filters'}
-      </button>
+      <div>
+        <button onClick={() => setShowFilters((prev) => !prev)}>
+          {showFilters ? 'Hide Filters' : 'Show Filters'}
+        </button>
 
-      {showFilters && (
-        <>
-          <h3>Filter by Weather</h3>
-          <div>
-            <button onClick={() => handleWeatherFilter(null)}>Show All</button>
-            <button onClick={() => handleWeatherFilter('sunny')}>Sunny</button>
-            <button onClick={() => handleWeatherFilter('cloudy')}>
-              Cloudy
-            </button>
-            <button onClick={() => handleWeatherFilter('rainy')}>Rainy</button>
-            <button onClick={() => handleWeatherFilter('snowy')}>Snowy</button>
-            <button onClick={() => handleWeatherFilter('windy')}>Windy</button>
-          </div>
+        {showFilters && (
+          <>
+            <h3>Filter by Weather</h3>
+            <select onChange={(e) => handleWeatherFilter(e.target.value)}>
+              <option value="">Show All</option>
+              <option value="sunny">Sunny</option>
+              <option value="cloudy">Cloudy</option>
+              <option value="rainy">Rainy</option>
+              <option value="snowy">Snowy</option>
+              <option value="windy">Windy</option>
+            </select>
 
-          <h3>Filter by Environment</h3>
-          <div>
-            <button onClick={() => handleEnvironmentFilter(null)}>
-              Show All
-            </button>
-            <button onClick={() => handleEnvironmentFilter('city')}>
-              City
-            </button>
-            <button onClick={() => handleEnvironmentFilter('nature')}>
-              Nature
-            </button>
-            <button onClick={() => handleEnvironmentFilter('beach')}>
-              Beach
-            </button>
-            <button onClick={() => handleEnvironmentFilter('mountain')}>
-              Mountain
-            </button>
-            <button onClick={() => handleEnvironmentFilter('desert')}>
-              Desert
-            </button>
-          </div>
+            <h3>Filter by Environment</h3>
+            <select onChange={(e) => handleEnvironmentFilter(e.target.value)}>
+              <option value="">Show All</option>
+              <option value="city">City</option>
+              <option value="nature">Nature</option>
+              <option value="beach">Beach</option>
+              <option value="mountain">Mountain</option>
+              <option value="desert">Desert</option>
+            </select>
 
-          <h3>Filter by Rating</h3>
-          <div>
-            <button onClick={() => handleRatingFilter(null)}>Show All</button>
-            <button onClick={() => handleRatingFilter(2)}>
-              2 Stars or Higher
-            </button>
-            <button onClick={() => handleRatingFilter(3)}>
-              3 Stars or Higher
-            </button>
-            <button onClick={() => handleRatingFilter(4)}>
-              4 Stars or Higher
-            </button>
-            <button onClick={() => handleRatingFilter(5)}>5 Stars</button>
-          </div>
-        </>
-      )}
+            <h3>Filter by Rating</h3>
+            <select
+              onChange={(e) => handleRatingFilter(Number(e.target.value))}
+            >
+              <option value="">Show All</option>
+              <option value="2">2 Stars or Higher</option>
+              <option value="3">3 Stars or Higher</option>
+              <option value="4">4 Stars or Higher</option>
+              <option value="5">5 Stars</option>
+            </select>
+          </>
+        )}
+      </div>
 
       <div className="post">
         {filteredPosts.map((post) => (
           <div key={post._id} className="post-inner">
-            <div className="post-user">
-              {post.User && (
-                <>
+            {post.User && (
+              <div className="post-user">
+                <Link to={`/ViewUser/${post.User._id}`}>
                   <img
                     src={`http://localhost:3001/profilePics/${post.User.profilePic}`}
                     alt={`${post.User.username}'s profile`}
                     className="user-profile-pic"
                   />
-                  <Link to={`/ViewUser/${post.User._id}`}>
-                    <span className="username">{post.User.username}</span>
-                  </Link>
-                </>
-              )}
-              <BookmarkButton user={user} post={post} />
-            </div>
-            <div className="arrange">
-              <div className="post-title">
-                <h3>{post.title}</h3>
+                </Link>
+                <Link className="userLink" to={`/ViewUser/${post.User._id}`}>
+                  <p className="username">{post.User.username}</p>
+                </Link>
               </div>
-              <div className="post-img">
+            )}
+            <div className="post-main">
+              <Link to={`/details/${post._id}`}>
                 <img
-                  className="the-post-img"
+                  className="post-img"
                   src={`http://localhost:3001/uploadPost/${post.photos}`}
                   alt="post photo"
                 />
-              </div>
-
-              <div className="post-details">
-                <div className="post-country">
-                  <h3>{post.country}</h3>
-                </div>
-
-                <div className="post-cost">
-                  <h3>{post.cost} BHD</h3>
-                </div>
-
-                <div className="post-rate">
-                  <h3>{post.rate}</h3>
-                </div>
-              </div>
-            </div>
-
-            <div className="post-like">
-              <button onClick={() => handleLikeToggle(post._id)}>
-                {hasLiked(post) ? (
-                  <i
-                    className="fa-solid fa-thumbs-up"
-                    style={{ color: '#a0a0a0', marginRight: '5px' }}
-                  ></i>
-                ) : (
-                  <i
-                    className="fa-regular fa-thumbs-up"
-                    style={{ color: '#a0a0a0', marginRight: '5px' }}
-                  ></i>
-                )}
-                <h4>{post.like} Likes</h4>
-              </button>
-            </div>
-
-            <div className="post-comment">
-              <Comment
-                comments={post.comments}
-                postId={post._id}
-                onCommentAdded={(newComment) =>
-                  handleCommentAdded(post._id, newComment)
-                }
-                onCommentDeleted={handleCommentDeleted}
-              />
-            </div>
-
-            <div>
-              <Link to={`/details/${post._id}`}>
-                <button>Details</button>
               </Link>
-              <button onClick={() => handleDelete(post._id)}>Delete</button>
+              <div className="post-main-info">
+                <Link to={`/details/${post._id}`}>
+                  <h3>{post.title}</h3>
+                </Link>
+                <h3>
+                  {post.rate}
+                  <i class="fa-solid fa-star"></i>
+                </h3>
+              </div>
+            </div>
+
+            <div className="post-details">
+              <button
+                className="post-like"
+                onClick={() => handleLikeToggle(post._id)}
+              >
+                {hasLiked(post) ? (
+                  <i class="fa-solid fa-heart"></i>
+                ) : (
+                  <i class="fa-regular fa-heart"></i>
+                )}
+              </button>
+              <BookmarkButton user={user} post={post} />
             </div>
           </div>
         ))}

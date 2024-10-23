@@ -1,5 +1,18 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background-color: #fbf6ef;
+  background-image: url('/public/background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -65,75 +78,106 @@
 }
 
 .post {
-  border-radius: 10px; /* Rounded corners */
-  padding: 15px; /* Inner spacing */
-  margin: 20px auto; /* Centered margin */
-  max-width: 1200px; /* Max width for larger screens */
-  background-color: #fff; /* White background */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 30px;
+  gap: 5px;
 }
 
 .post-inner {
-  padding: 10px;
-  border-radius: 8px; /* Match border radius for inner content */
-  border: 3px solid #ccc;
+  border-radius: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  background-color: #fff; /* Background for the content area */
+  background-color: #fff;
+  width: 400px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 .post-user {
   display: flex;
   align-items: center;
-  margin-bottom: 10px; /* Space below user info */
+  margin: 15px;
+}
+.userLink {
+  all: unset;
+  margin-left: 10px;
+  font-size: 20px;
+}
+.userLink:hover {
+  cursor: pointer;
 }
 
 .user-profile-pic {
-  width: 40px; /* Profile pic size */
-  height: 40px; /* Make it square */
-  border-radius: 50%; /* Circular profile pic */
-  margin-right: 10px; /* Space between pic and username */
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
   object-fit: cover;
 }
 
 .user-profile-pic-large {
-  width: 150px; /* Profile pic size */
-  height: 150px; /* Make it square */
-  border-radius: 50%; /* Circular profile pic */
-  margin-right: 10px; /* Space between pic and username */
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 10px;
   object-fit: cover;
 }
 
-.post-img {
-  width: 100%; /* Full width of the container */
-  max-height: 300px; /* Limit height */
-  overflow: hidden; /* Hide overflow */
-  border-radius: 10px; /* Match border radius */
+.post-main {
+  height: 400px;
+  position: relative;
   display: flex;
   justify-content: center;
+  background-color: #45a049;
+}
+.post-img {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+}
+
+.post-main-info {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  height: 50px;
+}
+.post-main-info h3 {
+  padding: 0 15px;
+}
+.post-main-info h3 i {
+  color: gold;
+  margin-left: 5px;
 }
 
-.post-img img {
-  max-width: 100%; /* Responsive image */
-  max-height: 100%;
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 10px; /* Match border radius */
+.post-details {
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0 20px;
 }
 
-.post-title,
-.post-country,
-.post-cost,
-.post-rate,
-.post-like {
-  margin: 10px 0; /* Space between sections */
+.post-details button {
+  all: unset;
+}
+/* bookmark button */
+.post-details button {
+  all: unset;
+  font-size: 30px;
+}
+.post-details button:hover {
+  all: unset;
+  font-size: 30px;
+  cursor: pointer;
 }
 
-.post-title h3,
-.post-country h3,
-.post-cost h3,
-.post-rate h3,
-.post-like h4 {
-  margin: 0; /* Remove default margin */
+.fa-solid.fa-heart {
+  color: red;
 }
 
 button {
@@ -155,7 +199,14 @@ h4 {
 }
 
 hr {
-  margin: 20px 0; /* Space before and after hr */
+  margin: 20px 0;
+}
+
+.activities {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .viewuser-post {
@@ -176,18 +227,6 @@ hr {
   height: 340px;
 }
 
-/* bookmark button */
-.bookmark-btn {
-  all: unset;
-  font-size: 30px;
-}
-.bookmark-btn:hover {
-  all: unset;
-  font-size: 30px;
-  text-shadow: 0px 0px 1px gold;
-}
-
-
 /* Style for the comment section container */
 .commint-css {
   width: 95%;
@@ -199,7 +238,6 @@ hr {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-
 /* Individual comment styling */
 .comment {
   display: flex;
@@ -207,12 +245,6 @@ hr {
   margin-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid #ddd;
-}
-
-.post-user {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
 }
 
 /* Style for the user profile image */
@@ -308,9 +340,6 @@ button:hover {
   font-size: 11px;
 }
 
-
-
-
 /* View Post */
 
 .post-like {
@@ -340,7 +369,6 @@ button:hover {
   margin-left: 3%;
   max-width: 200px;
   max-height: 150px;
-  
 }
 
 .post-like h4 {
@@ -348,15 +376,14 @@ button:hover {
 }
 
 .post-like button:hover {
-  background-color:#888;/
+  background-color: #888;
 }
-
 
 .floating-button {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #4CAF50;
+  background-color: #b7cbc9;
   color: white;
   border: none;
   padding: 15px 30px;
@@ -368,36 +395,134 @@ button:hover {
 }
 
 .floating-button:hover {
-  background-color: #45a049;
+  background-color: rgb(163, 166, 161);
 }
 
-.fa-star{
-color: rgb(255, 162, 0);
+a {
+  all: unset;
+}
+a:hover {
+  cursor: pointer;
+}
+
+/* SignIn Page */
+
+.login-page {
+  height: 85vh;
+  width: 85vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  border-radius: 8px;
+  z-index: 2;
+  position: relative;
+}
+
+.signin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.card-overlay {
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: -20vh;
+}
+
+.input-row {
+  display: flex;
+  gap: 80px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.input-wrapper {
+  flex: 1;
+  padding: 0 20px;
+  text-align: start;
+}
+
+.input-sginin {
+  width: 100%;
+  padding: 20px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-height: 1px;
+  font-size: 15px;
+}
+
+.signin-button {
+  margin-top: 40px;
+  font-size: 22px;
+  border-radius: 10vh;
+  background-color: black;
+  width: 140px;
+  height: 50px;
+  color: white;
+  margin-left: 8vh;
+}
+
+.login-text {
+  display: flex;
+  margin-bottom: 40px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.login-msg {
+  text-align: left;
+  margin-bottom: 80px;
+  font-size: 55px;
+  font-weight: bold;
+  color: #333;
+}
+
+.full-page-cover {
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-image: url('/login-page-background01.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
 }
 
 .detail-header {
   display: flex;
-  justify-content: space-between; 
-  align-items: center; 
-  margin-bottom: 20px; 
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .detail-title {
-  text-align: right; 
+  text-align: right;
 }
 
-
-.detail-date{
+.detail-date {
   text-align: left;
 }
 
 .detail-stats {
   text-align: left;
-  padding-top: 14px; 
+  padding-top: 14px;
 }
 
-.detail-stats p{
-  font-size: 19px; 
+.detail-stats p {
+  font-size: 19px;
 }
 
 .image-map-container {
@@ -407,18 +532,17 @@ color: rgb(255, 162, 0);
 }
 
 .post-image {
-  width: 60%; 
-  height: 100%;  
-  object-fit: cover; 
-  margin-left: auto; 
+  width: 60%;
+  height: 100%;
+  object-fit: cover;
+  margin-left: auto;
 }
 
 .post-country {
   width: 40%;
-  height: 100%;  
+  height: 100%;
   position: relative;
 }
-
 
 .leaflet-container {
   height: 100%;
@@ -427,27 +551,27 @@ color: rgb(255, 162, 0);
 
 .detail-info {
   display: flex;
-  justify-content: space-between; 
-  align-items: flex-start; 
+  justify-content: space-between;
+  align-items: flex-start;
   margin-bottom: 20px;
 }
 
 .review-section {
-  flex: 1; 
+  flex: 1;
   text-align: left;
 }
 
 .info-section {
   display: flex;
-  flex-direction: row; 
-  align-items: flex-end; 
-  margin-left: 20px; 
+  flex-direction: row;
+  align-items: flex-end;
+  margin-left: 20px;
 }
 
 .icon {
-  width: 85px;  
-  height: 85px; 
-  object-fit: contain; 
+  width: 85px;
+  height: 85px;
+  object-fit: contain;
 }
 
 .activities {
@@ -467,10 +591,9 @@ color: rgb(255, 162, 0);
   margin: 10px 0;
 }
 
-
 .activity-image {
-  width: 50px; 
-  height: auto; 
+  width: 50px;
+  height: auto;
   margin-left: 10px;
 }
 
@@ -481,30 +604,30 @@ color: rgb(255, 162, 0);
 
 .activity-info {
   display: flex;
-  justify-content: space-between; 
-  align-items: center; 
+  justify-content: space-between;
+  align-items: center;
 }
 
 .activity-name {
-  flex: 1; 
-  margin-right: 20px; 
+  flex: 1;
+  margin-right: 20px;
   text-align: left;
 }
 
-.activity-name h2{
-  flex: 1; 
-  margin-right: 20px; 
+.activity-name h2 {
+  flex: 1;
+  margin-right: 20px;
   text-align: left;
 }
 
 .activity-photos {
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 .activity-photo {
-  width: 200px; 
-  height: 200px; 
+  width: 200px;
+  height: 200px;
   margin: 5px;
   object-fit: cover;
 }
@@ -537,8 +660,8 @@ label {
   font-weight: bold;
 }
 
-input[type="text"],
-input[type="number"],
+input[type='text'],
+input[type='number'],
 select {
   padding: 10px;
   border: 1px solid #ccc;
@@ -546,7 +669,7 @@ select {
   font-size: 16px;
 }
 
-input[type="file"] {
+input[type='file'] {
   border: none;
 }
 
@@ -565,14 +688,14 @@ input[type="file"] {
   background-color: #218838;
 }
 
-.add-activity{
+.add-activity {
   background: none;
   border-radius: 15px;
   color: #3c9918;
   font-size: 1.7rem;
 }
 
-.add-activity:hover{
+.add-activity:hover {
   background: none;
   border-radius: 15px;
   color: #212020;
@@ -583,7 +706,7 @@ input[type="file"] {
   border: none;
   color: #ff0000;
   cursor: pointer;
-  margin-left: 10px; 
+  margin-left: 10px;
 }
 
 .delete-activity:hover {
@@ -592,6 +715,6 @@ input[type="file"] {
   color: #212020;
 }
 
-.fa-trash{
+.fa-trash {
   font-size: 1.3rem;
 }
