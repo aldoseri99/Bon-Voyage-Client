@@ -1,17 +1,16 @@
-import { useState, useEffect } from "react"
-import { GetPost } from "../services/postServices"
-import { Link } from "react-router-dom"
-import Comment from "./Comment"
-import ViewActivities from "./ViewActivities"
-import AddActivities from "./AddActivities"
-import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from 'react'
+import { GetPost } from '../services/postServices'
+import { Link } from 'react-router-dom'
+import Comment from './Comment'
+import BookmarkButton from './BookmarkButton'
 
 const ViewPosts = ({ user }) => {
   const [posts, setPosts] = useState([])
-  const [activities, setActivities] = useState([])
-
-  const [currentPostId, setCurrentPostId] = useState(null) // Track the current post ID
-  const navigate = useNavigate()
+  const [showFilters, setShowFilters] = useState(false)
+  const [selectedWeather, setSelectedWeather] = useState(null)
+  const [selectedEnvironment, setSelectedEnvironment] = useState(null)
+  const [selectedRating, setSelectedRating] = useState(null)
+  const [sortOption, setSortOption] = useState('none')
 
   useEffect(() => {
     const handlePosts = async () => {
@@ -19,7 +18,7 @@ const ViewPosts = ({ user }) => {
         const data = await GetPost()
         setPosts(data || [])
       } catch (error) {
-        console.error("Error fetching posts:", error)
+        console.error('Error fetching posts:', error)
       }
     }
 
@@ -28,7 +27,7 @@ const ViewPosts = ({ user }) => {
 
   const handleLikeToggle = async (postId) => {
     if (!user || !user.id) {
-      console.error("User is not defined or missing an ID.")
+      console.error('User is not defined or missing an ID.')
       return
     }
 
@@ -36,11 +35,11 @@ const ViewPosts = ({ user }) => {
       const response = await fetch(
         `http://localhost:3001/Posts/like/${postId}`,
         {
-          method: "PATCH",
+          method: 'PATCH',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ userId: user.id }),
+          body: JSON.stringify({ userId: user.id })
         }
       )
 
@@ -50,10 +49,10 @@ const ViewPosts = ({ user }) => {
           prevPosts.map((post) => (post._id === postId ? updatedPost : post))
         )
       } else {
-        console.error("Failed to update like count:", response.statusText)
+        console.error('Failed to update like count:', response.statusText)
       }
     } catch (error) {
-      console.error("Error updating like count:", error)
+      console.error('Error updating like count:', error)
     }
   }
 
@@ -71,7 +70,7 @@ const ViewPosts = ({ user }) => {
     setPosts((prevPosts) =>
       prevPosts.map((post) => ({
         ...post,
-        comments: post.comments.filter((comment) => comment._id !== commentId),
+        comments: post.comments.filter((comment) => comment._id !== commentId)
       }))
     )
   }
@@ -79,16 +78,16 @@ const ViewPosts = ({ user }) => {
   const handleDelete = async (postId) => {
     try {
       const response = await fetch(`http://localhost:3001/Posts/${postId}`, {
-        method: "DELETE",
+        method: 'DELETE'
       })
 
       if (response.ok) {
         setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId))
       } else {
-        console.error("Failed to delete post:", response.statusText)
+        console.error('Failed to delete post:', response.statusText)
       }
     } catch (error) {
-      console.error("Error deleting post:", error)
+      console.error('Error deleting post:', error)
     }
   }
 
@@ -96,14 +95,101 @@ const ViewPosts = ({ user }) => {
     return user && user.id && post.likedBy && post.likedBy.includes(user.id)
   }
 
-  if (!posts || posts.length === 0) {
-    return <div>No posts available.</div>
+  const handleWeatherFilter = (weatherCondition) => {
+    setSelectedWeather(weatherCondition)
   }
 
+  const handleEnvironmentFilter = (environmentCondition) => {
+    setSelectedEnvironment(environmentCondition)
+  }
+
+  const handleRatingFilter = (ratingCondition) => {
+    setSelectedRating(ratingCondition)
+  }
+
+  const getFilteredSortedPosts = () => {
+    let filtered = [...posts]
+
+    if (selectedWeather) {
+      filtered = filtered.filter((post) => post.weather === selectedWeather)
+    }
+
+    if (selectedEnvironment) {
+      filtered = filtered.filter(
+        (post) => post.environment === selectedEnvironment
+      )
+    }
+
+    if (selectedRating) {
+      filtered = filtered.filter((post) => post.rate >= selectedRating)
+    }
+
+    return filtered
+  }
+
+  const filteredPosts = getFilteredSortedPosts()
+
   return (
-    <div className="post">
-      {posts.map((post) => {
-        return (
+    <>
+      <button onClick={() => setShowFilters((prev) => !prev)}>
+        {showFilters ? 'Hide Filters' : 'Show Filters'}
+      </button>
+
+      {showFilters && (
+        <>
+          <h3>Filter by Weather</h3>
+          <div>
+            <button onClick={() => handleWeatherFilter(null)}>Show All</button>
+            <button onClick={() => handleWeatherFilter('sunny')}>Sunny</button>
+            <button onClick={() => handleWeatherFilter('cloudy')}>
+              Cloudy
+            </button>
+            <button onClick={() => handleWeatherFilter('rainy')}>Rainy</button>
+            <button onClick={() => handleWeatherFilter('snowy')}>Snowy</button>
+            <button onClick={() => handleWeatherFilter('windy')}>Windy</button>
+          </div>
+
+          <h3>Filter by Environment</h3>
+          <div>
+            <button onClick={() => handleEnvironmentFilter(null)}>
+              Show All
+            </button>
+            <button onClick={() => handleEnvironmentFilter('city')}>
+              City
+            </button>
+            <button onClick={() => handleEnvironmentFilter('nature')}>
+              Nature
+            </button>
+            <button onClick={() => handleEnvironmentFilter('beach')}>
+              Beach
+            </button>
+            <button onClick={() => handleEnvironmentFilter('mountain')}>
+              Mountain
+            </button>
+            <button onClick={() => handleEnvironmentFilter('desert')}>
+              Desert
+            </button>
+          </div>
+
+          <h3>Filter by Rating</h3>
+          <div>
+            <button onClick={() => handleRatingFilter(null)}>Show All</button>
+            <button onClick={() => handleRatingFilter(2)}>
+              2 Stars or Higher
+            </button>
+            <button onClick={() => handleRatingFilter(3)}>
+              3 Stars or Higher
+            </button>
+            <button onClick={() => handleRatingFilter(4)}>
+              4 Stars or Higher
+            </button>
+            <button onClick={() => handleRatingFilter(5)}>5 Stars</button>
+          </div>
+        </>
+      )}
+
+      <div className="post">
+        {filteredPosts.map((post) => (
           <div key={post._id} className="post-inner">
             <div className="post-user">
               {post.User && (
@@ -113,36 +199,38 @@ const ViewPosts = ({ user }) => {
                     alt={`${post.User.username}'s profile`}
                     className="user-profile-pic"
                   />
-                  <span className="username">{post.User.username}</span>
+                  <Link to={`/ViewUser/${post.User._id}`}>
+                    <span className="username">{post.User.username}</span>
+                  </Link>
                 </>
               )}
+              <BookmarkButton user={user} post={post} />
             </div>
             <div className="arrange">
-            <div className="post-title">
-              <h3 className="">{post.title}</h3>
-            </div>
-            <div className="post-img">
-              <img className="the-post-img"
-                src={`http://localhost:3001/uploadPost/${post.photos}`}
-                alt="post photo"
-              />
-            </div>
+              <div className="post-title">
+                <h3>{post.title}</h3>
+              </div>
+              <div className="post-img">
+                <img
+                  className="the-post-img"
+                  src={`http://localhost:3001/uploadPost/${post.photos}`}
+                  alt="post photo"
+                />
+              </div>
 
-            <div className="post-details">
-            
+              <div className="post-details">
+                <div className="post-country">
+                  <h3>{post.country}</h3>
+                </div>
 
-            <div className="post-country">
-              <h3>{post.country}</h3>
-            </div>
+                <div className="post-cost">
+                  <h3>{post.cost} BHD</h3>
+                </div>
 
-            <div className="post-cost">
-              <h3>{post.cost} BHD</h3>
-            </div>
-
-            <div className="post-rate">
-              <h3>{post.rate}</h3>
-            </div>
-            </div>
+                <div className="post-rate">
+                  <h3>{post.rate}</h3>
+                </div>
+              </div>
             </div>
 
             <div className="post-like">
@@ -150,23 +238,19 @@ const ViewPosts = ({ user }) => {
                 {hasLiked(post) ? (
                   <i
                     className="fa-solid fa-thumbs-up"
-                    style={{ color: "#a0a0a0", marginRight: "5px" }}
+                    style={{ color: '#a0a0a0', marginRight: '5px' }}
                   ></i>
                 ) : (
                   <i
                     className="fa-regular fa-thumbs-up"
-                    style={{ color: "#a0a0a0", marginRight: "5px" }}
+                    style={{ color: '#a0a0a0', marginRight: '5px' }}
                   ></i>
                 )}
-                {hasLiked(post) ? "" : ""}
                 <h4>{post.like} Likes</h4>
               </button>
-              
             </div>
 
-            {/* <button onClick={() => handleDelete(post._id)}>Delete</button> */}
-
-            <div className="post-commint">
+            <div className="post-comment">
               <Comment
                 comments={post.comments}
                 postId={post._id}
@@ -184,9 +268,9 @@ const ViewPosts = ({ user }) => {
               <button onClick={() => handleDelete(post._id)}>Delete</button>
             </div>
           </div>
-        )
-      })}
-    </div>
+        ))}
+      </div>
+    </>
   )
 }
 

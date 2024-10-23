@@ -53,7 +53,6 @@ export const Follow = async (user_id, data) => {
 export const GetUserInfo = async (user_id) => {
   try {
     const res = await Client.put(`/auth/user/${user_id}`)
-    console.log(res)
 
     return res.data
   } catch (error) {
@@ -64,7 +63,6 @@ export const GetUserInfo = async (user_id) => {
 export const UpdateUser = async (user_id, data) => {
   try {
     const res = await Client.put(`/auth/edit/${user_id}`, data)
-    console.log(res)
 
     return res.data
   } catch (error) {
@@ -80,4 +78,17 @@ export const SearchUsers = async (query) => {
   } catch (error) {
     throw error
   }
+}
+
+export const GetFollowings = async (userId) => {
+  try {
+    const res = await Client.get(`/auth/follow/${userId}`)
+    return res.data.followings
+  } catch (error) {}
+}
+
+export const ToggleFollow = async (userId, followId) => {
+  try {
+    const res = await Client.post(`/auth/follow/${userId}/${followId}`)
+  } catch (error) {}
 }
