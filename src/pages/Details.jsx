@@ -116,7 +116,7 @@ const Details = ({ user }) => {
   const isPostOwner = post && post.User && post.User.toString() === user?.id
 
   return (
-    <div>
+    <div className="background-color">
       {post && (
         <div>
           <div className="post-details">
