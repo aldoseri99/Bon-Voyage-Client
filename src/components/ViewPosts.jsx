@@ -131,62 +131,44 @@ const ViewPosts = ({ user }) => {
 
   return (
     <>
-      <button onClick={() => setShowFilters((prev) => !prev)}>
-        {showFilters ? 'Hide Filters' : 'Show Filters'}
-      </button>
+    <div>
+    <button onClick={() => setShowFilters((prev) => !prev)}>
+      {showFilters ? 'Hide Filters' : 'Show Filters'}
+    </button>
 
-      {showFilters && (
-        <>
-          <h3>Filter by Weather</h3>
-          <div>
-            <button onClick={() => handleWeatherFilter(null)}>Show All</button>
-            <button onClick={() => handleWeatherFilter('sunny')}>Sunny</button>
-            <button onClick={() => handleWeatherFilter('cloudy')}>
-              Cloudy
-            </button>
-            <button onClick={() => handleWeatherFilter('rainy')}>Rainy</button>
-            <button onClick={() => handleWeatherFilter('snowy')}>Snowy</button>
-            <button onClick={() => handleWeatherFilter('windy')}>Windy</button>
-          </div>
+    {showFilters && (
+      <>
+        <h3>Filter by Weather</h3>
+        <select onChange={(e) => handleWeatherFilter(e.target.value)}>
+          <option value="">Show All</option>
+          <option value="sunny">Sunny</option>
+          <option value="cloudy">Cloudy</option>
+          <option value="rainy">Rainy</option>
+          <option value="snowy">Snowy</option>
+          <option value="windy">Windy</option>
+        </select>
 
-          <h3>Filter by Environment</h3>
-          <div>
-            <button onClick={() => handleEnvironmentFilter(null)}>
-              Show All
-            </button>
-            <button onClick={() => handleEnvironmentFilter('city')}>
-              City
-            </button>
-            <button onClick={() => handleEnvironmentFilter('nature')}>
-              Nature
-            </button>
-            <button onClick={() => handleEnvironmentFilter('beach')}>
-              Beach
-            </button>
-            <button onClick={() => handleEnvironmentFilter('mountain')}>
-              Mountain
-            </button>
-            <button onClick={() => handleEnvironmentFilter('desert')}>
-              Desert
-            </button>
-          </div>
+        <h3>Filter by Environment</h3>
+        <select onChange={(e) => handleEnvironmentFilter(e.target.value)}>
+          <option value="">Show All</option>
+          <option value="city">City</option>
+          <option value="nature">Nature</option>
+          <option value="beach">Beach</option>
+          <option value="mountain">Mountain</option>
+          <option value="desert">Desert</option>
+        </select>
 
-          <h3>Filter by Rating</h3>
-          <div>
-            <button onClick={() => handleRatingFilter(null)}>Show All</button>
-            <button onClick={() => handleRatingFilter(2)}>
-              2 Stars or Higher
-            </button>
-            <button onClick={() => handleRatingFilter(3)}>
-              3 Stars or Higher
-            </button>
-            <button onClick={() => handleRatingFilter(4)}>
-              4 Stars or Higher
-            </button>
-            <button onClick={() => handleRatingFilter(5)}>5 Stars</button>
-          </div>
-        </>
-      )}
+        <h3>Filter by Rating</h3>
+        <select onChange={(e) => handleRatingFilter(Number(e.target.value))}>
+          <option value="">Show All</option>
+          <option value="2">2 Stars or Higher</option>
+          <option value="3">3 Stars or Higher</option>
+          <option value="4">4 Stars or Higher</option>
+          <option value="5">5 Stars</option>
+        </select>
+      </>
+    )}
+  </div>
 
       <div className="post">
         {filteredPosts.map((post) => (
