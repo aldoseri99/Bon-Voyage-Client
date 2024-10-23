@@ -96,13 +96,17 @@ body {
   margin-bottom: 20px;
   background-color: #fff;
   width: 400px;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .post-user {
   display: flex;
   align-items: center;
   margin: 15px;
+}
+
+.username-post {
+  font-weight: 500;
 }
 
 .userLink {
@@ -385,8 +389,7 @@ button:hover {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #4caf50;
-  color: white;
+  background-color: #1d1e0b;
   border: none;
   padding: 15px 30px;
   font-size: 16px;
@@ -394,10 +397,15 @@ button:hover {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition: background-color 0.3s ease;
+  z-index: 100000;
 }
 
 .floating-button:hover {
-  background-color: #45a049;
+  background-color: #a4b4b0;
+}
+
+.floating-button i {
+  color: white;
 }
 
 a {
@@ -728,8 +736,8 @@ input[type="file"] {
 /* Register Page */
 
 .full-page-cover-R {
-  height: 100vh; /* Full viewport height */
-  width: 100vw; /* Full viewport width */
+  height: 100vh;
+  width: 100vw;
   display: flex;
   justify-content: center; /* Centers content horizontally */
   align-items: center; /* Centers content vertically */
@@ -737,8 +745,8 @@ input[type="file"] {
   background-size: cover; /* Ensure the image covers the entire div */
   background-position: center; /* Center the background image */
   background-repeat: no-repeat; /* Prevent image repetition */
-  position: absolute; /* Ensure div stays in place when scrolling */
-  z-index: 1; /* Layer control */
+  position: absolute;
+  z-index: 1;
 }
 
 .signin {
@@ -752,8 +760,8 @@ input[type="file"] {
   padding: 20px;
   border-radius: 8px;
   text-align: left;
-  width: 90%; /* Increase width to make the form larger */
-  max-width: 1200px; /* Max width for larger screens */
+  width: 90%;
+  max-width: 1200px;
   margin-top: -15%;
   margin-left: -5%;
 }
@@ -761,7 +769,7 @@ input[type="file"] {
 .input-columns {
   display: flex;
   justify-content: space-between;
-  gap: 40px; /* Increase gap between columns for more spacing */
+  gap: 40px;
 }
 
 .left-column,
@@ -935,4 +943,56 @@ input[type="file"] {
 
 .btn-unfollow:hover {
   background-color: #c82333;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin: 0 10px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #fbf6ef;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #1d1e0b;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
