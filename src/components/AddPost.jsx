@@ -103,100 +103,115 @@ const AddPost = () => {
   }
 
   return (
-    <div>
-      <h2>Add Post</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Title: </label>
-        <input
-          type="text"
-          id="title"
-          onChange={handleChange}
-          value={formValues.title}
-        />
+    <div className="post-page-container">
+  <div className="post-form-wrapper">
+    <h2 className='add-post-msg'>Add Post</h2>
+    <form onSubmit={handleSubmit}>
+      <div className="post-form-columns">
+        <div className="post-left-column">
+          <label htmlFor="title">Title: </label>
+          <input
+            type="text"
+            id="title"
+            onChange={handleChange}
+            value={formValues.title}
+          />
 
-        <label htmlFor="country">Country: </label>
-        <select name="" id="country" onChange={handleChange}>
-          <option selected value="-" disabled>
-            --
-          </option>
-          {countries?.map((country, index) => (
-            <option value={country.name.common} key={index}>
-              {country.name.common}
+          <label htmlFor="country">Country: </label>
+          <select id="country" onChange={handleChange}>
+            <option selected value="-" disabled>
+              --
             </option>
-          ))}
-        </select>
+            {countries?.map((country, index) => (
+              <option value={country.name.common} key={index}>
+                {country.name.common}
+              </option>
+            ))}
+          </select>
 
-        <label htmlFor="temperature">Temperature: </label>
-        <input
-          type="number"
-          id="temperature"
-          onChange={handleChange}
-          value={formValues.temperature}
-        />
+          <label htmlFor="temperature">Temperature: </label>
+          <input
+            type="number"
+            id="temperature"
+            onChange={handleChange}
+            value={formValues.temperature}
+          />
+        </div>
 
-        <label htmlFor="cost">Cost</label>
-        <input
-          type="number"
-          id="cost"
-          onChange={handleChange}
-          value={formValues.cost}
-        />
+        <div className="post-middle-column">
+          <label htmlFor="cost">Cost: </label>
+          <input
+            type="number"
+            id="cost"
+            onChange={handleChange}
+            value={formValues.cost}
+          />
 
-        <label htmlFor="weather">Weather: </label>
-        <select type="text" id="weather" onChange={handleChange}>
-          <option selected value="-" disabled>
-            --
-          </option>
-          <option value="sunny">Sunny</option>
-          <option value="cloudy">Cloudy</option>
-          <option value="rainy">Rainy</option>
-          <option value="snowy">Snowy</option>
-          <option value="windy">Windy</option>
-        </select>
+          <label htmlFor="weather">Weather: </label>
+          <select id="weather" onChange={handleChange}>
+            <option selected value="-" disabled>
+              --
+            </option>
+            <option value="sunny">Sunny</option>
+            <option value="cloudy">Cloudy</option>
+            <option value="rainy">Rainy</option>
+            <option value="snowy">Snowy</option>
+            <option value="windy">Windy</option>
+          </select>
 
-        <label htmlFor="environment">Environment</label>
-        <select type="text" id="environment" onChange={handleChange}>
-          <option selected value="-" disabled>
-            --
-          </option>
-          <option value="city">City</option>
-          <option value="nature">Nature</option>
-          <option value="beach">Beach</option>
-          <option value="mountain">Mountain</option>
-          <option value="desert">Desert</option>
-        </select>
+          <label htmlFor="environment">Environment: </label>
+          <select id="environment" onChange={handleChange}>
+            <option selected value="-" disabled>
+              --
+            </option>
+            <option value="city">City</option>
+            <option value="nature">Nature</option>
+            <option value="beach">Beach</option>
+            <option value="mountain">Mountain</option>
+            <option value="desert">Desert</option>
+          </select>
+        </div>
 
-        <label htmlFor="review">Review: </label>
-        <input
-          type="text"
-          id="review"
-          onChange={handleChange}
-          value={formValues.review}
-        />
+        <div className="post-right-column">
+          <label htmlFor="review">Review: </label>
+          <input
+            type="text"
+            id="review"
+            onChange={handleChange}
+            value={formValues.review}
+          />
 
-        <label htmlFor="rate">Rate: </label>
-        <select id="rate" onChange={handleChange}>
-          <option selected value="-" disabled>
-            --
-          </option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
+          <label htmlFor="rate">Rate: </label>
+          <select id="rate" onChange={handleChange}>
+            <option selected value="-" disabled>
+              --
+            </option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
 
-        <label htmlFor="photos">Photo: </label>
-        <input
-          type="file"
-          id="photos"
-          name="photos"
-          onChange={handleFileChange}
-        />
+          <label htmlFor="photos" className='upload-avatar-div'>Photo: </label>
+          <input
+            className="upload-avatar"
+            type="file"
+            id="photos"
+            name="photos"
+            onChange={handleFileChange}
+          />
+        </div>
+      </div>
 
-        <button type="submit">Add Post</button>
-      </form>
-    </div>
+      <div className="add-post-button-div">
+        <button type="submit" className="add-post-button">Add Post</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
   )
 }
 
