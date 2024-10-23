@@ -29,49 +29,52 @@ const SignIn = ({ setUser }) => {
 
   return (
     <div className="full-page-cover">
-  <div className="login-page">
-  <div className="signin col">
-    <div className="card-overlay centered">
-      <h4 className="login-msg">Login</h4>
-      <form className="col" onSubmit={handleSubmit}>
-        <div className="input-row">
-          <div className="input-wrapper">
-            <label htmlFor="email" className="label-input">Username/Email</label>
-            <input
-              className="input-sginin"
-              onChange={handleChange}
-              name="email"
-              type="text"
-              placeholder="example@example.com"
-              value={formValues.email}
-              required
-            />
-          </div>
-          <div className="input-wrapper">
-            <label htmlFor="password" className="label-input">Password</label>
-            <input
-              className="input-sginin"
-              onChange={handleChange}
-              type="password"
-              name="password"
-              value={formValues.password}
-              required
-            />
+      <div className="login-page">
+        <div className="signin col">
+          <div className="card-overlay centered">
+            <h4 className="login-msg">Login</h4>
+            <form className="col" onSubmit={handleSubmit}>
+              <div className="input-row">
+                <div className="input-wrapper">
+                  <label htmlFor="email" className="label-input">
+                    Username/Email
+                  </label>
+                  <input
+                    className="input-sginin"
+                    onChange={handleChange}
+                    name="email"
+                    type="text"
+                    placeholder="example@example.com"
+                    value={formValues.email}
+                    required
+                  />
+                </div>
+                <div className="input-wrapper">
+                  <label htmlFor="password" className="label-input">
+                    Password
+                  </label>
+                  <input
+                    className="input-sginin"
+                    onChange={handleChange}
+                    type="password"
+                    name="password"
+                    value={formValues.password}
+                    required
+                  />
+                </div>
+              </div>
+              <div>{errorMessage}</div>
+              <button
+                className="signin-button"
+                disabled={!formValues.email || !formValues.password}
+              >
+                Login
+              </button>
+            </form>
           </div>
         </div>
-        <div>{errorMessage}</div>
-        <button
-          className="signin-button"
-          disabled={!formValues.email || !formValues.password}
-        >
-          Login
-        </button>
-      </form>
+      </div>
     </div>
-  </div>
-  </div>
-</div>
-
   )
 }
 

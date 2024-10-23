@@ -15,6 +15,7 @@ import ViewUser from "./components/ViewUser"
 import SearchResults from "./pages/SearchResults"
 import FollowingsPage from "./pages/FollowingsPage"
 import HighRatedPostsMap from "./pages/HighRatedMap"
+import "../public/CSS/nav.css"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -39,30 +40,7 @@ const App = () => {
   }, [])
   return (
     <>
-      <Nav />
-      <Link to="/"> Home</Link>
-      <br />
-      {user ? (
-        <>
-          <Link onClick={handleLogOut} to="/">
-            Sign Out
-          </Link>
-          <br />
-          <Link to="/editprofile">EditProfile</Link>
-          <br />
-          <Link to={`/ViewUser/${user.id}`}>View User</Link>
-          <br />
-          <Link to={"/high-rated-posts"}> Map </Link>
-        </>
-      ) : (
-        <>
-          <Link to="/register"> Register</Link>
-          <br />
-          <Link to="/signin"> Sign In</Link>
-        </>
-      )}
-
-      <hr />
+      <Nav user={user} handleLogOut={handleLogOut} />
       {user ? (
         <Link to={"/add"}>
           <button className="floating-button">+</button>

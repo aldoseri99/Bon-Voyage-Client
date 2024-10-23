@@ -235,13 +235,14 @@ const Details = ({ user }) => {
           <div className="activities">
             <div className="activities-header">
               <h2>Activities:</h2>
-
-              <button
-                className="add-activity"
-                onClick={() => setIsAddingActivity((prev) => !prev)}
-              >
-                {isAddingActivity ? "Cancel" : "+"}
-              </button>
+              {isPostOwner && (
+                <button
+                  className="add-activity"
+                  onClick={() => setIsAddingActivity((prev) => !prev)}
+                >
+                  {isAddingActivity ? "Cancel" : "+"}
+                </button>
+              )}
             </div>
             <hr />
             {post.activities.length === 0 ? (
