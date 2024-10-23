@@ -1,18 +1,23 @@
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
   margin: 0;
   height: 100vh;
   background-color: #fbf6ef;
-  background-image: url('/public/background.png');
+  background-image: url("/background.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
 }
+
+.background-color {
+  background-color: #fbf6ef;
+}
+
 #root {
-  /* max-width: 1280px; */
+  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -99,6 +104,7 @@ body {
   align-items: center;
   margin: 15px;
 }
+
 .userLink {
   all: unset;
   margin-left: 10px;
@@ -130,6 +136,7 @@ body {
   justify-content: center;
   background-color: #45a049;
 }
+
 .post-img {
   width: 400px;
   height: 400px;
@@ -147,6 +154,7 @@ body {
   align-items: center;
   height: 50px;
 }
+
 .post-main-info h3 {
   padding: 0 15px;
 }
@@ -155,22 +163,23 @@ body {
   margin-left: 5px;
 }
 
-.post-details {
+.post-information {
   display: flex;
   justify-content: space-between;
   height: 60px;
   padding: 0 20px;
 }
 
-.post-details button {
+.post-information button {
   all: unset;
 }
+
 /* bookmark button */
-.post-details button {
+.post-information button {
   all: unset;
   font-size: 30px;
 }
-.post-details button:hover {
+.post-information button:hover {
   all: unset;
   font-size: 30px;
   cursor: pointer;
@@ -181,17 +190,17 @@ body {
 }
 
 button {
-  background-color: #7e7f80; /* Bootstrap primary color */
+  background-color: #7e7f80;
   color: white;
   border: none;
   border-radius: 5px;
   padding: 10px 15px;
   cursor: pointer;
-  transition: background-color 0.3s; /* Transition for hover effect */
+  transition: background-color 0.3s;
 }
 
 button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
 }
 
 h4 {
@@ -199,14 +208,7 @@ h4 {
 }
 
 hr {
-  margin: 20px 0;
-}
-
-.activities {
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  margin: 20px 0; /* Space before and after hr */
 }
 
 .viewuser-post {
@@ -216,15 +218,28 @@ hr {
   padding: 10px;
   gap: 20px;
 }
+
 .viewuser-post img {
   height: 340px;
   min-width: 600px;
   object-fit: cover;
 }
+
 .view-post-info {
   background-color: #888;
   width: 100%;
   height: 340px;
+}
+
+/* bookmark button */
+.bookmark-btn {
+  all: unset;
+  font-size: 30px;
+}
+.bookmark-btn:hover {
+  all: unset;
+  font-size: 30px;
+  text-shadow: 0px 0px 1px gold;
 }
 
 /* Style for the comment section container */
@@ -245,6 +260,12 @@ hr {
   margin-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid #ddd;
+}
+
+.post-user {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 /* Style for the user profile image */
@@ -383,7 +404,7 @@ button:hover {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #b7cbc9;
+  background-color: #4caf50;
   color: white;
   border: none;
   padding: 15px 30px;
@@ -395,7 +416,7 @@ button:hover {
 }
 
 .floating-button:hover {
-  background-color: rgb(163, 166, 161);
+  background-color: #45a049;
 }
 
 a {
@@ -403,6 +424,10 @@ a {
 }
 a:hover {
   cursor: pointer;
+}
+
+.fa-star {
+  color: rgb(255, 162, 0);
 }
 
 /* SignIn Page */
@@ -491,7 +516,7 @@ a:hover {
   justify-content: center;
   align-items: center;
   position: absolute;
-  background-image: url('/login-page-background01.png');
+  background-image: url("/login-page-background01.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -660,8 +685,8 @@ label {
   font-weight: bold;
 }
 
-input[type='text'],
-input[type='number'],
+input[type="text"],
+input[type="number"],
 select {
   padding: 10px;
   border: 1px solid #ccc;
@@ -669,7 +694,7 @@ select {
   font-size: 16px;
 }
 
-input[type='file'] {
+input[type="file"] {
   border: none;
 }
 
@@ -717,4 +742,107 @@ input[type='file'] {
 
 .fa-trash {
   font-size: 1.3rem;
+}
+
+/* Register Page */
+
+.full-page-cover-R {
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  display: flex;
+  justify-content: center; /* Centers content horizontally */
+  align-items: center; /* Centers content vertically */
+  background-image: url("/full-page-cover-R.png"); /* Background image */
+  background-size: cover; /* Ensure the image covers the entire div */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent image repetition */
+  position: absolute; /* Ensure div stays in place when scrolling */
+  z-index: 1; /* Layer control */
+}
+
+.signin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
+.div-div {
+  padding: 20px;
+  border-radius: 8px;
+  text-align: left;
+  width: 90%; /* Increase width to make the form larger */
+  max-width: 1200px; /* Max width for larger screens */
+  margin-top: -15%;
+  margin-left: -5%;
+}
+
+.input-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px; /* Increase gap between columns for more spacing */
+}
+
+.left-column,
+.middle-column,
+.right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: -3%;
+}
+
+.input-dev {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.R-input {
+  width: 42vh;
+  padding: 6px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+input[type="file"] {
+  margin-top: 5px;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.create-button {
+  margin-top: 30px;
+  font-size: 22px;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border-radius: 10vh;
+  cursor: pointer;
+  width: 140px;
+  height: 50px;
+}
+
+.upload-pic::file-selector-button {
+  font-size: 14px;
+  background-color: white;
+  border-radius: 1vh;
+  cursor: pointer;
+  width: 120px;
+  height: 30px;
+  border: none;
+}
+
+.Register-msg {
+  text-align: left; /* Aligns the "Login" text to the left */
+  margin-bottom: 80px; /* Adds space between the heading and inputs */
+  font-size: 55px; /* Adjust font size as needed */
+  font-weight: bold; /* Make the text bold */
+  color: #333;
+  margin-left: 2%;
 }
