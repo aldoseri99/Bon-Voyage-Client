@@ -202,7 +202,6 @@ hr {
   margin: 20px 0;
 }
 
-
 .activities {
   margin-top: 10px;
   padding: 10px;
@@ -396,36 +395,35 @@ button:hover {
 }
 
 .floating-button:hover {
-  background-color: rgb(163, 166, 161);
+  background-color: #45a049;
 }
 
-.fa-star{
-color: rgb(255, 162, 0);
+.fa-star {
+  color: rgb(255, 162, 0);
 }
 
 .detail-header {
   display: flex;
-  justify-content: space-between; 
-  align-items: center; 
-  margin-bottom: 20px; 
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .detail-title {
-  text-align: right; 
+  text-align: right;
 }
 
-
-.detail-date{
+.detail-date {
   text-align: left;
 }
 
 .detail-stats {
   text-align: left;
-  padding-top: 14px; 
+  padding-top: 14px;
 }
 
-.detail-stats p{
-  font-size: 19px; 
+.detail-stats p {
+  font-size: 19px;
 }
 
 .image-map-container {
@@ -435,18 +433,17 @@ color: rgb(255, 162, 0);
 }
 
 .post-image {
-  width: 60%; 
-  height: 100%;  
-  object-fit: cover; 
-  margin-left: auto; 
+  width: 60%;
+  height: 100%;
+  object-fit: cover;
+  margin-left: auto;
 }
 
 .post-country {
   width: 40%;
-  height: 100%;  
+  height: 100%;
   position: relative;
 }
-
 
 .leaflet-container {
   height: 100%;
@@ -455,27 +452,27 @@ color: rgb(255, 162, 0);
 
 .detail-info {
   display: flex;
-  justify-content: space-between; 
-  align-items: flex-start; 
+  justify-content: space-between;
+  align-items: flex-start;
   margin-bottom: 20px;
 }
 
 .review-section {
-  flex: 1; 
+  flex: 1;
   text-align: left;
 }
 
 .info-section {
   display: flex;
-  flex-direction: row; 
-  align-items: flex-end; 
-  margin-left: 20px; 
+  flex-direction: row;
+  align-items: flex-end;
+  margin-left: 20px;
 }
 
 .icon {
-  width: 85px;  
-  height: 85px; 
-  object-fit: contain; 
+  width: 85px;
+  height: 85px;
+  object-fit: contain;
 }
 
 .activities {
@@ -495,10 +492,9 @@ color: rgb(255, 162, 0);
   margin: 10px 0;
 }
 
-
 .activity-image {
-  width: 50px; 
-  height: auto; 
+  width: 50px;
+  height: auto;
   margin-left: 10px;
 }
 
@@ -509,30 +505,30 @@ color: rgb(255, 162, 0);
 
 .activity-info {
   display: flex;
-  justify-content: space-between; 
-  align-items: center; 
+  justify-content: space-between;
+  align-items: center;
 }
 
 .activity-name {
-  flex: 1; 
-  margin-right: 20px; 
+  flex: 1;
+  margin-right: 20px;
   text-align: left;
 }
 
-.activity-name h2{
-  flex: 1; 
-  margin-right: 20px; 
+.activity-name h2 {
+  flex: 1;
+  margin-right: 20px;
   text-align: left;
 }
 
 .activity-photos {
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 .activity-photo {
-  width: 200px; 
-  height: 200px; 
+  width: 200px;
+  height: 200px;
   margin: 5px;
   object-fit: cover;
 }
@@ -565,8 +561,8 @@ label {
   font-weight: bold;
 }
 
-input[type="text"],
-input[type="number"],
+input[type='text'],
+input[type='number'],
 select {
   padding: 10px;
   border: 1px solid #ccc;
@@ -574,7 +570,7 @@ select {
   font-size: 16px;
 }
 
-input[type="file"] {
+input[type='file'] {
   border: none;
 }
 
@@ -593,14 +589,14 @@ input[type="file"] {
   background-color: #218838;
 }
 
-.add-activity{
+.add-activity {
   background: none;
   border-radius: 15px;
   color: #3c9918;
   font-size: 1.5rem;
 }
 
-.add-activity:hover{
+.add-activity:hover {
   background: none;
   border-radius: 15px;
   color: #212020;
@@ -611,7 +607,7 @@ input[type="file"] {
   border: none;
   color: #ff0000;
   cursor: pointer;
-  margin-left: 10px; 
+  margin-left: 10px;
 }
 
 .delete-activity:hover {
@@ -620,7 +616,7 @@ input[type="file"] {
   color: #212020;
 }
 
-.fa-trash{
+.fa-trash {
   font-size: 1.3rem;
 }
 
@@ -630,7 +626,6 @@ a {
 a:hover {
   cursor: pointer;
 }
-
 
 /* SignIn Page */
 
