@@ -1013,3 +1013,49 @@ input:checked + .slider:before {
   justify-content: center;
   align-items: center;
 }
+
+/*     filter        */
+
+.filter-button {
+  background: none;
+  border: none;
+  color: #88a278;
+  top: 140px;
+  cursor: pointer;
+  font-size: 25px;
+  position: absolute;
+  right: 150px;
+}
+
+.filter-button:hover {
+  background: none;
+  color: #c01010;
+}
+
+.filter-dropdown {
+  position: absolute;
+  right: 0;
+  top: 30%;
+  background-color: #bcbcbcbd;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  z-index: 1000;
+  width: 250px;
+}
+
+.filter-group {
+  margin-bottom: 10px;
+}
+
+.filter-group h3 {
+  margin: 0;
+  font-size: 14px;
+  text-align: left;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 5px;
+}
