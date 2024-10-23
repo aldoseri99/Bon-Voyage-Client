@@ -119,84 +119,156 @@ const Details = ({ user }) => {
     <div>
       {post && (
         <div>
-          <h1>{post.title}</h1>
-          <img
-            src={`http://localhost:3001/uploadPost/${post.photos}`}
-            alt={post.title}
-          />
-          <p>Review: {post.review}</p>
-          <p>Cost: {post.cost}</p>
-          <p>Rating: {post.rate}</p>
-          <p>Weather: {post.weather}</p>
-          <p>Temperature: {post.temperature}</p>
-          <p>Date: {post.date}</p>
-          <div className="post-country">
-            <h3>{post.country}</h3>
-            {coordinates && (
-              <Map coordinates={coordinates} id={`map-${post._id}`} />
-            )}
+          <div className="post-details">
+            <div className="detail-header">
+              <div className="detail-title">
+                <h1>{post.title}</h1>
+                <small className="detail-date">
+                  {new Date(post.date).toLocaleDateString()}
+                </small>
+              </div>
+              <div className="detail-stats">
+                <p>
+                  {post.rate} <i className="fa-solid fa-star"></i>
+                </p>
+                <p>{post.temperature} °C</p>
+              </div>
+            </div>
+
+            <div className="image-map-container">
+              <img
+                className="post-image"
+                src={`http://localhost:3001/uploadPost/${post.photos}`}
+                alt={post.title}
+              />
+              <div className="post-country">
+                {coordinates && (
+                  <Map coordinates={coordinates} id={`map-${post._id}`} />
+                )}
+              </div>
+            </div>
+
+            <div className="detail-info">
+              <div className="review-section">
+                <p>{post.review}</p>
+                <p>Trip Cost: {post.cost} BD</p>
+              </div>
+              <div className="info-section">
+                <p>
+                  {post.weather === "sunny" && (
+                    <img
+                      src="/weather/sunny.png"
+                      alt="Sunny Icon"
+                      className="icon"
+                    />
+                  )}
+                  {post.weather === "cloudy" && (
+                    <img
+                      src="/weather/cloudy.png"
+                      alt="cloudy Icon"
+                      className="icon"
+                    />
+                  )}
+                  {post.weather === "rainy" && (
+                    <img
+                      src="/weather/rainy.png"
+                      alt="rainy Icon"
+                      className="icon"
+                    />
+                  )}
+                  {post.weather === "windy" && (
+                    <img
+                      src="/weather/windy.png"
+                      alt="windy Icon"
+                      className="icon"
+                    />
+                  )}
+                  {post.weather === "snowy" && (
+                    <img
+                      src="/weather/snowy.png"
+                      alt="snowy Icon"
+                      className="icon"
+                    />
+                  )}
+                </p>
+                <p>
+                  {post.environment === "beach" && (
+                    <img
+                      src="/environment/beach.png"
+                      alt="beach Icon"
+                      className="icon"
+                    />
+                  )}
+                  {post.environment === "city" && (
+                    <img
+                      src="/environment/city.png"
+                      alt="city Icon"
+                      className="icon"
+                    />
+                  )}
+                  {post.environment === "desert" && (
+                    <img
+                      src="/environment/desert.png"
+                      alt="desert Icon"
+                      className="icon"
+                    />
+                  )}
+                  {post.environment === "mountain" && (
+                    <img
+                      src="/environment/mountain.png"
+                      alt="mountain Icon"
+                      className="icon"
+                    />
+                  )}
+                  {post.environment === "nature" && (
+                    <img
+                      src="/environment/nature.png"
+                      alt="nature Icon"
+                      className="icon"
+                    />
+                  )}
+                </p>
+              </div>
+            </div>
           </div>
-          <p>Environment: {post.environment}</p>
-          <p>Likes: {post.likes}</p>
-          <table>
-            <thead>
-              <tr>
-                <th>Place</th>
-                <th>Name</th>
-                <th>Image</th>
-                <th>Cost</th>
-                <th>Rate</th>
-              </tr>
-            </thead>
-            <tbody>
-              {post.activities &&
-                post.activities.map((activity, index) => (
-                  <tr key={index}>
-                    <td>{activity.place}</td>
-                    <td>{activity.name}</td>
-                    <td>
-                      <img
-                        className="activity-img"
-                        src={`http://localhost:3001/uploadPost/${activity.photos}`}
-                        alt={activity.name}
-                      />
-                    </td>
-                    <td>{activity.cost}</td>
-                    <td>{activity.rate}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
 
           <div className="activities">
-            <h4>Activities:</h4>
+            <div className="activities-header">
+              <h2>Activities:</h2>
 
+              <button
+                className="add-activity"
+                onClick={() => setIsAddingActivity((prev) => !prev)}
+              >
+                {isAddingActivity ? "Cancel" : "+"}
+              </button>
+            </div>
+            <hr />
             {post.activities.length === 0 ? (
               <p>No Activities</p>
             ) : (
               post.activities.map((activity) => (
                 <div
+                  className="activity-item"
                   key={activity._id}
                   onClick={() => handleActivityClick(post._id, activity._id)}
-                  style={{ cursor: "pointer" }}
                 >
-                  <h5>
-                    {activity.name}{" "}
-                    {isPostOwner && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleActivityDelete(post._id, activity._id)
-                        }}
-                      >
-                        Delete Activity
-                      </button>
-                    )}
-                  </h5>
+                  <h2 className="activity-name">{activity.name}</h2>
+
+                  {isPostOwner && (
+                    <button
+                      className="delete-activity"
+                      onClick={(e) => {
+                        e.stopPropagation() // Prevent triggering the activity click
+                        handleActivityDelete(post._id, activity._id)
+                      }}
+                    >
+                      <i className="fa-solid fa-trash"></i>{" "}
+                    </button>
+                  )}
                 </div>
               ))
             )}
-
             {isViewingActivity &&
               selectedActivityId &&
               currentPostId === post._id && (
@@ -209,9 +281,6 @@ const Details = ({ user }) => {
 
             {isPostOwner && (
               <>
-                <button onClick={() => setIsAddingActivity((prev) => !prev)}>
-                  {isAddingActivity ? "Cancel" : "Add Activity"}
-                </button>
                 {isAddingActivity && (
                   <AddActivities
                     postId={post._id}

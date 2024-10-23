@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
-import { GetPostByFollow } from '../services/postServices'
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from "react"
+import { GetPostByFollow } from "../services/postServices"
+import { Link } from "react-router-dom"
 
 const ViewFollowPosts = ({ user }) => {
   if (user) {
@@ -21,7 +21,7 @@ const ViewFollowPosts = ({ user }) => {
                   {post.User && (
                     <>
                       <img
-                        src={`http://localhost:3001/profilePics/${post.User.profilePic}`} // Adjust the path based on your backend
+                        src={`http://localhost:3001/profilePics/${post.User.profilePic}`}
                         alt={`${post.User.username}'s profile`}
                         className="user-profile-pic"
                       />

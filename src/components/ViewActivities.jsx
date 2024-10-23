@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import AddPost from "./AddPost"
-
 
 const ViewActivities = ({ post, activitieId, onClose }) => {
   const [activitieDetails, setActivitieDetails] = useState(null)
@@ -15,33 +12,29 @@ const ViewActivities = ({ post, activitieId, onClose }) => {
     }
   }, [post, activitieId])
 
-
-
   return activitieDetails ? (
     <div className="activity-details">
+      <div className="activity-info">
+        <div className="activity-name">
+          <h2>{activitieDetails.name}</h2>
+          <h4>{activitieDetails.place}</h4>
+          <h4> Activity Cost: {activitieDetails.cost} BD</h4>
+          <h4>
+            {activitieDetails.rate} <i className="fa-solid fa-star"></i>
+          </h4>
+        </div>
+        <div className="activity-photos">
+          {activitieDetails.photos.map((photo, index) => (
+            <img
+              key={index}
+              src={`http://localhost:3001/Activities/${photo}`}
+              alt={`${activitieDetails.name} image ${index + 1}`}
+              className="activity-photo"
+            />
+          ))}
+        </div>
+      </div>
       <button onClick={onClose}>Close</button>
-      <div className="activitieDetails-photos">
-        {activitieDetails.photos.map((photo, index) => (
-          <img
-            key={index}
-            src={`http://localhost:3001/Activities/${photo}`}
-            alt={`${activitieDetails.name} image ${index + 1}`}
-            style={{ width: "100px", height: "100px", margin: "5px" }}
-          />
-        ))}
-      </div>
-      <div className="activitieDetails-name">
-        <h3>{activitieDetails.name}</h3>
-      </div>
-      <div className="activitieDetails-place">
-        <h3>{activitieDetails.place}</h3>
-      </div>
-      <div className="activitieDetails-cost">
-        <h5>{activitieDetails.cost}</h5>
-      </div>
-      <div>
-        <h6>{activitieDetails.rate}</h6>
-      </div>
     </div>
   ) : (
     <p>Loading...</p>
