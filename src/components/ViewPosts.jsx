@@ -209,16 +209,30 @@ const ViewPosts = ({ user }) => {
             </div>
 
             <div className="post-information">
-              <button
-                className="post-like"
-                onClick={() => handleLikeToggle(post._id)}
-              >
-                {hasLiked(post) ? (
-                  <i class="fa-solid fa-heart"></i>
-                ) : (
-                  <i class="fa-regular fa-heart"></i>
-                )}
-              </button>
+              <div className="LikeComment">
+                <button
+                  className="post-like"
+                  onClick={() => handleLikeToggle(post._id)}
+                >
+                  {hasLiked(post) ? (
+                    <>
+                      <i class="fa-solid fa-heart"></i>
+                      <p>{post.like}</p>
+                    </>
+                  ) : (
+                    <>
+                      <i class="fa-regular fa-heart"></i>
+                      <p>{post.like}</p>
+                    </>
+                  )}
+                </button>
+                <Link to={`/details/${post._id}`}>
+                  <button>
+                    <i class="fa-regular fa-comment fa-flip-horizontal"></i>
+                    <p>{post.comments.length}</p>
+                  </button>
+                </Link>
+              </div>
               <BookmarkButton user={user} post={post} />
             </div>
           </div>

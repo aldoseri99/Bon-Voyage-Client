@@ -38,7 +38,10 @@ const FollowButton = ({ user, account }) => {
 
     return (
       <div>
-        <button onClick={handleFollowToggle}>
+        <button
+          onClick={handleFollowToggle}
+          className={isFollowed ? 'btn-unfollow' : 'btn-follow'}
+        >
           {isFollowed ? 'Unfollow' : 'Follow'}
         </button>
       </div>

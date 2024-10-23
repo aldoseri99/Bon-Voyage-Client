@@ -174,14 +174,32 @@ body {
   all: unset;
 }
 
+.LikeComment {
+  display: flex;
+  gap: 40px;
+}
+
 /* bookmark button */
 .post-information button {
   all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   font-size: 30px;
+  height: 60px;
+}
+.post-details button p {
+  font-size: 20px;
 }
 .post-information button:hover {
   all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   font-size: 30px;
+  height: 60px;
   cursor: pointer;
 }
 
@@ -362,43 +380,6 @@ button:hover {
 }
 
 /* View Post */
-
-.post-like {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.post-like {
-  display: flex;
-  align-items: center;
-}
-
-.post-like button {
-  background-color: white;
-  color: #333;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-size: 1.5em;
-  transition: background-color 0.3s;
-  display: flex;
-  align-items: center;
-  margin-left: 3%;
-  max-width: 200px;
-  max-height: 150px;
-}
-
-.post-like h4 {
-  margin-left: 10px;
-}
-
-.post-like button:hover {
-  background-color: #888;
-}
 
 .floating-button {
   position: fixed;
@@ -744,9 +725,7 @@ input[type="file"] {
   font-size: 1.3rem;
 }
 
-
 /* Register Page */
-
 
 .full-page-cover-R {
   height: 100vh; /* Full viewport height */
@@ -785,7 +764,6 @@ input[type="file"] {
   gap: 40px; /* Increase gap between columns for more spacing */
 }
 
-
 .left-column, .middle-column, .right-column {
   flex: 1;
   display: flex;
@@ -808,7 +786,7 @@ input[type="file"] {
   font-size: 16px;
 }
 
-input[type="file"] {
+input[type='file'] {
   margin-top: 5px;
 }
 
@@ -840,10 +818,41 @@ input[type="file"] {
 }
 
 .Register-msg {
-  text-align: left; /* Aligns the "Login" text to the left */
-  margin-bottom: 80px; /* Adds space between the heading and inputs */
-  font-size: 55px; /* Adjust font size as needed */
-  font-weight: bold; /* Make the text bold */
+  text-align: left;
+  margin-bottom: 80px;
+  font-size: 55px;
+  font-weight: bold;
   color: #333;
   margin-left: 2%;
+}
+
+.btn-follow {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-follow:hover {
+  background-color: #0056b3;
+}
+
+.btn-unfollow {
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-unfollow:hover {
+  background-color: #c82333;
 }
