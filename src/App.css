@@ -1,12 +1,12 @@
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
   margin: 0;
   height: 100vh;
   background-color: #fbf6ef;
-  background-image: url("/background.png");
+  background-image: url('/background.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -497,7 +497,7 @@ a:hover {
   justify-content: center;
   align-items: center;
   position: absolute;
-  background-image: url("/login-page-background01.png");
+  background-image: url('/login-page-background01.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -666,8 +666,8 @@ label {
   font-weight: bold;
 }
 
-input[type="text"],
-input[type="number"],
+input[type='text'],
+input[type='number'],
 select {
   padding: 10px;
   border: 1px solid #ccc;
@@ -675,7 +675,7 @@ select {
   font-size: 16px;
 }
 
-input[type="file"] {
+input[type='file'] {
   border: none;
 }
 
@@ -733,7 +733,7 @@ input[type="file"] {
   display: flex;
   justify-content: center; /* Centers content horizontally */
   align-items: center; /* Centers content vertically */
-  background-image: url("/full-page-cover-R.png"); /* Background image */
+  background-image: url('/full-page-cover-R.png'); /* Background image */
   background-size: cover; /* Ensure the image covers the entire div */
   background-position: center; /* Center the background image */
   background-repeat: no-repeat; /* Prevent image repetition */
@@ -764,7 +764,9 @@ input[type="file"] {
   gap: 40px; /* Increase gap between columns for more spacing */
 }
 
-.left-column, .middle-column, .right-column {
+.left-column,
+.middle-column,
+.right-column {
   flex: 1;
   display: flex;
   flex-direction: column;

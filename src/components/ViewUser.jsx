@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
-import { GetUserInfo } from "../services/Auth"
-import { GetPostByUser } from "../services/postServices"
-import ViewBookmarks from "./ViewBookmarks"
-import "../../public/CSS/ViewUser.css"
-import FollowButton from "./FollowButton"
-import BookmarkButton from "./BookmarkButton"
+import { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { GetUserInfo } from '../services/Auth'
+import { GetPostByUser } from '../services/postServices'
+import ViewBookmarks from './ViewBookmarks'
+import '../../public/CSS/ViewUser.css'
+import FollowButton from './FollowButton'
+import BookmarkButton from './BookmarkButton'
 
 const ViewUser = ({ user }) => {
   const userId = useParams()
 
-  const [userInfo, setUserInfo] = useState("")
-  const [posts, setPosts] = useState("")
+  const [userInfo, setUserInfo] = useState('')
+  const [posts, setPosts] = useState('')
   const [showBookmarks, setShowBookmarks] = useState(false)
   useEffect(() => {
     const getInfo = async () => {
@@ -24,7 +24,7 @@ const ViewUser = ({ user }) => {
   }, [userId])
   const handleLikeToggle = async (postId) => {
     if (!user || !user.id) {
-      console.error("User is not defined or missing an ID.")
+      console.error('User is not defined or missing an ID.')
       return
     }
 
@@ -32,11 +32,11 @@ const ViewUser = ({ user }) => {
       const response = await fetch(
         `http://localhost:3001/Posts/like/${postId}`,
         {
-          method: "PATCH",
+          method: 'PATCH',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ userId: user.id }),
+          body: JSON.stringify({ userId: user.id })
         }
       )
 
@@ -46,23 +46,23 @@ const ViewUser = ({ user }) => {
           prevPosts.map((post) => (post._id === postId ? updatedPost : post))
         )
       } else {
-        console.error("Failed to update like count:", response.statusText)
+        console.error('Failed to update like count:', response.statusText)
       }
     } catch (error) {
-      console.error("Error updating like count:", error)
+      console.error('Error updating like count:', error)
     }
   }
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`http://localhost:3001/Posts/${id}`, {
-        method: "DELETE",
+        method: 'DELETE'
       })
 
       if (response.ok) {
         setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id))
-        navigate("/")
+        navigate('/')
       } else {
-        console.error("Failed to delete the post:", response.statusText)
+        console.error('Failed to delete the post:', response.statusText)
       }
     } catch (error) {
       console.error("Error can't delete the post:", error)
@@ -156,7 +156,7 @@ const ViewUser = ({ user }) => {
                           className="userLink"
                           to={`/ViewUser/${post.User._id}`}
                         >
-                          <p className="username">{userInfo.username}</p>
+                          <p className="username-post">{userInfo.username}</p>
                         </Link>
                       </div>
                     )}
@@ -179,17 +179,31 @@ const ViewUser = ({ user }) => {
                       </div>
                     </div>
 
-                    <div className="post-details">
-                      <button
-                        className="post-like"
-                        onClick={() => handleLikeToggle(post._id)}
-                      >
-                        {hasLiked(post) ? (
-                          <i class="fa-solid fa-heart"></i>
-                        ) : (
-                          <i class="fa-regular fa-heart"></i>
-                        )}
-                      </button>
+                    <div className="post-information">
+                      <div className="LikeComment">
+                        <button
+                          className="post-like"
+                          onClick={() => handleLikeToggle(post._id)}
+                        >
+                          {hasLiked(post) ? (
+                            <>
+                              <i class="fa-solid fa-heart"></i>
+                              <p>{post.like}</p>
+                            </>
+                          ) : (
+                            <>
+                              <i class="fa-regular fa-heart"></i>
+                              <p>{post.like}</p>
+                            </>
+                          )}
+                        </button>
+                        <Link to={`/details/${post._id}`}>
+                          <button>
+                            <i class="fa-regular fa-comment fa-flip-horizontal"></i>
+                            <p>{post.comments.length}</p>
+                          </button>
+                        </Link>
+                      </div>
                       <BookmarkButton user={user} post={post} />
                     </div>
                   </div>
