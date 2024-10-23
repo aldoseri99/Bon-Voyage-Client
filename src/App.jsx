@@ -16,6 +16,7 @@ import SearchResults from "./pages/SearchResults"
 import FollowingsPage from "./pages/FollowingsPage"
 import HighRatedPostsMap from "./pages/HighRatedMap"
 import "../public/CSS/nav.css"
+import FAQs from "./components/FAQs"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -32,7 +33,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem("token")
 
     if (token) {
       checkToken()
@@ -42,7 +43,7 @@ const App = () => {
     <>
       <Nav user={user} handleLogOut={handleLogOut} />
       {user ? (
-        <Link to={'/add'}>
+        <Link to={"/add"}>
           <button className="floating-button">
             <i class="fa-solid fa-plus"></i>
           </button>
@@ -69,6 +70,7 @@ const App = () => {
           path="/followings/:userId"
           element={<FollowingsPage user={user} />}
         />
+        <Route path="/FAQs" element={<FAQs />} />
       </Routes>
     </>
   )
