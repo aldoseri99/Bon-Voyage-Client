@@ -72,3 +72,24 @@ export const ToggleBookmark = async (userId, postId) => {
     throw error
   }
 }
+
+export const getCoordinates = async (country) => {
+  const response = await fetch(
+    `http://localhost:3001/location?country=${encodeURIComponent(country)}`
+  )
+
+  if (!response.ok) {
+    throw new Error("Error fetching coordinates")
+  }
+
+  const data = await response.json()
+
+  if (data.results.length === 0) {
+    throw new Error("No results found")
+  }
+
+  return {
+    lat: data.results[0].geometry.lat,
+    lon: data.results[0].geometry.lng,
+  }
+}

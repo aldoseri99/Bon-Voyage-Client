@@ -1,19 +1,21 @@
-import { useState, useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import { CheckSession } from './services/Auth'
-import './App.css'
-import Nav from './components/Nav'
-import Home from './pages/Home'
-import Register from './pages/Register'
-import SignIn from './pages/SignIn'
-import Details from './pages/Details'
-import EditProfile from './pages/EditProfile'
-import ViewActivities from './components/ViewActivities'
-import AddPost from './components/AddPost'
-import ViewUser from './components/ViewUser'
-import SearchResults from './pages/SearchResults'
+import { useState, useEffect } from "react"
+import { Route, Routes } from "react-router-dom"
+import { Link } from "react-router-dom"
+import { CheckSession } from "./services/Auth"
+import "./App.css"
+import Nav from "./components/Nav"
+import Home from "./pages/Home"
+import Register from "./pages/Register"
+import SignIn from "./pages/SignIn"
+import Details from "./pages/Details"
+import EditProfile from "./pages/EditProfile"
+import ViewActivities from "./components/ViewActivities"
+import AddPost from "./components/AddPost"
+import ViewUser from "./components/ViewUser"
+import SearchResults from "./pages/SearchResults"
 import FollowingsPage from './pages/FollowingsPage'
+import HighRatedPostsMap from "./pages/HighRatedMap"
+
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -38,29 +40,29 @@ const App = () => {
   }, [])
   return (
     <>
-      <div className="nav-bar">
-        <Link to="/"> Home</Link>
-        <Nav />
-        <br />
-        {user ? (
-          <>
-            <Link onClick={handleLogOut} to="/">
-              Sign Out
-            </Link>
+      <Nav />
+      <Link to="/"> Home</Link>
+      <br />
+      {user ? (
+        <>
+          <Link onClick={handleLogOut} to="/">
+            Sign Out
+          </Link>
+          <br />
+          <Link to="/editprofile">EditProfile</Link>
+          <br />
+          <Link to={`/ViewUser/${user.id}`}>View User</Link>
+          <br />
+          <Link to={"/high-rated-posts"}> Map </Link>
+        </>
+      ) : (
+        <>
+          <Link to="/register"> Register</Link>
+          <br />
+          <Link to="/signin"> Sign In</Link>
+        </>
+      )}
 
-            <br />
-            <Link to="/editprofile">EditProfile</Link>
-            <br />
-            <Link to={`/ViewUser/${user.id}`}>View User</Link>
-          </>
-        ) : (
-          <>
-            <Link to="/register"> Register</Link>
-            <br />
-            <Link to="/signin"> Sign In</Link>
-          </>
-        )}
-      </div>
       <hr />
       {user ? (
         <Link to={'/add'}>
@@ -81,6 +83,9 @@ const App = () => {
         <Route path="/activities/:activitieId" element={<ViewActivities />} />
         <Route path="/ViewUser/:userId" element={<ViewUser user={user} />} />
         <Route path="/search/:query" element={<SearchResults />} />
+
+        <Route path="/high-rated-posts" element={<HighRatedPostsMap />} />
+
         <Route
           path="/followings/:userId"
           element={<FollowingsPage user={user} />}
