@@ -94,3 +94,25 @@
   color: #b22222;
   cursor: pointer;
 }
+
+.post-userPage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px;
+}
+.post-userPage div {
+  display: flex;
+  align-items: center;
+}
+.post-userPage i {
+  font-size: 20px;
+  font-weight: 600;
+  color: #b22222;
+}
+.post-userPage i:hover {
+  font-size: 20px;
+  font-weight: 600;
+  color: #b22222;
+  cursor: pointer;
+}
