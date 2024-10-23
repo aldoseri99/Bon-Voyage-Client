@@ -1000,3 +1000,87 @@ input:checked + .slider:before {
   justify-content: center;
   align-items: center;
 }
+
+
+/* Add-Post */
+
+
+.post-form-wrapper {
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 1000px;
+}
+
+.post-form-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-left: 16%;
+  margin-top: 8%;
+}
+
+.post-left-column, .post-middle-column, .post-right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+input[type="text"], input[type="number"], select {
+  padding: 8px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+
+
+.post-button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.add-post-msg {
+  text-align: start;
+  margin-left: 16%;
+  font-size: 55px;
+  font-weight: bold;
+  color: #333;
+}
+
+.add-post-button {
+  margin-top: 30px;
+  font-size: 22px;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  border-radius: 10vh;
+  cursor: pointer;
+  width: 140px;
+  height: 50px;
+}
+
+.add-post-button-div {
+  margin-left: 24%;
+}
+
+.upload-avatar::file-selector-button {
+  font-size: 14px;
+  background-color: white;
+  border-radius: 1vh;
+  cursor: pointer;
+  width: 120px;
+  height: 30px;
+  border: none;
+}
+
+
+
+
+
+
