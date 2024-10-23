@@ -1,12 +1,12 @@
-import React from 'react'
-import { createComment, deleteComment } from '../services/commentServices'
+import React from "react"
+import { createComment, deleteComment } from "../services/commentServices"
 
 const Comment = ({
   comments,
   postId,
   onCommentAdded,
   onCommentDeleted,
-  user
+  user,
 }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -19,7 +19,7 @@ const Comment = ({
         onCommentAdded(newComment)
         e.target.reset()
       } catch (error) {
-        console.error('Error adding comment:', error)
+        console.error("Error adding comment:", error)
       }
     }
   }
@@ -29,7 +29,7 @@ const Comment = ({
       await deleteComment(commentId)
       onCommentDeleted(commentId)
     } catch (error) {
-      console.error('Error deleting comment:', error)
+      console.error("Error deleting comment:", error)
     }
   }
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { GetPost } from "../services/postServices"
 import { Link } from "react-router-dom"
-import Comment from "./Comment"
+import Comment from "./Comment" // Ensure this component handles displaying comments
 import BookmarkButton from "./BookmarkButton"
 
 const ViewPosts = ({ user }) => {
@@ -11,6 +11,7 @@ const ViewPosts = ({ user }) => {
   const [selectedEnvironment, setSelectedEnvironment] = useState(null)
   const [selectedRating, setSelectedRating] = useState(null)
   const [sortOption, setSortOption] = useState("none")
+  const [visibleCommentsPostId, setVisibleCommentsPostId] = useState(null) // Track which post's comments are visible
 
   useEffect(() => {
     const handlePosts = async () => {
@@ -129,6 +130,10 @@ const ViewPosts = ({ user }) => {
 
   const filteredPosts = getFilteredSortedPosts()
 
+  const toggleComments = (postId) => {
+    setVisibleCommentsPostId((prevId) => (prevId === postId ? null : postId))
+  }
+
   return (
     <div className="full-page">
       <div>
@@ -212,7 +217,7 @@ const ViewPosts = ({ user }) => {
                 </Link>
                 <h3>
                   {post.rate}
-                  <i class="fa-solid fa-star"></i>
+                  <i className="fa-solid fa-star"></i>
                 </h3>
               </div>
             </div>
@@ -225,25 +230,37 @@ const ViewPosts = ({ user }) => {
                 >
                   {hasLiked(post) ? (
                     <>
-                      <i class="fa-solid fa-heart"></i>
+                      <i className="fa-solid fa-heart"></i>
                       <p>{post.like}</p>
                     </>
                   ) : (
                     <>
-                      <i class="fa-regular fa-heart"></i>
+                      <i className="fa-regular fa-heart"></i>
                       <p>{post.like}</p>
                     </>
                   )}
                 </button>
-                <Link to={`/details/${post._id}`}>
-                  <button>
-                    <i class="fa-regular fa-comment fa-flip-horizontal"></i>
-                    <p>{post.comments.length}</p>
-                  </button>
-                </Link>
+                <button onClick={() => toggleComments(post._id)}>
+                  <i className="fa-regular fa-comment fa-flip-horizontal"></i>
+                  <p>{post.comments.length}</p>
+                </button>
               </div>
               <BookmarkButton user={user} post={post} />
             </div>
+
+            {visibleCommentsPostId === post._id && (
+              <div className="post-comment">
+                <Comment
+                  comments={post.comments}
+                  postId={post._id}
+                  onCommentAdded={(newComment) =>
+                    handleCommentAdded(post._id, newComment)
+                  }
+                  onCommentDeleted={handleCommentDeleted}
+                  user={user}
+                />
+              </div>
+            )}
           </div>
         ))}
       </div>
