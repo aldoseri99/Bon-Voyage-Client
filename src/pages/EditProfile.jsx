@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { GetUserInfo, UpdateUser } from '../services/Auth'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const EditProfile = ({ user, setUser }) => {
   if (user) {
+    let navigate = useNavigate()
     const [userInfo, setUserInfo] = useState('')
     useEffect(() => {
       const getInfo = async () => {
@@ -44,14 +45,14 @@ const EditProfile = ({ user, setUser }) => {
         }
       }
       try {
-        const res = await UpdateUser(user.id, formValues, {
+        const res = await UpdateUser(user.id, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         })
         if (res.message) {
           setErrorMessage(res.message)
-
+          navigate(`/ViewUser/${user.id}`)
           return
         }
         console.log(res)
@@ -67,7 +68,7 @@ const EditProfile = ({ user, setUser }) => {
             <label htmlFor="name  ">Name: </label>
             <input
               onChange={handleChange}
-              placeholder={user.name}
+              placeholder={userInfo.name}
               name="name"
               type="text"
             />
@@ -76,7 +77,7 @@ const EditProfile = ({ user, setUser }) => {
             <label htmlFor="username">Username: </label>
             <input
               onChange={handleChange}
-              placeholder={user.username}
+              placeholder={userInfo.username}
               name="username"
               type="text"
             />
