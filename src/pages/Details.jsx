@@ -6,6 +6,7 @@ import ViewActivities from '../components/ViewActivities'
 import AddActivities from '../components/AddActivities'
 import Map from '../components/Map'
 import { useNavigate } from 'react-router-dom'
+import Comment from '../components/Comment'
 
 const Details = ({ user }) => {
   const { id } = useParams()
@@ -114,6 +115,25 @@ const Details = ({ user }) => {
   }
 
   const isPostOwner = post && post.User && post.User.toString() === user?.id
+
+  const handleCommentAdded = (postId, newComment) => {
+    setPost(() =>
+      post._id === postId
+        ? { ...post, comments: [...post.comments, newComment] }
+        : post
+    )
+  }
+
+  const handleCommentDeleted = (commentId) => {
+    setPost((prevPost) =>
+      prevPost?.map((post) => ({
+        ...post,
+        comments: prevPost.comments.filter(
+          (comment) => comment._id !== commentId
+        )
+      }))
+    )
+  }
 
   return (
     <div className="background-color">
@@ -240,10 +260,9 @@ const Details = ({ user }) => {
                   className="add-activity"
                   onClick={() => setIsAddingActivity((prev) => !prev)}
                 >
-                  {isAddingActivity ? "Cancel" : "+"}
+                  {isAddingActivity ? 'Cancel' : '+'}
                 </button>
               )}
-
             </div>
             <hr />
             {post.activities.length === 0 ? (
@@ -292,6 +311,16 @@ const Details = ({ user }) => {
                 )}
               </>
             )}
+          </div>
+          <div className="post-comment">
+            <Comment
+              comments={post.comments}
+              postId={post._id}
+              onCommentAdded={(newComment) =>
+                handleCommentAdded(post._id, newComment)
+              }
+              onCommentDeleted={handleCommentDeleted}
+            />
           </div>
         </div>
       )}

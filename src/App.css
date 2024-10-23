@@ -389,7 +389,6 @@ button:hover {
   bottom: 20px;
   right: 20px;
   background-color: #1d1e0b;
-  color: white;
   border: none;
   padding: 15px 30px;
   font-size: 16px;
@@ -397,12 +396,15 @@ button:hover {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition: background-color 0.3s ease;
-  color: #dbdfd8;
   z-index: 100000;
 }
 
 .floating-button:hover {
   background-color: #a4b4b0;
+}
+
+.floating-button i {
+  color: white;
 }
 
 a {
