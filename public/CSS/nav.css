@@ -1,0 +1,47 @@
+.logo {
+  height: 50px;
+  width: auto;
+}
+
+nav {
+  /* Change to your preferred background color */
+  display: flex;
+  gap: 15px;
+  margin-left: auto;
+}
+
+.nav-links {
+  list-style: none; /* Remove bullet points */
+  display: flex; /* Align items in a row */
+  flex-direction: column; /* Stack links vertically */
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 10px 0; /* Space between links */
+}
+
+.nav-links a {
+  color: #555;
+  text-decoration: none; /* Remove underline */
+  padding: 10px 15px; /* Padding around links */
+  transition: background 0.3s; /* Smooth transition for hover effect */
+}
+
+.nav-links a:hover {
+  color: #b7cbca; /* Change background on hover */
+  border-radius: 5px; /* Rounded corners */
+}
+
+/* Responsive design */
+@media (min-width: 768px) {
+  .nav-links {
+    flex-direction: row; /* Change to row on larger screens */
+    justify-content: space-around; /* Space links evenly */
+  }
+
+  .nav-links li {
+    margin: 0 10px; /* Horizontal margin for larger screens */
+  }
+}
