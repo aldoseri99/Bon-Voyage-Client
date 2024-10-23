@@ -39,6 +39,7 @@ const Nav = ({ user, handleLogOut }) => {
             <>
               <li>
                 <Link to="/high-rated-posts">Map</Link>
+                <Link to="/FAQs"> FAQs</Link>
               </li>
               <li>
                 <form onSubmit={handleSearch} className="search-form">
@@ -87,6 +88,9 @@ const Nav = ({ user, handleLogOut }) => {
             </>
           ) : (
             <>
+              <li>
+                <Link to="/FAQs"> FAQs</Link>
+              </li>
               <li>
                 <Link to="/register">Register</Link>
               </li>
