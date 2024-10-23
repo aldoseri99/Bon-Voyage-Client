@@ -50,6 +50,8 @@ const App = () => {
           <Link to="/editprofile">EditProfile</Link>
           <br />
           <Link to={`/ViewUser/${user.id}`}>View User</Link>
+          <br />
+          <Link to={"/high-rated-posts"}> Map </Link>
         </>
       ) : (
         <>
