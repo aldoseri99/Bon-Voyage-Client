@@ -130,46 +130,47 @@ const ViewPosts = ({ user }) => {
   const filteredPosts = getFilteredSortedPosts()
 
   return (
-
     <>
-    <div>
-    <button onClick={() => setShowFilters((prev) => !prev)}>
-      {showFilters ? 'Hide Filters' : 'Show Filters'}
-    </button>
+      <div>
+        <button onClick={() => setShowFilters((prev) => !prev)}>
+          {showFilters ? 'Hide Filters' : 'Show Filters'}
+        </button>
 
-    {showFilters && (
-      <>
-        <h3>Filter by Weather</h3>
-        <select onChange={(e) => handleWeatherFilter(e.target.value)}>
-          <option value="">Show All</option>
-          <option value="sunny">Sunny</option>
-          <option value="cloudy">Cloudy</option>
-          <option value="rainy">Rainy</option>
-          <option value="snowy">Snowy</option>
-          <option value="windy">Windy</option>
-        </select>
+        {showFilters && (
+          <>
+            <h3>Filter by Weather</h3>
+            <select onChange={(e) => handleWeatherFilter(e.target.value)}>
+              <option value="">Show All</option>
+              <option value="sunny">Sunny</option>
+              <option value="cloudy">Cloudy</option>
+              <option value="rainy">Rainy</option>
+              <option value="snowy">Snowy</option>
+              <option value="windy">Windy</option>
+            </select>
 
-        <h3>Filter by Environment</h3>
-        <select onChange={(e) => handleEnvironmentFilter(e.target.value)}>
-          <option value="">Show All</option>
-          <option value="city">City</option>
-          <option value="nature">Nature</option>
-          <option value="beach">Beach</option>
-          <option value="mountain">Mountain</option>
-          <option value="desert">Desert</option>
-        </select>
+            <h3>Filter by Environment</h3>
+            <select onChange={(e) => handleEnvironmentFilter(e.target.value)}>
+              <option value="">Show All</option>
+              <option value="city">City</option>
+              <option value="nature">Nature</option>
+              <option value="beach">Beach</option>
+              <option value="mountain">Mountain</option>
+              <option value="desert">Desert</option>
+            </select>
 
-        <h3>Filter by Rating</h3>
-        <select onChange={(e) => handleRatingFilter(Number(e.target.value))}>
-          <option value="">Show All</option>
-          <option value="2">2 Stars or Higher</option>
-          <option value="3">3 Stars or Higher</option>
-          <option value="4">4 Stars or Higher</option>
-          <option value="5">5 Stars</option>
-        </select>
-      </>
-    )}
-  </div>
+            <h3>Filter by Rating</h3>
+            <select
+              onChange={(e) => handleRatingFilter(Number(e.target.value))}
+            >
+              <option value="">Show All</option>
+              <option value="2">2 Stars or Higher</option>
+              <option value="3">3 Stars or Higher</option>
+              <option value="4">4 Stars or Higher</option>
+              <option value="5">5 Stars</option>
+            </select>
+          </>
+        )}
+      </div>
 
       <div className="post">
         {filteredPosts.map((post) => (
