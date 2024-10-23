@@ -744,7 +744,9 @@ input[type="file"] {
   font-size: 1.3rem;
 }
 
+
 /* Register Page */
+
 
 .full-page-cover-R {
   height: 100vh; /* Full viewport height */
@@ -783,9 +785,8 @@ input[type="file"] {
   gap: 40px; /* Increase gap between columns for more spacing */
 }
 
-.left-column,
-.middle-column,
-.right-column {
+
+.left-column, .middle-column, .right-column {
   flex: 1;
   display: flex;
   flex-direction: column;

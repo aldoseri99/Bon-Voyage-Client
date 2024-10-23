@@ -88,7 +88,9 @@ const ViewUser = ({ user }) => {
               </div>
               <div>
                 {user.id === userInfo._id ? (
-                  <button>Edit Profile</button>
+                  <Link to="/editprofile">
+                    <button>Edit Profile</button>
+                  </Link>
                 ) : (
                   <FollowButton user={user} account={userInfo} />
                 )}
