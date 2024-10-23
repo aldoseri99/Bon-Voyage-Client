@@ -28,7 +28,7 @@ const Home = ({ user, setUser }) => {
   }
   return (
     <div>
-      <UserList user={user} setUser={setUser} />
+      {/* <UserList user={user} setUser={setUser} /> */}
       {tab ? (
         <>
           <button onClick={handleTabs}>All</button>

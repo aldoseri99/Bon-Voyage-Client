@@ -46,9 +46,7 @@ export const GetPostByUser = async (id) => {
 export const GetPostByFollow = async (array) => {
   try {
     const userIds = array.join(',')
-
     const res = await Client.get(`/Posts/followed/${userIds}`)
-
     return res.data
   } catch (error) {
     console.error('Error fetching posts by followings:', error)
