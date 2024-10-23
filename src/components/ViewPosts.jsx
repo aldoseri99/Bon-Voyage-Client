@@ -133,7 +133,8 @@ const ViewPosts = ({ user }) => {
     <div className="full-page">
       <div>
         <button onClick={() => setShowFilters((prev) => !prev)}>
-          {showFilters ? 'Hide Filters' : 'Show Filters'}
+          {showFilters ? "Hide Filters" : <i className="fas fa-filter"></i>}
+
         </button>
 
         {showFilters && (

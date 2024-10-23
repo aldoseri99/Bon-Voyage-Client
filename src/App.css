@@ -828,6 +828,84 @@ input[type='file'] {
   margin-left: 2%;
 }
 
+/* Nav Style */
+
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.logo {
+  height: 50px;
+}
+
+.nav-links-container {
+  flex: 2;
+  display: flex;
+  justify-content: flex-end; /* Aligns links to the right */
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 15px; /* Space between links */
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #88a278;
+}
+
+.search-form {
+  display: flex;
+  align-items: center; /* Aligns search input and button vertically */
+  margin-left: 20px; /* Space between links and search */
+}
+
+.search-form input {
+  padding: 5px;
+}
+
+.search-form button {
+  padding: 5px;
+  color: #b7cbca;
+  background-color: #fbf6ef;
+  border: none;
+  margin: 0;
+}
+
+.user-dropdown {
+  position: relative;
+  margin-left: 20px; /* Space between search and user profile */
+}
+
+.user-profile-pic {
+  width: 40px; /* Adjust as needed */
+  height: 40px; /* Adjust as needed */
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 50px; /* Adjust based on your header height */
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 150px; /* Adjust width as needed */
+}
+
+.dropdown-menu li {
+  padding: 8px;
+  text-align: center;
+}
 .btn-follow {
   background-color: #007bff;
   color: white;
