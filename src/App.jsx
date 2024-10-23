@@ -12,8 +12,8 @@ import EditProfile from "./pages/EditProfile"
 import ViewActivities from "./components/ViewActivities"
 import AddPost from "./components/AddPost"
 import ViewUser from "./components/ViewUser"
-import SearchResults from './pages/SearchResults'
-
+import SearchResults from "./pages/SearchResults"
+import HighRatedPostsMap from "./pages/HighRatedMap"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -72,6 +72,8 @@ const App = () => {
         <Route path="/activities/:activitieId" element={<ViewActivities />} />
         <Route path="/ViewUser/:userId" element={<ViewUser user={user} />} />
         <Route path="/search/:query" element={<SearchResults />} />
+
+        <Route path="/high-rated-posts" element={<HighRatedPostsMap />} />
       </Routes>
     </>
   )
