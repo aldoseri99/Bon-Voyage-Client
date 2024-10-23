@@ -1,12 +1,29 @@
+.users-post {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 5px;
+  background-color: #dbdfd8;
+  width: 80%;
+  justify-self: center;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  padding: 20px 0;
+}
+
 .user-section {
   padding: 10px;
   display: flex;
   flex-direction: column;
   width: 80%;
   justify-self: center;
-  background-color: #dbdfd7;
+  background-color: #1d1e0b;
   border-radius: 20px;
   padding: 20px;
+}
+
+.user-section * {
+  color: #fbf6ef;
 }
 
 .top-section {
@@ -38,5 +55,14 @@
   font-weight: bold;
 }
 .bottom-section p span {
-  color: blueviolet;
+  color: #bbbfb9;
+}
+.icons {
+  display: flex;
+  font-size: 35px;
+  font-weight: 600;
+  gap: 20px;
+}
+.icons div:hover {
+  cursor: pointer;
 }

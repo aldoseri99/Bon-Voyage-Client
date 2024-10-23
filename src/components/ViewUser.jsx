@@ -87,13 +87,25 @@ const ViewUser = ({ user }) => {
                 <p className="name-name">{userInfo.name}</p>
               </div>
               <div>
-                {user.id === userInfo._id ? (
-                  <Link to="/editprofile">
-                    <button>Edit Profile</button>
-                  </Link>
-                ) : (
-                  <FollowButton user={user} account={userInfo} />
-                )}
+                {user ? (
+                  user.id === userInfo._id ? (
+                    <div className="icons">
+                      <div onClick={() => setShowBookmarks(!showBookmarks)}>
+                        {showBookmarks ? (
+                          <i className="fa-solid fa-bookmark"></i>
+                        ) : (
+                          <i className="fa-regular fa-bookmark"></i>
+                        )}
+                      </div>
+
+                      <Link to="/editprofile">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                      </Link>
+                    </div>
+                  ) : (
+                    <FollowButton user={user} account={userInfo} />
+                  )
+                ) : null}
               </div>
             </div>
             <div className="bottom-section">
@@ -108,17 +120,19 @@ const ViewUser = ({ user }) => {
             </div>
           </section>
           <div>
-            {user.id === userInfo._id && (
-              <>
-                <button onClick={() => setShowBookmarks(false)}>
-                  View Posts
-                </button>
-                <button onClick={() => setShowBookmarks(true)}>
-                  View Bookmarks
-                </button>
-              </>
-            )}
-            <div className="post">
+            {/* {user
+              ? user.id === userInfo._id && (
+                  <>
+                    <button onClick={() => setShowBookmarks(false)}>
+                      View Posts
+                    </button>
+                    <button onClick={() => setShowBookmarks(true)}>
+                      View Bookmarks
+                    </button>
+                  </>
+                )
+              : null} */}
+            <div className="users-post">
               {showBookmarks ? (
                 <ViewBookmarks
                   user={user}
