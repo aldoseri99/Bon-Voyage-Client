@@ -1,18 +1,21 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
 body {
   margin: 0;
   height: 100vh;
   background-color: #fbf6ef;
+  background-image: url('/public/background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
-html {
-  background-color: #FBF6EF;
-}
-
 #root {
   /* max-width: 1280px; */
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  
 }
 
 .nav-bar {
@@ -75,15 +78,15 @@ html {
 }
 
 .post {
-  border-radius: 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  margin-top: 30px;
   gap: 5px;
 }
 
 .post-inner {
-  border-radius: 8px;
+  border-radius: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   background-color: #fff;
@@ -94,7 +97,7 @@ html {
 .post-user {
   display: flex;
   align-items: center;
-  margin: 5px 10px;
+  margin: 15px;
 }
 .userLink {
   all: unset;
@@ -155,7 +158,7 @@ html {
 .post-details {
   display: flex;
   justify-content: space-between;
-  height: 50px;
+  height: 60px;
   padding: 0 20px;
 }
 
@@ -196,7 +199,15 @@ h4 {
 }
 
 hr {
-  margin: 20px 0; /* Space before and after hr */
+  margin: 20px 0;
+}
+
+
+.activities {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .viewuser-post {
@@ -330,8 +341,6 @@ button:hover {
   font-size: 11px;
 }
 
-
-
 /* View Post */
 
 .post-like {
@@ -361,7 +370,6 @@ button:hover {
   margin-left: 3%;
   max-width: 200px;
   max-height: 150px;
-  
 }
 
 .post-like h4 {
@@ -369,14 +377,14 @@ button:hover {
 }
 
 .post-like button:hover {
-  background-color:#888;
+  background-color: #888;
 }
 
 .floating-button {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #4caf50;
+  background-color: #b7cbc9;
   color: white;
   border: none;
   padding: 15px 30px;
@@ -388,7 +396,7 @@ button:hover {
 }
 
 .floating-button:hover {
-  background-color: #45a049;
+  background-color: rgb(163, 166, 161);
 }
 
 .fa-star{
@@ -624,21 +632,18 @@ a:hover {
 }
 
 
-
 /* SignIn Page */
 
 .login-page {
-  /* Retain your original background color */
-  height: 85vh; /* 90% of the viewport height */
-  width: 85vw; /* 90% of the viewport width */
+  height: 85vh;
+  width: 85vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto; /* Centers the login page */
+  margin: auto;
   border-radius: 8px;
-  z-index: 2; /* Higher z-index to make sure it stays in front */
-  position: relative; /* Ensure it's positioned for z-index to take effect */
-  
+  z-index: 2;
+  position: relative;
 }
 
 .signin {
@@ -652,7 +657,7 @@ a:hover {
   padding: 20px;
   border-radius: 8px;
   text-align: center;
-  margin-top: -20vh
+  margin-top: -20vh;
 }
 
 .input-row {
@@ -680,7 +685,7 @@ a:hover {
 }
 
 .signin-button {
-  margin-top: 40px; /* Adjusted to a smaller margin */
+  margin-top: 40px;
   font-size: 22px;
   border-radius: 10vh;
   background-color: black;
@@ -698,28 +703,27 @@ a:hover {
 }
 
 .login-msg {
-  text-align: left; /* Aligns the "Login" text to the left */
-  margin-bottom: 80px; /* Adds space between the heading and inputs */
-  font-size: 55px; /* Adjust font size as needed */
-  font-weight: bold; /* Make the text bold */
-  color: #333; 
+  text-align: left;
+  margin-bottom: 80px;
+  font-size: 55px;
+  font-weight: bold;
+  color: #333;
 }
 
 .full-page-cover {
-  height: 100vh; /* 100% of the viewport height */
-  width: 100vw; /* 100% of the viewport width */
-  
+  height: 100vh;
+  width: 100vw;
+
   display: flex;
-  justify-content: center; /* Centers content horizontally */
-  align-items: center; /* Centers content vertically */
-  position: absolute; /* Ensures the div stays in place even when scrolling */
-  background-image: url('/login-page-background01.png'); /* Corrected path */
-  background-size: cover; /* Ensure the image covers the entire div */
-  background-position: center; /* Center the background image */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-image: url('/login-page-background01.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   left: 0;
   margin: 0;
   padding: 0;
-  z-index: 1; /* Ensure it is lower than .login-page */
-
-
+  z-index: 1;
+}

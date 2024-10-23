@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { GetBookmarked } from '../services/postServices'
 import { Link } from 'react-router-dom'
+import BookmarkButton from './BookmarkButton'
 
-const ViewBookmarks = ({ user }) => {
+const ViewBookmarks = ({ user, userInfo, hasLiked, handleLikeToggle }) => {
   const [bookmarkPosts, setBookmarkPost] = useState([])
   useEffect(() => {
     const getPosts = async () => {
@@ -14,19 +15,54 @@ const ViewBookmarks = ({ user }) => {
     getPosts()
   }, [user])
   return (
-    <div>
-      <br />
-      <hr />
-      <h1>bookmark</h1>
+    <div className="post">
       {bookmarkPosts?.map((post) => (
-        <div className="viewuser-post" key={post._id}>
-          <img src={`http://localhost:3001/uploadPost/${post.photos}`} alt="" />
-          <div className="view-post-info">
-            <p>{post.title}</p>
-            <p>{post.country}</p>
+        <div key={post._id} className="post-inner">
+          {post.User && (
+            <div className="post-user">
+              <Link to={`/ViewUser/${post.User._id}`}>
+                <img
+                  src={`http://localhost:3001/profilePics/${post.User.profilePic}`}
+                  alt={`${post.User.username}'s profile`}
+                  className="user-profile-pic"
+                />
+              </Link>
+              <Link className="userLink" to={`/ViewUser/${post.User._id}`}>
+                <p className="username">{post.User.username}</p>
+              </Link>
+            </div>
+          )}
+          <div className="post-main">
             <Link to={`/details/${post._id}`}>
-              <button>Details</button>
+              <img
+                className="post-img"
+                src={`http://localhost:3001/uploadPost/${post.photos}`}
+                alt="post photo"
+              />
             </Link>
+            <div className="post-main-info">
+              <Link to={`/details/${post._id}`}>
+                <h3>{post.title}</h3>
+              </Link>
+              <h3>
+                {post.rate}
+                <i class="fa-solid fa-star"></i>
+              </h3>
+            </div>
+          </div>
+
+          <div className="post-details">
+            <button
+              className="post-like"
+              onClick={() => handleLikeToggle(post._id)}
+            >
+              {hasLiked(post) ? (
+                <i class="fa-solid fa-heart"></i>
+              ) : (
+                <i class="fa-regular fa-heart"></i>
+              )}
+            </button>
+            <BookmarkButton user={user} post={post} />
           </div>
         </div>
       ))}
