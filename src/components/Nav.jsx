@@ -1,6 +1,5 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 
 const Nav = () => {
   const [searchQuery, setSearchQuery] = useState()
