@@ -1,3 +1,8 @@
+body {
+  margin: 0;
+  height: 100vh;
+  background-color: #fbf6ef;
+}
 html {
   background-color: #FBF6EF;
 }
@@ -70,75 +75,106 @@ html {
 }
 
 .post {
-  border-radius: 10px; /* Rounded corners */
-  padding: 15px; /* Inner spacing */
-  margin: 20px auto; /* Centered margin */
-  max-width: 1200px; /* Max width for larger screens */
-  background-color: #fff; /* White background */
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 5px;
 }
 
 .post-inner {
-  padding: 10px;
-  border-radius: 8px; /* Match border radius for inner content */
-  border: 3px solid #ccc;
+  border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  background-color: #fff; /* Background for the content area */
+  background-color: #fff;
+  width: 400px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 .post-user {
   display: flex;
   align-items: center;
-  margin-bottom: 10px; /* Space below user info */
+  margin: 5px 10px;
+}
+.userLink {
+  all: unset;
+  margin-left: 10px;
+  font-size: 20px;
+}
+.userLink:hover {
+  cursor: pointer;
 }
 
 .user-profile-pic {
-  width: 40px; /* Profile pic size */
-  height: 40px; /* Make it square */
-  border-radius: 50%; /* Circular profile pic */
-  margin-right: 10px; /* Space between pic and username */
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
   object-fit: cover;
 }
 
 .user-profile-pic-large {
-  width: 150px; /* Profile pic size */
-  height: 150px; /* Make it square */
-  border-radius: 50%; /* Circular profile pic */
-  margin-right: 10px; /* Space between pic and username */
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 10px;
   object-fit: cover;
 }
 
-.post-img {
-  width: 100%; /* Full width of the container */
-  max-height: 300px; /* Limit height */
-  overflow: hidden; /* Hide overflow */
-  border-radius: 10px; /* Match border radius */
+.post-main {
+  height: 400px;
+  position: relative;
   display: flex;
   justify-content: center;
+  background-color: #45a049;
+}
+.post-img {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+}
+
+.post-main-info {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  height: 50px;
+}
+.post-main-info h3 {
+  padding: 0 15px;
+}
+.post-main-info h3 i {
+  color: gold;
+  margin-left: 5px;
 }
 
-.post-img img {
-  max-width: 100%; /* Responsive image */
-  max-height: 100%;
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 10px; /* Match border radius */
+.post-details {
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  padding: 0 20px;
 }
 
-.post-title,
-.post-country,
-.post-cost,
-.post-rate,
-.post-like {
-  margin: 10px 0; /* Space between sections */
+.post-details button {
+  all: unset;
+}
+/* bookmark button */
+.post-details button {
+  all: unset;
+  font-size: 30px;
+}
+.post-details button:hover {
+  all: unset;
+  font-size: 30px;
+  cursor: pointer;
 }
 
-.post-title h3,
-.post-country h3,
-.post-cost h3,
-.post-rate h3,
-.post-like h4 {
-  margin: 0; /* Remove default margin */
+.fa-solid.fa-heart {
+  color: red;
 }
 
 button {
@@ -188,18 +224,6 @@ hr {
   height: 340px;
 }
 
-/* bookmark button */
-.bookmark-btn {
-  all: unset;
-  font-size: 30px;
-}
-.bookmark-btn:hover {
-  all: unset;
-  font-size: 30px;
-  text-shadow: 0px 0px 1px gold;
-}
-
-
 /* Style for the comment section container */
 .commint-css {
   width: 95%;
@@ -211,7 +235,6 @@ hr {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-
 /* Individual comment styling */
 .comment {
   display: flex;
@@ -219,12 +242,6 @@ hr {
   margin-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid #ddd;
-}
-
-.post-user {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
 }
 
 /* Style for the user profile image */
@@ -322,7 +339,6 @@ button:hover {
 
 
 
-
 /* View Post */
 
 .post-like {
@@ -363,12 +379,11 @@ button:hover {
   background-color:#888;
 }
 
-
 .floating-button {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border: none;
   padding: 15px 30px;
@@ -382,6 +397,12 @@ button:hover {
 .floating-button:hover {
   background-color: #45a049;
 }
+
+a {
+  all: unset;
+}
+a:hover {
+  cursor: pointer;
 
 
 
@@ -482,4 +503,5 @@ button:hover {
   margin: 0;
   padding: 0;
   z-index: 1; /* Ensure it is lower than .login-page */
+
 }
