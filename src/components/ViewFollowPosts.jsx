@@ -1,85 +1,114 @@
 import { useEffect, useState } from 'react'
 import { GetPostByFollow } from '../services/postServices'
 import { Link } from 'react-router-dom'
-
+import BookmarkButton from './BookmarkButton'
+import { GetUserInfo } from '../services/Auth'
 const ViewFollowPosts = ({ user }) => {
   if (user) {
     const [posts, setPosts] = useState(null)
     useEffect(() => {
       const getFollowPosts = async () => {
-        const res = await GetPostByFollow(user.followings)
-        setPosts(res)
+        const userInfo = await GetUserInfo(user.id)
+        if (userInfo.user[0].followings.length > 0) {
+          const res = await GetPostByFollow(user.followings)
+          setPosts(res)
+        } else {
+          setPosts(null)
+        }
       }
       getFollowPosts()
     }, [user])
-    return (
-      <div>
-        {posts
-          ? posts.map((post) => (
-              <div key={post._id}>
-                <div className="post-user">
-                  {post.User && (
-                    <>
-                      <img
-                        src={`http://localhost:3001/profilePics/${post.User.profilePic}`} // Adjust the path based on your backend
-                        alt={`${post.User.username}'s profile`}
-                        className="user-profile-pic"
-                      />
-                      <Link to={`/ViewUser/${post.User._id}`}>
-                        <span className="username">{post.User.username}</span>
-                      </Link>
-                    </>
-                  )}
-                </div>
 
-                <div className="post-img">
+    const handleLikeToggle = async (postId) => {
+      if (!user || !user.id) {
+        console.error('User is not defined or missing an ID.')
+        return
+      }
+
+      try {
+        const response = await fetch(
+          `http://localhost:3001/Posts/like/${postId}`,
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId: user.id })
+          }
+        )
+
+        if (response.ok) {
+          const updatedPost = await response.json()
+          setPosts((prevPosts) =>
+            prevPosts.map((post) => (post._id === postId ? updatedPost : post))
+          )
+        } else {
+          console.error('Failed to update like count:', response.statusText)
+        }
+      } catch (error) {
+        console.error('Error updating like count:', error)
+      }
+    }
+    const hasLiked = (post) => {
+      return user && user.id && post.likedBy && post.likedBy.includes(user.id)
+    }
+
+    return (
+      <div className="post">
+        {posts ? (
+          posts.map((post) => (
+            <div key={post._id} className="post-inner">
+              {post.User && (
+                <div className="post-user">
+                  <Link className="userLink" to={`/ViewUser/${post.User._id}`}>
+                    <img
+                      src={`http://localhost:3001/profilePics/${post.User.profilePic}`}
+                      alt={`${post.User.username}'s profile`}
+                      className="user-profile-pic"
+                    />
+                  </Link>
+                  <Link className="userLink" to={`/ViewUser/${post.User._id}`}>
+                    <p className="username">{post.User.username}</p>
+                  </Link>
+                </div>
+              )}
+              <div className="post-main">
+                <Link to={`/details/${post._id}`}>
                   <img
+                    className="post-img"
                     src={`http://localhost:3001/uploadPost/${post.photos}`}
                     alt="post photo"
                   />
-                </div>
-
-                <div className="post-title">
-                  <h3>{post.title}</h3>
-                </div>
-
-                <div className="post-country">
-                  <h3>{post.country}</h3>
-                </div>
-
-                <div className="post-cost">
-                  <h3>{post.cost} BHD</h3>
-                </div>
-
-                <div className="post-rate">
-                  <h3>{post.rate}</h3>
-                </div>
-
-                <div className="post-like">
-                  <h4>{post.like}</h4>
-                </div>
-
-                <div>
-                  <h4>Activities:</h4>
-                  {post.activities.length === 0 ? (
-                    <p>No Activities</p>
-                  ) : (
-                    post.activities.map((activity) => (
-                      <div key={activity._id}>
-                        <h5>{activity.name}</h5>
-                      </div>
-                    ))
-                  )}
-                </div>
-
-                <div>
+                </Link>
+                <div className="post-main-info">
                   <Link to={`/details/${post._id}`}>
-                    <button>Details</button>
+                    <h3>{post.title}</h3>
                   </Link>
+                  <h3>
+                    {post.rate}
+                    <i class="fa-solid fa-star"></i>
+                  </h3>
                 </div>
               </div>
-            ))
-          : null}
+
+              <div className="post-details">
+                <button
+                  className="post-like"
+                  onClick={() => handleLikeToggle(post._id)}
+                >
+                  {hasLiked(post) ? (
+                    <i class="fa-solid fa-heart"></i>
+                  ) : (
+                    <i class="fa-regular fa-heart"></i>
+                  )}
+                </button>
+                <BookmarkButton user={user} post={post} />
+              </div>
+            </div>
+          ))
+        ) : (
+          <h1>No Post Available</h1>
+        )}
       </div>
     )
   }

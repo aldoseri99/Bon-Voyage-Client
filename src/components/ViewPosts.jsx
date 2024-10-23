@@ -130,7 +130,7 @@ const ViewPosts = ({ user }) => {
   const filteredPosts = getFilteredSortedPosts()
 
   return (
-    <>
+    <div className="ViewPosts">
       <button onClick={() => setShowFilters((prev) => !prev)}>
         {showFilters ? 'Hide Filters' : 'Show Filters'}
       </button>
@@ -191,86 +191,56 @@ const ViewPosts = ({ user }) => {
       <div className="post">
         {filteredPosts.map((post) => (
           <div key={post._id} className="post-inner">
-            <div className="post-user">
-              {post.User && (
-                <>
+            {post.User && (
+              <div className="post-user">
+                <Link to={`/ViewUser/${post.User._id}`}>
                   <img
                     src={`http://localhost:3001/profilePics/${post.User.profilePic}`}
                     alt={`${post.User.username}'s profile`}
                     className="user-profile-pic"
                   />
-                  <Link to={`/ViewUser/${post.User._id}`}>
-                    <span className="username">{post.User.username}</span>
-                  </Link>
-                </>
-              )}
-              <BookmarkButton user={user} post={post} />
-            </div>
-            <div className="arrange">
-              <div className="post-title">
-                <h3>{post.title}</h3>
+                </Link>
+                <Link className="userLink" to={`/ViewUser/${post.User._id}`}>
+                  <p className="username">{post.User.username}</p>
+                </Link>
               </div>
-              <div className="post-img">
+            )}
+            <div className="post-main">
+              <Link to={`/details/${post._id}`}>
                 <img
-                  className="the-post-img"
+                  className="post-img"
                   src={`http://localhost:3001/uploadPost/${post.photos}`}
                   alt="post photo"
                 />
-              </div>
-
-              <div className="post-details">
-                <div className="post-country">
-                  <h3>{post.country}</h3>
-                </div>
-
-                <div className="post-cost">
-                  <h3>{post.cost} BHD</h3>
-                </div>
-
-                <div className="post-rate">
-                  <h3>{post.rate}</h3>
-                </div>
-              </div>
-            </div>
-
-            <div className="post-like">
-              <button onClick={() => handleLikeToggle(post._id)}>
-                {hasLiked(post) ? (
-                  <i
-                    className="fa-solid fa-thumbs-up"
-                    style={{ color: '#a0a0a0', marginRight: '5px' }}
-                  ></i>
-                ) : (
-                  <i
-                    className="fa-regular fa-thumbs-up"
-                    style={{ color: '#a0a0a0', marginRight: '5px' }}
-                  ></i>
-                )}
-                <h4>{post.like} Likes</h4>
-              </button>
-            </div>
-
-            <div className="post-comment">
-              <Comment
-                comments={post.comments}
-                postId={post._id}
-                onCommentAdded={(newComment) =>
-                  handleCommentAdded(post._id, newComment)
-                }
-                onCommentDeleted={handleCommentDeleted}
-              />
-            </div>
-
-            <div>
-              <Link to={`/details/${post._id}`}>
-                <button>Details</button>
               </Link>
-              <button onClick={() => handleDelete(post._id)}>Delete</button>
+              <div className="post-main-info">
+                <Link to={`/details/${post._id}`}>
+                  <h3>{post.title}</h3>
+                </Link>
+                <h3>
+                  {post.rate}
+                  <i class="fa-solid fa-star"></i>
+                </h3>
+              </div>
+            </div>
+
+            <div className="post-details">
+              <button
+                className="post-like"
+                onClick={() => handleLikeToggle(post._id)}
+              >
+                {hasLiked(post) ? (
+                  <i class="fa-solid fa-heart"></i>
+                ) : (
+                  <i class="fa-regular fa-heart"></i>
+                )}
+              </button>
+              <BookmarkButton user={user} post={post} />
             </div>
           </div>
         ))}
       </div>
-    </>
+    </div>
   )
 }
 
