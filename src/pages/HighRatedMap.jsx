@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react"
 import PostMap from "../components/PostMap"
+import { useNavigate } from "react-router-dom"
 import { GetPost } from "../services/postServices"
 
 const HighRatedMap = () => {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [selectedPost, setSelectedPost] = useState(null)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handlePosts = async () => {
@@ -56,13 +60,26 @@ const HighRatedMap = () => {
 
     handlePosts()
   }, [])
+
+  const handlePostClick = (post) => {
+    navigate(`/details/${post._id}`)
+  }
+
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error: {error}</div>
 
   return (
     <div>
       <h2>High Rated Posts</h2>
-      <PostMap posts={posts} />
+      <PostMap posts={posts} onPostClick={handlePostClick} />
+      {selectedPost && (
+        <div>
+          <h3>Post Details</h3>
+          <p>Title: {selectedPost.title}</p>
+          <p>Rating: {selectedPost.rate}</p>
+          <p>Country: {selectedPost.country}</p>
+        </div>
+      )}
     </div>
   )
 }

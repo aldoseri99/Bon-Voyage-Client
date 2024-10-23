@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import L from "leaflet" // Make sure to import L from leaflet
 import "leaflet/dist/leaflet.css"
 
-const PostMap = ({ posts }) => {
+const PostMap = ({ posts, onPostClick }) => {
   useEffect(() => {
     if (!posts.length) {
       console.error("No posts provided")
@@ -31,7 +31,19 @@ const PostMap = ({ posts }) => {
 
         const marker = L.marker([post.coordinates.lat, post.coordinates.lon])
           .addTo(map)
-          .bindPopup(`${post.title} - Rating: ${post.rate}`)
+          .bindPopup(
+            `<a href="#" id="post-link-${post._id}">${post.title} - Rating: ${post.rate}</a>`
+          )
+
+        // Add click event to the popup link
+        marker.on("popupopen", () => {
+          const link = document.getElementById(`post-link-${post._id}`)
+          link.onclick = (e) => {
+            e.preventDefault()
+            onPostClick(post) // Navigate to the details page
+          }
+        })
+
         return marker
       })
       .filter(Boolean) // Filter out any null markers
@@ -48,7 +60,9 @@ const PostMap = ({ posts }) => {
     return () => {
       map.remove()
     }
-  }, [posts])
+  }, [posts, onPostClick])
+
+  window.handlePostClick = onPostClick
 
   return <div id="map" style={{ height: "600px", width: "100%" }} />
 }
