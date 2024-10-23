@@ -1,15 +1,14 @@
-import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Nav = ({ user, handleLogOut }) => {
-  const [searchQuery, setSearchQuery] = useState("")
+  const [searchQuery, setSearchQuery] = useState('')
   const [dropdownVisible, setDropdownVisible] = useState(false)
   const navigate = useNavigate()
 
   const handleChange = (e) => {
     setSearchQuery(e.target.value)
   }
-
   const handleSearch = (e) => {
     e.preventDefault()
     if (searchQuery.trim()) {
@@ -50,7 +49,7 @@ const Nav = ({ user, handleLogOut }) => {
                     onChange={handleChange}
                   />
                   <button type="submit">
-                    <i className="fa fa-search" aria-hidden="true"></i>{" "}
+                    <i className="fa fa-search" aria-hidden="true"></i>{' '}
                   </button>
                 </form>
               </li>

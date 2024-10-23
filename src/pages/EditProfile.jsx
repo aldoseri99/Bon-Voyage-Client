@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { GetUserInfo, UpdateUser } from '../services/Auth'
 import { Link, useNavigate } from 'react-router-dom'
+import '../../public/CSS/EditProfile.css'
 
 const EditProfile = ({ user, setUser }) => {
   if (user) {
@@ -15,6 +16,27 @@ const EditProfile = ({ user, setUser }) => {
     }, [])
     const [errorMessage, setErrorMessage] = useState('')
     const [formValues, setFormValues] = useState('')
+
+    const [profilePic, setProfilePic] = useState(
+      user.profilePic
+        ? `http://localhost:3001/profilePics/${user.profilePic}`
+        : '/default-pic.png'
+    )
+
+    // Display image preview when file is selected
+    // Display image preview when file is selected
+    const handleImageChange = (e) => {
+      const file = e.target.files[0]
+      if (file) {
+        const reader = new FileReader()
+        reader.onload = (event) => {
+          setProfilePic(event.target.result)
+        }
+        reader.readAsDataURL(file)
+      }
+
+      handleFileChange(e)
+    }
 
     const handleChange = (e) => {
       setFormValues({ ...formValues, [e.target.name]: e.target.value })
@@ -56,41 +78,60 @@ const EditProfile = ({ user, setUser }) => {
           return
         }
         console.log(res)
+        setUser(res.user)
         setFormValues('')
+        navigate(`/ViewUser/${user.id}`)
       } catch (error) {
         throw error
       }
     }
     return (
-      <div>
-        <form onSubmit={handleSubmit} action="">
-          <div>
-            <label htmlFor="name  ">Name: </label>
-            <input
-              onChange={handleChange}
-              placeholder={userInfo.name}
-              name="name"
-              type="text"
-            />
-          </div>
-          <div>
-            <label htmlFor="username">Username: </label>
-            <input
-              onChange={handleChange}
-              placeholder={userInfo.username}
-              name="username"
-              type="text"
-            />
-          </div>
-          <div>
-            <label htmlFor="profilePic">Profile Picture: </label>
-            <input onChange={handleFileChange} name="profilePic" type="file" />
+      <div className="full-page-cover-edit">
+        <form onSubmit={handleSubmit} action="" className="edit-form">
+          <h4 className="Register-msg">Edit Profile</h4>
+          <div className="top-form">
+            <div className="text-inputs">
+              <div className="edit-input">
+                <label htmlFor="name  ">Name </label>
+                <input
+                  onChange={handleChange}
+                  placeholder={userInfo.name}
+                  name="name"
+                  type="text"
+                />
+              </div>
+              <div className="edit-input">
+                <label htmlFor="username">Username </label>
+                <input
+                  onChange={handleChange}
+                  placeholder={userInfo.username}
+                  name="username"
+                  type="text"
+                />
+              </div>
+            </div>
+            <div className="profile-pic-container">
+              <label htmlFor="profilePicInput">
+                <img src={profilePic} alt="Profile" className="profile-pic" />
+              </label>
+
+              <input
+                id="profilePicInput"
+                name="profilePic"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                style={{ display: 'none' }}
+              />
+            </div>
           </div>
           <div>{errorMessage}</div>
-          <Link to="/">
-            <button>Cancel</button>
-          </Link>
-          <button>Confirm</button>
+          <div className="form-btn">
+            <Link to="/">
+              <button className="create-button">Cancel</button>
+            </Link>
+            <button className="create-button">Confirm</button>
+          </div>
         </form>
       </div>
     )
