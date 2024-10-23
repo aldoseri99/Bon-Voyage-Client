@@ -28,7 +28,7 @@ const ViewBookmarks = ({ user, userInfo, hasLiked, handleLikeToggle }) => {
                 />
               </Link>
               <Link className="userLink" to={`/ViewUser/${post.User._id}`}>
-                <p className="username">{post.User.username}</p>
+                <p className="username-post">{post.User.username}</p>
               </Link>
             </div>
           )}
@@ -51,17 +51,31 @@ const ViewBookmarks = ({ user, userInfo, hasLiked, handleLikeToggle }) => {
             </div>
           </div>
 
-          <div className="post-details">
-            <button
-              className="post-like"
-              onClick={() => handleLikeToggle(post._id)}
-            >
-              {hasLiked(post) ? (
-                <i class="fa-solid fa-heart"></i>
-              ) : (
-                <i class="fa-regular fa-heart"></i>
-              )}
-            </button>
+          <div className="post-information">
+            <div className="LikeComment">
+              <button
+                className="post-like"
+                onClick={() => handleLikeToggle(post._id)}
+              >
+                {hasLiked(post) ? (
+                  <>
+                    <i class="fa-solid fa-heart"></i>
+                    <p>{post.like}</p>
+                  </>
+                ) : (
+                  <>
+                    <i class="fa-regular fa-heart"></i>
+                    <p>{post.like}</p>
+                  </>
+                )}
+              </button>
+              <Link to={`/details/${post._id}`}>
+                <button>
+                  <i class="fa-regular fa-comment fa-flip-horizontal"></i>
+                  <p>{post.comments.length}</p>
+                </button>
+              </Link>
+            </div>
             <BookmarkButton user={user} post={post} />
           </div>
         </div>

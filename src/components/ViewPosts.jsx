@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react"
-import { GetPost } from "../services/postServices"
-import { Link } from "react-router-dom"
-import Comment from "./Comment"
-import BookmarkButton from "./BookmarkButton"
+import { useState, useEffect } from 'react'
+import { GetPost } from '../services/postServices'
+import { Link } from 'react-router-dom'
+import Comment from './Comment'
+import BookmarkButton from './BookmarkButton'
 
 const ViewPosts = ({ user }) => {
   const [posts, setPosts] = useState([])
@@ -10,7 +10,7 @@ const ViewPosts = ({ user }) => {
   const [selectedWeather, setSelectedWeather] = useState(null)
   const [selectedEnvironment, setSelectedEnvironment] = useState(null)
   const [selectedRating, setSelectedRating] = useState(null)
-  const [sortOption, setSortOption] = useState("none")
+  const [sortOption, setSortOption] = useState('none')
 
   useEffect(() => {
     const handlePosts = async () => {
@@ -18,7 +18,7 @@ const ViewPosts = ({ user }) => {
         const data = await GetPost()
         setPosts(data || [])
       } catch (error) {
-        console.error("Error fetching posts:", error)
+        console.error('Error fetching posts:', error)
       }
     }
 
@@ -27,7 +27,7 @@ const ViewPosts = ({ user }) => {
 
   const handleLikeToggle = async (postId) => {
     if (!user || !user.id) {
-      console.error("User is not defined or missing an ID.")
+      console.error('User is not defined or missing an ID.')
       return
     }
 
@@ -35,11 +35,11 @@ const ViewPosts = ({ user }) => {
       const response = await fetch(
         `http://localhost:3001/Posts/like/${postId}`,
         {
-          method: "PATCH",
+          method: 'PATCH',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ userId: user.id }),
+          body: JSON.stringify({ userId: user.id })
         }
       )
 
@@ -49,10 +49,10 @@ const ViewPosts = ({ user }) => {
           prevPosts.map((post) => (post._id === postId ? updatedPost : post))
         )
       } else {
-        console.error("Failed to update like count:", response.statusText)
+        console.error('Failed to update like count:', response.statusText)
       }
     } catch (error) {
-      console.error("Error updating like count:", error)
+      console.error('Error updating like count:', error)
     }
   }
 
@@ -70,7 +70,7 @@ const ViewPosts = ({ user }) => {
     setPosts((prevPosts) =>
       prevPosts.map((post) => ({
         ...post,
-        comments: post.comments.filter((comment) => comment._id !== commentId),
+        comments: post.comments.filter((comment) => comment._id !== commentId)
       }))
     )
   }
@@ -78,16 +78,16 @@ const ViewPosts = ({ user }) => {
   const handleDelete = async (postId) => {
     try {
       const response = await fetch(`http://localhost:3001/Posts/${postId}`, {
-        method: "DELETE",
+        method: 'DELETE'
       })
 
       if (response.ok) {
         setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId))
       } else {
-        console.error("Failed to delete post:", response.statusText)
+        console.error('Failed to delete post:', response.statusText)
       }
     } catch (error) {
-      console.error("Error deleting post:", error)
+      console.error('Error deleting post:', error)
     }
   }
 
@@ -133,7 +133,7 @@ const ViewPosts = ({ user }) => {
     <div className="full-page">
       <div>
         <button onClick={() => setShowFilters((prev) => !prev)}>
-          {showFilters ? "Hide Filters" : "Show Filters"}
+          {showFilters ? 'Hide Filters' : 'Show Filters'}
         </button>
 
         {showFilters && (
@@ -185,7 +185,7 @@ const ViewPosts = ({ user }) => {
                   />
                 </Link>
                 <Link className="userLink" to={`/ViewUser/${post.User._id}`}>
-                  <p className="username">{post.User.username}</p>
+                  <p className="username-post">{post.User.username}</p>
                 </Link>
               </div>
             )}
