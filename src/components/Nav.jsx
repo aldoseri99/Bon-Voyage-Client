@@ -17,8 +17,6 @@ const Nav = () => {
   }
   return (
     <header>
-      
-      
       <form onSubmit={handleSearch}>
         <input
           type="text"
