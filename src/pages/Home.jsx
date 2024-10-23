@@ -8,9 +8,7 @@ import ViewFollowPosts from '../components/ViewFollowPosts'
 
 const Home = ({ user, setUser }) => {
   const [posts, setPosts] = useState([])
-  const [comments, setComments] = useState([])
-
-  const [tab, setTab] = useState(true)
+  const [showFollowings, setShowFollowings] = useState(false) // false for "All", true for "Followings"
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,22 +21,31 @@ const Home = ({ user, setUser }) => {
     }
     fetchData()
   }, [])
-  const handleTabs = () => {
-    setTab(!tab)
+
+  const handleToggle = () => {
+    setShowFollowings((prev) => !prev) // Toggle the followings state
   }
+
   return (
     <div>
-      {/* <UserList user={user} setUser={setUser} /> */}
-      {tab ? (
-        <>
-          <button onClick={handleTabs}>All</button>
-          <ViewPosts user={user} posts={posts} />
-        </>
+      {user ? (
+        <div className="toggle-container">
+          <span>All</span>
+          <label className="toggle-switch">
+            <input
+              type="checkbox"
+              checked={showFollowings}
+              onChange={handleToggle}
+            />
+            <span className="slider" />
+          </label>
+          <span>Following</span>
+        </div>
+      ) : null}
+      {user && showFollowings ? (
+        <ViewFollowPosts user={user} />
       ) : (
-        <>
-          <button onClick={handleTabs}>Followings</button>
-          <ViewFollowPosts user={user} />
-        </>
+        <ViewPosts user={user} posts={posts} />
       )}
     </div>
   )
