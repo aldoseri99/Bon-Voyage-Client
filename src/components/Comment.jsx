@@ -1,7 +1,13 @@
 import React from 'react'
 import { createComment, deleteComment } from '../services/commentServices'
 
-const Comment = ({ comments, postId, onCommentAdded, onCommentDeleted }) => {
+const Comment = ({
+  comments,
+  postId,
+  onCommentAdded,
+  onCommentDeleted,
+  user
+}) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const title = e.target.title.value
@@ -33,24 +39,27 @@ const Comment = ({ comments, postId, onCommentAdded, onCommentDeleted }) => {
         <div key={comment._id} className="comment">
           <div className="post-user">
             {comment.user && (
-              <>
-                <img
-                  src={`http://localhost:3001/profilePics/${comment.user.profilePic}`} // Adjust the path based on your backend
-                  alt={`${comment.user.username}'s profile`}
-                  className="user-profile-pic commint-img"
-                />
-                <span className="username">{comment.user.username}</span>
-              </>
+              <div className="comment-user">
+                <div>
+                  <img
+                    src={`http://localhost:3001/profilePics/${comment.user.profilePic}`} // Adjust the path based on your backend
+                    alt={`${comment.user.username}'s profile`}
+                    className="user-profile-pic commint-img"
+                  />
+                  <p>{comment.user.username}</p>
+                </div>
+                {user?.id === comment.user._id ? (
+                  <i
+                    onClick={() => {
+                      handleDelete(comment._id)
+                    }}
+                    class="fa-solid fa-trash"
+                  ></i>
+                ) : null}
+              </div>
             )}
           </div>
-          <button
-            onClick={() => {
-              handleDelete(comment._id)
-            }}
-          >
-            {' '}
-            delete{' '}
-          </button>
+
           <div className="div-the-commint">
             <p className="the-commint">{comment.content}</p>
             <small className="comment-creatAT">
