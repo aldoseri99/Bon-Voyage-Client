@@ -65,7 +65,9 @@ const App = () => {
       <hr />
       {user ? (
         <Link to={'/add'}>
-          <button className="floating-button">+</button>
+          <button className="floating-button">
+            <i class="fa-solid fa-plus"></i>
+          </button>
         </Link>
       ) : null}
 
