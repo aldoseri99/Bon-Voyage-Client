@@ -29,7 +29,13 @@ const Map = ({ coordinates, id }) => {
     }
   }, [coordinates, id])
 
-  return <div id={id} style={{ height: "300px", width: "100%" }} />
+  return (
+    <div
+      id={id}
+      className="leaflet-container"
+      style={{ height: "100%", width: "100%" }}
+    />
+  )
 }
 
 export default Map
