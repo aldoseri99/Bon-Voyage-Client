@@ -32,7 +32,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem('token')
 
     if (token) {
       checkToken()
@@ -42,7 +42,7 @@ const App = () => {
     <>
       <Nav user={user} handleLogOut={handleLogOut} />
       {user ? (
-        <Link to={"/add"}>
+        <Link to={'/add'}>
           <button className="floating-button">+</button>
         </Link>
       ) : null}
@@ -59,7 +59,7 @@ const App = () => {
         />
         <Route path="/activities/:activitieId" element={<ViewActivities />} />
         <Route path="/ViewUser/:userId" element={<ViewUser user={user} />} />
-        <Route path="/search/:query" element={<SearchResults />} />
+        <Route path="/search/:query" element={<SearchResults user={user} />} />
 
         <Route path="/high-rated-posts" element={<HighRatedPostsMap />} />
 

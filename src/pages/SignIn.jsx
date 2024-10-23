@@ -1,11 +1,11 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { SignInUser } from "../services/Auth"
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { SignInUser } from '../services/Auth'
 
 const SignIn = ({ setUser }) => {
   let navigate = useNavigate()
-  const [formValues, setFormValues] = useState({ email: "", password: "" })
-  const [errorMessage, setErrorMessage] = useState("")
+  const [formValues, setFormValues] = useState({ email: '', password: '' })
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value })
@@ -20,11 +20,11 @@ const SignIn = ({ setUser }) => {
 
       return
     }
-    setFormValues({ email: "", password: "" })
+    setFormValues({ email: '', password: '' })
     setUser(payload.user)
     console.log(payload.user)
 
-    navigate("/")
+    navigate('/')
   }
 
   return (

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { GetFollowings } from '../services/Auth'
 import { useEffect, useState } from 'react'
 import FollowButton from '../components/FollowButton'
@@ -18,30 +18,31 @@ const FollowingsPage = ({ user }) => {
     fetchFollowings()
   }, [userId])
   return (
-    <div>
-      <table>
-        <tbody>
-          {followUsers
-            ? followUsers.map((follow) => (
-                <tr key={follow._id}>
-                  <td>
-                    <img
-                      className="user-profile-pic-large"
-                      src={`http://localhost:3001/profilePics/${follow.profilePic}`}
-                      alt=""
-                    />
-                  </td>
-                  <td>{follow.username}</td>
-                  <td>
-                    {user ? (
-                      <FollowButton user={user} account={follow} />
-                    ) : null}
-                  </td>
-                </tr>
-              ))
-            : null}
-        </tbody>
-      </table>
+    <div className="user-card-container">
+      {followUsers
+        ? followUsers.map((follow) => (
+            <div className="user-card" key={follow._id}>
+              <div>
+                <Link className="table-link" to={`/ViewUser/${follow._id}`}>
+                  <img
+                    className="user-card-pic"
+                    src={`http://localhost:3001/profilePics/${follow.profilePic}`}
+                    alt=""
+                  />
+                </Link>
+              </div>
+              <div className="username">
+                <Link className="table-link" to={`/ViewUser/${follow._id}`}>
+                  {follow.username}
+                </Link>
+                <p>{follow.followings.length} Following</p>
+              </div>
+              <div>
+                {user ? <FollowButton user={user} account={follow} /> : null}
+              </div>
+            </div>
+          ))
+        : null}
     </div>
   )
 }

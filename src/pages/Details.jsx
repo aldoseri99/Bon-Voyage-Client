@@ -1,11 +1,11 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { PostDetail } from "../services/postServices"
-import ViewActivities from "../components/ViewActivities"
-import AddActivities from "../components/AddActivities"
-import Map from "../components/Map"
-import { useNavigate } from "react-router-dom"
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { PostDetail } from '../services/postServices'
+import ViewActivities from '../components/ViewActivities'
+import AddActivities from '../components/AddActivities'
+import Map from '../components/Map'
+import { useNavigate } from 'react-router-dom'
 
 const Details = ({ user }) => {
   const { id } = useParams()
@@ -42,7 +42,7 @@ const Details = ({ user }) => {
           const locationData = await coordResponse.json()
           setCoordinates({
             lat: parseFloat(locationData.latitude),
-            lon: parseFloat(locationData.longitude),
+            lon: parseFloat(locationData.longitude)
           })
         }
       } catch (error) {
@@ -70,27 +70,27 @@ const Details = ({ user }) => {
   const handleActivityAdd = async (postId, newActivity) => {
     setPost((prevPost) => ({
       ...prevPost,
-      activities: [...prevPost.activities, newActivity],
+      activities: [...prevPost.activities, newActivity]
     }))
     navigate(`/details/${postId}`)
   }
 
   const handleActivityDelete = async (postId, activityId) => {
     try {
-      const token = localStorage.getItem("token")
+      const token = localStorage.getItem('token')
 
       const response = await fetch(
         `http://localhost:3001/activities/${activityId}`,
         {
-          method: "DELETE",
+          method: 'DELETE',
           headers: {
-            Authorization: `Bearer ${token}`,
-          },
+            Authorization: `Bearer ${token}`
+          }
         }
       )
 
       if (!response.ok) {
-        throw new Error("Failed to delete activity")
+        throw new Error('Failed to delete activity')
       }
 
       // Update the single post state
@@ -98,10 +98,10 @@ const Details = ({ user }) => {
         ...prevPost,
         activities: prevPost.activities.filter(
           (activity) => activity._id !== activityId
-        ),
+        )
       }))
     } catch (error) {
-      console.error("Error deleting activity:", error)
+      console.error('Error deleting activity:', error)
     }
   }
 
@@ -155,35 +155,35 @@ const Details = ({ user }) => {
               </div>
               <div className="info-section">
                 <p>
-                  {post.weather === "sunny" && (
+                  {post.weather === 'sunny' && (
                     <img
                       src="/weather/sunny.png"
                       alt="Sunny Icon"
                       className="icon"
                     />
                   )}
-                  {post.weather === "cloudy" && (
+                  {post.weather === 'cloudy' && (
                     <img
                       src="/weather/cloudy.png"
                       alt="cloudy Icon"
                       className="icon"
                     />
                   )}
-                  {post.weather === "rainy" && (
+                  {post.weather === 'rainy' && (
                     <img
                       src="/weather/rainy.png"
                       alt="rainy Icon"
                       className="icon"
                     />
                   )}
-                  {post.weather === "windy" && (
+                  {post.weather === 'windy' && (
                     <img
                       src="/weather/windy.png"
                       alt="windy Icon"
                       className="icon"
                     />
                   )}
-                  {post.weather === "snowy" && (
+                  {post.weather === 'snowy' && (
                     <img
                       src="/weather/snowy.png"
                       alt="snowy Icon"
@@ -192,35 +192,35 @@ const Details = ({ user }) => {
                   )}
                 </p>
                 <p>
-                  {post.environment === "beach" && (
+                  {post.environment === 'beach' && (
                     <img
                       src="/environment/beach.png"
                       alt="beach Icon"
                       className="icon"
                     />
                   )}
-                  {post.environment === "city" && (
+                  {post.environment === 'city' && (
                     <img
                       src="/environment/city.png"
                       alt="city Icon"
                       className="icon"
                     />
                   )}
-                  {post.environment === "desert" && (
+                  {post.environment === 'desert' && (
                     <img
                       src="/environment/desert.png"
                       alt="desert Icon"
                       className="icon"
                     />
                   )}
-                  {post.environment === "mountain" && (
+                  {post.environment === 'mountain' && (
                     <img
                       src="/environment/mountain.png"
                       alt="mountain Icon"
                       className="icon"
                     />
                   )}
-                  {post.environment === "nature" && (
+                  {post.environment === 'nature' && (
                     <img
                       src="/environment/nature.png"
                       alt="nature Icon"
@@ -243,6 +243,7 @@ const Details = ({ user }) => {
                   {isAddingActivity ? "Cancel" : "+"}
                 </button>
               )}
+
             </div>
             <hr />
             {post.activities.length === 0 ? (
@@ -264,7 +265,7 @@ const Details = ({ user }) => {
                         handleActivityDelete(post._id, activity._id)
                       }}
                     >
-                      <i className="fa-solid fa-trash"></i>{" "}
+                      <i className="fa-solid fa-trash"></i>{' '}
                     </button>
                   )}
                 </div>
