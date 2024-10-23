@@ -436,6 +436,7 @@ a:hover {
   border-radius: 8px;
   z-index: 2;
   position: relative;
+  margin-left: -1%;
 }
 
 .signin {
@@ -450,13 +451,14 @@ a:hover {
   border-radius: 8px;
   text-align: center;
   margin-top: -20vh;
+  margin-left: 18%;
 }
 
 .input-row {
   display: flex;
-  gap: 80px;
+  gap: 40px; /* Adjusted gap to balance the layout */
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start; /* Align inputs at the start of the row */
   margin-bottom: 30px;
 }
 
@@ -466,14 +468,19 @@ a:hover {
   text-align: start;
 }
 
-.input-sginin {
-  width: 100%;
-  padding: 20px;
-  margin-top: 5px;
+.input-wrapper label {
+  display: block;
+  margin-bottom: 5px; /* Ensure there's consistent spacing between label and input */
+  font-size: 14px;
+}
+
+.input-wrapper input.input-sginin {
+  width: 70vh;
+  padding: 15px; /* Increased padding for larger input boxes */
   border: 1px solid #ccc;
-  border-radius: 4px;
-  max-height: 1px;
-  font-size: 15px;
+  border-radius: 6px; /* Slightly larger radius to match the bigger box */
+  font-size: 16px; /* Increase font size slightly */
+  box-sizing: border-box;
 }
 
 .signin-button {
@@ -481,10 +488,9 @@ a:hover {
   font-size: 22px;
   border-radius: 10vh;
   background-color: black;
-  width: 140px;
-  height: 50px;
+  width: 160px; /* Slightly increased button width */
+  height: 55px; /* Slightly increased button height */
   color: white;
-  margin-left: 8vh;
 }
 
 .login-text {
@@ -503,8 +509,8 @@ a:hover {
 }
 
 .full-page-cover {
-  height: 100vh;
-  width: 100vw;
+  height: 90vh;
+  width: 98vw;
 
   display: flex;
   justify-content: center;
@@ -519,6 +525,8 @@ a:hover {
   padding: 0;
   z-index: 1;
 }
+
+
 
 .detail-header {
   display: flex;
@@ -741,8 +749,8 @@ input[type="file"] {
 /* Register Page */
 
 .full-page-cover-R {
-  height: 100vh;
-  width: 100vw;
+  height: 95vh;
+  width: 95vw;
   display: flex;
   justify-content: center; /* Centers content horizontally */
   align-items: center; /* Centers content vertically */
@@ -752,6 +760,7 @@ input[type="file"] {
   background-repeat: no-repeat; /* Prevent image repetition */
   position: absolute;
   z-index: 1;
+  margin-left: -5%;
 }
 
 .signin {
