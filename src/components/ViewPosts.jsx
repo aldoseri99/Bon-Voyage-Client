@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { GetPost } from "../services/postServices"
 import { Link } from "react-router-dom"
-import Comment from "./Comment" // Ensure this component handles displaying comments
+import Comment from "./Comment"
 import BookmarkButton from "./BookmarkButton"
 
 const ViewPosts = ({ user }) => {
@@ -12,6 +12,7 @@ const ViewPosts = ({ user }) => {
   const [selectedRating, setSelectedRating] = useState(null)
   const [sortOption, setSortOption] = useState("none")
   const [visibleCommentsPostId, setVisibleCommentsPostId] = useState(null) // Track which post's comments are visible
+
 
   useEffect(() => {
     const handlePosts = async () => {
