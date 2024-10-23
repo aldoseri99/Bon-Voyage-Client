@@ -13,7 +13,9 @@ import ViewActivities from "./components/ViewActivities"
 import AddPost from "./components/AddPost"
 import ViewUser from "./components/ViewUser"
 import SearchResults from "./pages/SearchResults"
+import FollowingsPage from './pages/FollowingsPage'
 import HighRatedPostsMap from "./pages/HighRatedMap"
+
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -30,7 +32,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem('token')
 
     if (token) {
       checkToken()
@@ -60,7 +62,14 @@ const App = () => {
           <Link to="/signin"> Sign In</Link>
         </>
       )}
+
       <hr />
+      {user ? (
+        <Link to={'/add'}>
+          <button className="floating-button">+</button>
+        </Link>
+      ) : null}
+
       <Routes>
         <Route path="/" element={<Home user={user} setUser={setUser} />} />
         <Route path="/register" element={<Register />} />
@@ -76,6 +85,11 @@ const App = () => {
         <Route path="/search/:query" element={<SearchResults />} />
 
         <Route path="/high-rated-posts" element={<HighRatedPostsMap />} />
+
+        <Route
+          path="/followings/:userId"
+          element={<FollowingsPage user={user} />}
+        />
       </Routes>
     </>
   )

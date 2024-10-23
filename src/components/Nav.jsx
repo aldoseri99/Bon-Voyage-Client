@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+
 const Nav = () => {
   const [searchQuery, setSearchQuery] = useState()
   const navigate = useNavigate()
@@ -16,6 +17,8 @@ const Nav = () => {
   }
   return (
     <header>
+      
+      
       <form onSubmit={handleSearch}>
         <input
           type="text"
