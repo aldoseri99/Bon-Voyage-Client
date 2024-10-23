@@ -395,11 +395,110 @@ button:hover {
 }
 
 .floating-button:hover {
-  background-color: #45a049;
+  background-color: rgb(163, 166, 161);
 }
 
-.fa-star {
-  color: rgb(255, 162, 0);
+a {
+  all: unset;
+}
+a:hover {
+  cursor: pointer;
+}
+
+/* SignIn Page */
+
+.login-page {
+  height: 85vh;
+  width: 85vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  border-radius: 8px;
+  z-index: 2;
+  position: relative;
+}
+
+.signin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.card-overlay {
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: -20vh;
+}
+
+.input-row {
+  display: flex;
+  gap: 80px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.input-wrapper {
+  flex: 1;
+  padding: 0 20px;
+  text-align: start;
+}
+
+.input-sginin {
+  width: 100%;
+  padding: 20px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-height: 1px;
+  font-size: 15px;
+}
+
+.signin-button {
+  margin-top: 40px;
+  font-size: 22px;
+  border-radius: 10vh;
+  background-color: black;
+  width: 140px;
+  height: 50px;
+  color: white;
+  margin-left: 8vh;
+}
+
+.login-text {
+  display: flex;
+  margin-bottom: 40px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.login-msg {
+  text-align: left;
+  margin-bottom: 80px;
+  font-size: 55px;
+  font-weight: bold;
+  color: #333;
+}
+
+.full-page-cover {
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-image: url('/login-page-background01.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
 }
 
 .detail-header {
@@ -618,107 +717,4 @@ input[type='file'] {
 
 .fa-trash {
   font-size: 1.3rem;
-}
-
-a {
-  all: unset;
-}
-a:hover {
-  cursor: pointer;
-}
-
-/* SignIn Page */
-
-.login-page {
-  height: 85vh;
-  width: 85vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-  border-radius: 8px;
-  z-index: 2;
-  position: relative;
-}
-
-.signin {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50vh;
-}
-
-.card-overlay {
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  margin-top: -20vh;
-}
-
-.input-row {
-  display: flex;
-  gap: 80px;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.input-wrapper {
-  flex: 1;
-  padding: 0 20px;
-  text-align: start;
-}
-
-.input-sginin {
-  width: 100%;
-  padding: 20px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  max-height: 1px;
-  font-size: 15px;
-}
-
-.signin-button {
-  margin-top: 40px;
-  font-size: 22px;
-  border-radius: 10vh;
-  background-color: black;
-  width: 140px;
-  height: 50px;
-  color: white;
-  margin-left: 8vh;
-}
-
-.login-text {
-  display: flex;
-  margin-bottom: 40px;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.login-msg {
-  text-align: left;
-  margin-bottom: 80px;
-  font-size: 55px;
-  font-weight: bold;
-  color: #333;
-}
-
-.full-page-cover {
-  height: 100vh;
-  width: 100vw;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  background-image: url('/login-page-background01.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  z-index: 1;
 }
