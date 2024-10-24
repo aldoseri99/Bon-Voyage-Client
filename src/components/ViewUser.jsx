@@ -32,7 +32,7 @@ const ViewUser = ({ user }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/Posts/like/${postId}`,
+        `https://bon-voyage.fly.dev/Posts/like/${postId}`,
         {
           method: 'PATCH',
           headers: {
@@ -56,7 +56,7 @@ const ViewUser = ({ user }) => {
   }
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/Posts/${id}`, {
+      const response = await fetch(`https://bon-voyage.fly.dev/Posts/${id}`, {
         method: 'DELETE'
       })
 
@@ -81,7 +81,7 @@ const ViewUser = ({ user }) => {
             <div className="top-section">
               <img
                 className="user-profile-pic-large"
-                src={`http://localhost:3001/profilePics/${userInfo.profilePic}`}
+                src={`https://bon-voyage.fly.dev/profilePics/${userInfo.profilePic}`}
                 alt=""
               />
               <div className="names">
@@ -138,7 +138,7 @@ const ViewUser = ({ user }) => {
                         <div>
                           <Link to={`/ViewUser/${post.User}`}>
                             <img
-                              src={`http://localhost:3001/profilePics/${userInfo.profilePic}`}
+                              src={`https://bon-voyage.fly.dev/profilePics/${userInfo.profilePic}`}
                               alt={`${userInfo.username}'s profile`}
                               className="user-profile-pic"
                             />
@@ -164,7 +164,7 @@ const ViewUser = ({ user }) => {
                       <Link to={`/details/${post._id}`}>
                         <img
                           className="post-img"
-                          src={`http://localhost:3001/uploadPost/${post.photos}`}
+                          src={`https://bon-voyage.fly.dev/uploadPost/${post.photos}`}
                           alt="post photo"
                         />
                       </Link>

@@ -31,7 +31,7 @@ const SearchResults = ({ user }) => {
                   <Link className="table-link" to={`/ViewUser/${account._id}`}>
                     <img
                       className="user-card-pic"
-                      src={`http://localhost:3001/profilePics/${account.profilePic}`}
+                      src={`https://bon-voyage.fly.dev/profilePics/${account.profilePic}`}
                       alt=""
                     />
                   </Link>

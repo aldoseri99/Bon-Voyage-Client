@@ -19,7 +19,7 @@ const EditProfile = ({ user, setUser }) => {
 
     const [profilePic, setProfilePic] = useState(
       user.profilePic
-        ? `http://localhost:3001/profilePics/${user.profilePic}`
+        ? `https://bon-voyage.fly.dev/profilePics/${user.profilePic}`
         : '/default-pic.png'
     )
 

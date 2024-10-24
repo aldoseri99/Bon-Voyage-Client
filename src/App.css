@@ -529,8 +529,6 @@ a:hover {
   z-index: 1;
 }
 
-
-
 .detail-header {
   display: flex;
   justify-content: space-between;
@@ -1017,8 +1015,6 @@ input:checked + .slider:before {
   align-items: center;
 }
 
-
-
 /* Filter Section */
 .filter-button {
   background: none;
@@ -1092,7 +1088,6 @@ label {
   margin-bottom: 5px;
 }
 
-
 input[type='text'],
 input[type='number'],
 select {
@@ -1133,7 +1128,6 @@ select {
   margin-left: 24%;
 }
 
-
 .upload-avatar::file-selector-button {
   font-size: 14px;
   background-color: white;
@@ -1143,7 +1137,6 @@ select {
   height: 30px;
   border: none;
 }
-
 
 /*     filter        */
 
@@ -1202,7 +1195,7 @@ select {
   margin-bottom: 4px;
 }
 
-.date-input-container input[type="date"] {
+.date-input-container input[type='date'] {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -1210,7 +1203,15 @@ select {
   transition: border-color 0.3s;
 }
 
-.date-input-container input[type="date"]:focus {
+.date-input-container input[type='date']:focus {
   border-color: #22ff00;
   outline: none;
+}
+.detail-profile {
+  display: flex;
+  align-items: center;
+}
+.detail-profile img {
+  width: 70px;
+  height: 70px;
 }

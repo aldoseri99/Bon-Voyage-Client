@@ -49,7 +49,7 @@ const UserList = ({ user, setUser }) => {
               <div className="user-list" key={account._id}>
                 <img
                   className="profilePics"
-                  src={`http://localhost:3001/profilePics/${account.profilePic}`}
+                  src={`https://bon-voyage.fly.dev/profilePics/${account.profilePic}`}
                   alt="post photo"
                 />
                 <Link to={`/ViewUser/${account._id}`}>

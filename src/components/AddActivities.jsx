@@ -1,16 +1,16 @@
-import axios from "axios"
-import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 const AddActivities = ({ postId, activities, onActivityAdded }) => {
   const navigate = useNavigate()
 
   const initialState = {
-    name: "",
-    place: "",
-    cost: "",
-    rate: "",
-    photos: [],
+    name: '',
+    place: '',
+    cost: '',
+    rate: '',
+    photos: []
   }
 
   const [formValues, setFormValues] = useState(initialState)
@@ -29,35 +29,35 @@ const AddActivities = ({ postId, activities, onActivityAdded }) => {
     const formData = new FormData()
 
     for (const key in formValues) {
-      if (key === "photos") {
+      if (key === 'photos') {
         formValues.photos.forEach((file) => {
-          formData.append("photos", file)
+          formData.append('photos', file)
         })
       } else {
         formData.append(key, formValues[key])
       }
     }
 
-    formData.append("post", postId)
+    formData.append('post', postId)
 
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem('token')
 
     try {
       const response = await axios.post(
-        `http://localhost:3001/activities/${postId}`,
+        `https://bon-voyage.fly.dev/activities/${postId}`,
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`
+          }
         }
       )
 
       onActivityAdded(postId, response.data)
       setFormValues(initialState)
     } catch (error) {
-      console.error("Error uploading form and file:", error)
+      console.error('Error uploading form and file:', error)
     }
   }
 

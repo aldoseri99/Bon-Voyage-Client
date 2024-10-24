@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { PostDetail } from '../services/postServices'
 import ViewActivities from '../components/ViewActivities'
 import AddActivities from '../components/AddActivities'
@@ -29,7 +29,7 @@ const Details = ({ user }) => {
 
         if (response.country) {
           const coordResponse = await fetch(
-            `http://localhost:3001/location/${encodeURIComponent(
+            `https://bon-voyage.fly.dev/location/${encodeURIComponent(
               response.country
             )}`
           )
@@ -81,7 +81,7 @@ const Details = ({ user }) => {
       const token = localStorage.getItem('token')
 
       const response = await fetch(
-        `http://localhost:3001/activities/${activityId}`,
+        `https://bon-voyage.fly.dev/activities/${activityId}`,
         {
           method: 'DELETE',
           headers: {
@@ -136,6 +136,19 @@ const Details = ({ user }) => {
       {post && (
         <div>
           <div className="post-details">
+            <div className="detail-profile">
+              <Link to={`/ViewUser/${post.User._id}`}>
+                <img
+                  src={`https://bon-voyage.fly.dev/profilePics/${post.User.profilePic}`}
+                  alt=""
+                  className="user-profile-pic-large"
+                />
+              </Link>
+              <Link to={`/ViewUser/${post.User._id}`}>
+                <h2>{post.User.username}</h2>
+              </Link>
+            </div>
+            <hr />
             <div className="detail-header">
               <div className="detail-title">
                 <h1>{post.title}</h1>
@@ -154,7 +167,7 @@ const Details = ({ user }) => {
             <div className="image-map-container">
               <img
                 className="post-image"
-                src={`http://localhost:3001/uploadPost/${post.photos}`}
+                src={`https://bon-voyage.fly.dev/uploadPost/${post.photos}`}
                 alt={post.title}
               />
               <div className="post-country">
