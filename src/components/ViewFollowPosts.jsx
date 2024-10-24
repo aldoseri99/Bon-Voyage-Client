@@ -10,7 +10,8 @@ const ViewFollowPosts = ({ user }) => {
       const getFollowPosts = async () => {
         const userInfo = await GetUserInfo(user.id)
         if (userInfo.user[0].followings.length > 0) {
-          const res = await GetPostByFollow(user.followings)
+          const res = await GetPostByFollow(userInfo.user[0].followings)
+
           setPosts(res)
         } else {
           setPosts(null)
