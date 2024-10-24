@@ -258,9 +258,7 @@ const Details = ({ user }) => {
                 >
                   {isAddingActivity ? 'Cancel' : '+'}
                 </button>
-              ) : (
-                <h1>testest</h1>
-              )}
+              ) : null}
             </div>
             <hr />
             {post.activities.length === 0 ? (
