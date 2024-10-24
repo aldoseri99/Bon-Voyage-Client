@@ -114,7 +114,7 @@ const Details = ({ user }) => {
     return <div>Error: {error}</div>
   }
 
-  const isPostOwner = post && post.User && post.User.toString() === user?.id
+  const isPostOwner = post && post.User && post.User._id === user?.id
 
   const handleCommentAdded = (postId, newComment) => {
     setPost(() =>

@@ -1123,3 +1123,27 @@ select {
   width: 100%;
   padding: 5px;
 }
+
+.date-input-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.date-input-container label {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.date-input-container input[type="date"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.date-input-container input[type="date"]:focus {
+  border-color: #22ff00;
+  outline: none;
+}
