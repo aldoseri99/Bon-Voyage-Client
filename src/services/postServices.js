@@ -73,21 +73,21 @@ export const ToggleBookmark = async (userId, postId) => {
 
 export const getCoordinates = async (country) => {
   const response = await fetch(
-    `http://localhost:3001/location?country=${encodeURIComponent(country)}`
+    `https://bon-voyage.fly.dev/location?country=${encodeURIComponent(country)}`
   )
 
   if (!response.ok) {
-    throw new Error("Error fetching coordinates")
+    throw new Error('Error fetching coordinates')
   }
 
   const data = await response.json()
 
   if (data.results.length === 0) {
-    throw new Error("No results found")
+    throw new Error('No results found')
   }
 
   return {
     lat: data.results[0].geometry.lat,
-    lon: data.results[0].geometry.lng,
+    lon: data.results[0].geometry.lng
   }
 }

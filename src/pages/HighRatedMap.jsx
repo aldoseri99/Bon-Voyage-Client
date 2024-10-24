@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react"
-import PostMap from "../components/PostMap"
-import { useNavigate } from "react-router-dom"
-import { GetPost } from "../services/postServices"
+import React, { useEffect, useState } from 'react'
+import PostMap from '../components/PostMap'
+import { useNavigate } from 'react-router-dom'
+import { GetPost } from '../services/postServices'
 
 const HighRatedMap = () => {
   const [posts, setPosts] = useState([])
@@ -24,7 +24,7 @@ const HighRatedMap = () => {
           highRatedPosts.map(async (post) => {
             if (post.country) {
               const coordResponse = await fetch(
-                `http://localhost:3001/location/${encodeURIComponent(
+                `https://bon-voyage.fly.dev/location/${encodeURIComponent(
                   post.country
                 )}`
               )
@@ -41,8 +41,8 @@ const HighRatedMap = () => {
                 ...post,
                 coordinates: {
                   lat: parseFloat(locationData.latitude),
-                  lon: parseFloat(locationData.longitude),
-                },
+                  lon: parseFloat(locationData.longitude)
+                }
               }
             }
             return post // Return post without coordinates if country is not present
@@ -51,7 +51,7 @@ const HighRatedMap = () => {
 
         setPosts(postsWithCoordinates)
       } catch (error) {
-        console.error("Error fetching posts:", error)
+        console.error('Error fetching posts:', error)
         setError(error.message)
       } finally {
         setLoading(false)

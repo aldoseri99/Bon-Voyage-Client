@@ -26,7 +26,7 @@ const FollowingsPage = ({ user }) => {
                 <Link className="table-link" to={`/ViewUser/${follow._id}`}>
                   <img
                     className="user-card-pic"
-                    src={`http://localhost:3001/profilePics/${follow.profilePic}`}
+                    src={`https://bon-voyage.fly.dev/profilePics/${follow.profilePic}`}
                     alt=""
                   />
                 </Link>

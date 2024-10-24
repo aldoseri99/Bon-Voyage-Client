@@ -55,7 +55,7 @@ const Nav = ({ user, handleLogOut }) => {
               </li>
               <li className="user-dropdown">
                 <img
-                  src={`http://localhost:3001/profilePics/${user.profilePic}`}
+                  src={`https://bon-voyage.fly.dev/profilePics/${user.profilePic}`}
                   alt="User"
                   className="user-profile-pic"
                   onClick={toggleDropdown}

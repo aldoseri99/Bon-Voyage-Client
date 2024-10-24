@@ -1,17 +1,17 @@
-import axios from "axios"
-import { useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react"
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 const AddPost = () => {
   const [post, setPost] = useState([])
   const [countries, setCountries] = useState([])
-  console.log("Received props:", post)
+  console.log('Received props:', post)
   let navigate = useNavigate()
 
   useEffect(() => {
     const FetchCountry = async () => {
       const res = await axios.get(
-        "https://restcountries.com/v3.1/all?fields=name,common"
+        'https://restcountries.com/v3.1/all?fields=name,common'
       )
       res.data.sort((a, b) => {
         const nameA = a.name.common.toUpperCase() // ignore upper and lowercase
@@ -32,15 +32,15 @@ const AddPost = () => {
   }, [])
 
   const initialState = {
-    title: "",
-    country: "",
-    cost: "",
-    rate: "",
-    environment: "",
-    temperature: "",
-    weather: "",
-    review: "",
-    date: "",
+    title: '',
+    country: '',
+    cost: '',
+    rate: '',
+    environment: '',
+    temperature: '',
+    weather: '',
+    review: '',
+    date: ''
   }
 
   const [formValues, setFormValues] = useState(initialState)
@@ -49,9 +49,9 @@ const AddPost = () => {
     setFormValues({ ...formValues, [e.target.id]: e.target.value })
     console.log(e.target.id, e.target.value)
 
-    console.log("Updated formValues:", {
+    console.log('Updated formValues:', {
       ...formValues,
-      [e.target.id]: e.target.value,
+      [e.target.id]: e.target.value
     })
   }
 
@@ -61,12 +61,12 @@ const AddPost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log("Submitting form")
+    console.log('Submitting form')
 
     const formData = new FormData()
     for (const key in formValues) {
-      if (key === "photos") {
-        formData.append("photos", formValues[key])
+      if (key === 'photos') {
+        formData.append('photos', formValues[key])
       } else {
         formData.append(key, formValues[key])
       }
@@ -77,16 +77,16 @@ const AddPost = () => {
     }
 
     try {
-      const token = localStorage.getItem("token")
+      const token = localStorage.getItem('token')
 
       const response = await axios.post(
-        "http://localhost:3001/Posts",
+        'https://bon-voyage.fly.dev/Posts',
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`
+          }
         }
       )
 
@@ -97,9 +97,9 @@ const AddPost = () => {
       )
 
       setFormValues(initialState)
-      navigate("/")
+      navigate('/')
     } catch (error) {
-      console.error("Error uploading form and file:", error)
+      console.error('Error uploading form and file:', error)
     }
   }
 
@@ -205,7 +205,7 @@ const AddPost = () => {
               </div>
 
               <label htmlFor="photos" className="upload-avatar-div">
-                Photo:{" "}
+                Photo:{' '}
               </label>
               <input
                 className="upload-avatar"

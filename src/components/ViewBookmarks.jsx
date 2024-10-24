@@ -22,7 +22,7 @@ const ViewBookmarks = ({ user, userInfo, hasLiked, handleLikeToggle }) => {
             <div className="post-user">
               <Link to={`/ViewUser/${post.User._id}`}>
                 <img
-                  src={`http://localhost:3001/profilePics/${post.User.profilePic}`}
+                  src={`https://bon-voyage.fly.dev/profilePics/${post.User.profilePic}`}
                   alt={`${post.User.username}'s profile`}
                   className="user-profile-pic"
                 />
@@ -36,7 +36,7 @@ const ViewBookmarks = ({ user, userInfo, hasLiked, handleLikeToggle }) => {
             <Link to={`/details/${post._id}`}>
               <img
                 className="post-img"
-                src={`http://localhost:3001/uploadPost/${post.photos}`}
+                src={`https://bon-voyage.fly.dev/uploadPost/${post.photos}`}
                 alt="post photo"
               />
             </Link>

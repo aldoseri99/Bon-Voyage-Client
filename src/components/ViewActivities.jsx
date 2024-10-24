@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
 const ViewActivities = ({ post, activitieId, onClose }) => {
   const [activitieDetails, setActivitieDetails] = useState(null)
@@ -27,7 +27,7 @@ const ViewActivities = ({ post, activitieId, onClose }) => {
           {activitieDetails.photos.map((photo, index) => (
             <img
               key={index}
-              src={`http://localhost:3001/Activities/${photo}`}
+              src={`https://bon-voyage.fly.dev/Activities/${photo}`}
               alt={`${activitieDetails.name} image ${index + 1}`}
               className="activity-photo"
             />
