@@ -14,7 +14,7 @@
 
 ### **_Getting Started_**
 
-- **Deployed Site**: [View the live site here](#)  
+- **Deployed Site**: [View the live site here](https://ritzy-crook.surge.sh/)  
 - **Trello Board**: [Access our Trello board here](#)  
 
 To get started with the project locally, clone the repository and follow the setup instructions:
@@ -51,13 +51,13 @@ To get started with the project locally, clone the repository and follow the set
 #### **_Screenshots_**
 
 ### Home page
-![image](/public/images/screenshots/home.png)
+![image](https://i.imgur.com/oUBeeDM.png)
 
-### Profile page
-![image](/public/images/screenshots/profile.png)
+### Post Details page
+![image](https://i.imgur.com/2roX0Om.png)
 
 ### Map page
-![image](/public/images/screenshots/posts.png)
+![image](https://i.imgur.com/raM8d2W.png)
 
 ---
 
