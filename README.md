@@ -2,7 +2,7 @@
 
 ## Date: 24/10/2024
 
-### By: Ali AlDoseri - Zahra'a Sayed - Jaffer Mohammed - Sayed Mohamed
+### By: Ali AlDoseri - Zahra'a Sayed - Sayed Mohamed
 
 ---
 
